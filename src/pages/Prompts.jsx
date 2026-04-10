@@ -3,28 +3,10 @@ import { base44 } from '@/api/base44Client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import PromptCard from '../components/PromptCard';
-import { Search, ChevronDown, Bookmark } from 'lucide-react';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+import { Search, Bookmark, SlidersHorizontal, X } from 'lucide-react';
+import FilterSidebar from '../components/prompts/FilterSidebar';
 
-const categories = [
-  'Landing Pages',
-  'Auth Flows',
-  'Dashboards',
-  'E-commerce',
-  'Admin Panels',
-  'Forms',
-  'Real-time',
-  'AI Integration',
-  'Animations',
-  'State Management'
-];
 
-const difficulties = ['Beginner', 'Intermediate', 'Advanced'];
 
 export default function Prompts() {
   const [prompts, setPrompts] = useState([]);
@@ -92,7 +74,7 @@ export default function Prompts() {
 
       <div className="max-w-7xl mx-auto px-6 py-12">
         {/* Header */}
-        <div className="mb-12">
+        <div className="mb-8">
           <h1 className="text-4xl font-bold mb-4">
             Prompt <span className="neon-glow">Library</span>
           </h1>
@@ -117,8 +99,8 @@ export default function Prompts() {
           </div>
         </div>
 
-        {/* Search & Filters */}
-        <div className="mb-8 space-y-4">
+        {/* Search */}
+        <div className="mb-8">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
             <Input
@@ -128,94 +110,78 @@ export default function Prompts() {
               className="pl-10 bg-card border-border/30"
             />
           </div>
+        </div>
 
-          <div className="flex flex-wrap gap-3">
-            {/* Category Filter */}
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="outline" size="sm" className="border-border/30">
-                  Category {selectedCategory && `(${selectedCategory})`}
-                  <ChevronDown className="w-4 h-4 ml-2" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="bg-card border-border/30">
-                <DropdownMenuItem onClick={() => setSelectedCategory('')}>
-                  All Categories
-                </DropdownMenuItem>
-                {categories.map(cat => (
-                  <DropdownMenuItem
-                    key={cat}
-                    onClick={() => setSelectedCategory(cat)}
-                    className={selectedCategory === cat ? 'bg-primary/10' : ''}
-                  >
-                    {cat}
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
-
-            {/* Difficulty Filter */}
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="outline" size="sm" className="border-border/30">
-                  Difficulty {selectedDifficulty && `(${selectedDifficulty})`}
-                  <ChevronDown className="w-4 h-4 ml-2" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="bg-card border-border/30">
-                <DropdownMenuItem onClick={() => setSelectedDifficulty('')}>
-                  All Levels
-                </DropdownMenuItem>
-                {difficulties.map(diff => (
-                  <DropdownMenuItem
-                    key={diff}
-                    onClick={() => setSelectedDifficulty(diff)}
-                    className={selectedDifficulty === diff ? 'bg-primary/10' : ''}
-                  >
-                    {diff}
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
-
-            {(selectedCategory || selectedDifficulty || search) && (
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => {
-                  setSearch('');
-                  setSelectedCategory('');
-                  setSelectedDifficulty('');
+        {/* Sidebar + Grid Layout */}
+        <div className="flex gap-8">
+          {/* Sidebar */}
+          <aside className="hidden lg:block w-56 flex-shrink-0">
+            <div className="sticky top-24 p-4 rounded-xl border border-white/[0.06] bg-white/[0.02]">
+              <FilterSidebar
+                selectedCategory={selectedCategory}
+                setSelectedCategory={setSelectedCategory}
+                selectedDifficulty={selectedDifficulty}
+                setSelectedDifficulty={setSelectedDifficulty}
+                promptCounts={{
+                  category: prompts.reduce((acc, p) => { acc[p.category] = (acc[p.category] || 0) + 1; return acc; }, {}),
+                  difficulty: prompts.reduce((acc, p) => { acc[p.difficulty] = (acc[p.difficulty] || 0) + 1; return acc; }, {}),
                 }}
-                className="border-primary/30"
-              >
-                Clear Filters
-              </Button>
+              />
+            </div>
+          </aside>
+
+          {/* Main Content */}
+          <div className="flex-1 min-w-0">
+            {/* Active filters on mobile */}
+            {(selectedCategory || selectedDifficulty) && (
+              <div className="flex flex-wrap gap-2 mb-4">
+                {selectedCategory && (
+                  <button
+                    onClick={() => setSelectedCategory('')}
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#3B82F6]/10 text-[#3B82F6] text-xs font-medium"
+                  >
+                    {selectedCategory}
+                    <X className="w-3 h-3" />
+                  </button>
+                )}
+                {selectedDifficulty && (
+                  <button
+                    onClick={() => setSelectedDifficulty('')}
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#3B82F6]/10 text-[#3B82F6] text-xs font-medium"
+                  >
+                    {selectedDifficulty}
+                    <X className="w-3 h-3" />
+                  </button>
+                )}
+              </div>
+            )}
+
+            {/* Results count */}
+            <p className="text-sm text-[#71717A] mb-4">{filtered.length} prompt{filtered.length !== 1 ? 's' : ''}</p>
+
+            {/* Prompts Grid */}
+            {loading ? (
+              <div className="flex items-center justify-center py-20">
+                <div className="w-8 h-8 border-4 border-primary/20 border-t-primary rounded-full animate-spin"></div>
+              </div>
+            ) : filtered.length === 0 ? (
+              <div className="text-center py-20">
+                <p className="text-muted-foreground">No prompts found. Try adjusting your filters.</p>
+              </div>
+            ) : (
+              <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+                {filtered.map(prompt => (
+                  <PromptCard
+                    key={prompt.id}
+                    prompt={prompt}
+                    isSaved={savedPromptIds.includes(prompt.id)}
+                    onToggleSave={() => toggleSave(prompt.id)}
+                  />
+                ))}
+              </div>
             )}
           </div>
         </div>
-
-        {/* Prompts Grid */}
-        {loading ? (
-          <div className="flex items-center justify-center py-20">
-            <div className="w-8 h-8 border-4 border-primary/20 border-t-primary rounded-full animate-spin"></div>
-          </div>
-        ) : filtered.length === 0 ? (
-          <div className="text-center py-20">
-            <p className="text-muted-foreground">No prompts found. Try adjusting your filters.</p>
-          </div>
-        ) : (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filtered.map(prompt => (
-              <PromptCard
-                key={prompt.id}
-                prompt={prompt}
-                isSaved={savedPromptIds.includes(prompt.id)}
-                onToggleSave={() => toggleSave(prompt.id)}
-              />
-            ))}
-          </div>
-        )}
       </div>
     </div>
   );
