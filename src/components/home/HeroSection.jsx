@@ -14,13 +14,13 @@ export default function HeroSection({ hasPurchased, onGetStarted, onViewPricing 
   return (
     <section className="relative pt-32 pb-24 px-6">
       {/* Gradient orb backgrounds */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-[#00FF41]/[0.04] rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-[#3B82F6]/[0.06] rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute top-20 right-0 w-[400px] h-[400px] bg-purple-500/[0.03] rounded-full blur-[100px] pointer-events-none" />
 
       <div className="max-w-4xl mx-auto text-center relative">
         {/* Badge */}
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/[0.08] bg-white/[0.03] mb-8">
-          <div className="w-1.5 h-1.5 rounded-full bg-[#00FF41] animate-pulse" />
+          <div className="w-1.5 h-1.5 rounded-full bg-[#3B82F6] animate-pulse" />
           <span className="text-sm text-[#A1A1AA] font-medium">The prompt library for vibecoders</span>
         </div>
 
@@ -28,7 +28,7 @@ export default function HeroSection({ hasPurchased, onGetStarted, onViewPricing 
         <h1 className="text-5xl md:text-7xl font-bold tracking-tight leading-[1.1] mb-6">
           Build faster with
           <br />
-          <span className="bg-gradient-to-r from-[#00FF41] via-[#00DD66] to-[#00FF41] bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-[#3B82F6] via-[#60A5FA] to-[#3B82F6] bg-clip-text text-transparent">
             KodeOS
           </span>
         </h1>
@@ -44,7 +44,7 @@ export default function HeroSection({ hasPurchased, onGetStarted, onViewPricing 
           <Button
             size="lg"
             onClick={onGetStarted}
-            className="bg-[#00FF41] text-[#09090B] hover:bg-[#00DD66] font-semibold px-8 h-12 text-base shadow-lg shadow-[#00FF41]/20"
+            className="bg-[#3B82F6] text-white hover:bg-[#2563EB] font-semibold px-8 h-12 text-base shadow-lg shadow-[#3B82F6]/20"
           >
             {hasPurchased ? 'Browse Prompts' : 'Get Started'}
             <ArrowRight className="w-4 h-4 ml-2" />
@@ -66,10 +66,10 @@ export default function HeroSection({ hasPurchased, onGetStarted, onViewPricing 
           className="inline-flex items-center gap-3 px-5 py-3 rounded-xl border border-white/[0.08] bg-white/[0.02] cursor-pointer hover:bg-white/[0.04] transition-colors group"
           onClick={handleCopy}
         >
-          <span className="text-[#00FF41] font-mono text-sm">$</span>
+          <span className="text-[#3B82F6] font-mono text-sm">$</span>
           <code className="text-sm text-[#E4E4E7] font-mono">npx kodeos init</code>
           <Copy className="w-3.5 h-3.5 text-[#71717A] group-hover:text-white transition-colors" />
-          {copied && <span className="text-xs text-[#00FF41]">Copied!</span>}
+          {copied && <span className="text-xs text-[#3B82F6]">Copied!</span>}
         </div>
       </div>
     </section>

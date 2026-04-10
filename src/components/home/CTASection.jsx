@@ -7,7 +7,7 @@ export default function CTASection({ hasPurchased, onGetStarted }) {
       <div className="max-w-3xl mx-auto relative">
         <div className="rounded-2xl border border-white/[0.06] bg-gradient-to-br from-white/[0.03] to-transparent p-10 md:p-14 text-center relative overflow-hidden">
           {/* Glow */}
-          <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-[400px] h-[200px] bg-[#00FF41]/[0.06] rounded-full blur-[80px] pointer-events-none" />
+          <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-[400px] h-[200px] bg-[#3B82F6]/[0.06] rounded-full blur-[80px] pointer-events-none" />
 
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4 relative">
             Ready to level up?
@@ -18,7 +18,7 @@ export default function CTASection({ hasPurchased, onGetStarted }) {
           <Button
             size="lg"
             onClick={onGetStarted}
-            className="bg-[#00FF41] text-[#09090B] hover:bg-[#00DD66] font-semibold px-8 h-12 text-base shadow-lg shadow-[#00FF41]/20 relative"
+            className="bg-[#3B82F6] text-white hover:bg-[#2563EB] font-semibold px-8 h-12 text-base shadow-lg shadow-[#3B82F6]/20 relative"
           >
             {hasPurchased ? 'Access Library' : 'Unlock Now'}
             <ArrowRight className="w-4 h-4 ml-2" />

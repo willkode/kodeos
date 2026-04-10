@@ -5,7 +5,7 @@ const features = [
     icon: Code,
     title: '200+ Prompts',
     desc: 'Landing pages, dashboards, auth flows, e-commerce, admin panels, and more.',
-    color: '#00FF41',
+    color: '#3B82F6',
   },
   {
     icon: Layers,
