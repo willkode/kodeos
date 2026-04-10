@@ -5,7 +5,8 @@ import { Input } from '@/components/ui/input';
 import { useNavigate } from 'react-router-dom';
 import PromptForm from '../components/PromptForm';
 import PromptList from '../components/PromptList';
-import { Plus } from 'lucide-react';
+import AIPromptGenerator from '../components/admin/AIPromptGenerator';
+import { Plus, Sparkles, List } from 'lucide-react';
 
 export default function Admin() {
   const navigate = useNavigate();
@@ -15,6 +16,7 @@ export default function Admin() {
   const [showForm, setShowForm] = useState(false);
   const [editingPrompt, setEditingPrompt] = useState(null);
   const [search, setSearch] = useState('');
+  const [activeTab, setActiveTab] = useState('list');
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -108,22 +110,44 @@ export default function Admin() {
         <div className="flex items-center justify-between mb-8">
           <div>
             <h1 className="text-4xl font-bold mb-2">
-              Manage <span className="neon-glow">Prompts</span>
+              Manage <span className="text-[#3B82F6]">Prompts</span>
             </h1>
             <p className="text-muted-foreground">
               {filtered.length} prompts in library
             </p>
           </div>
-          <Button
-            onClick={() => {
-              setEditingPrompt(null);
-              setShowForm(!showForm);
-            }}
-            className="bg-primary text-primary-foreground neon-glow"
-          >
-            <Plus className="w-4 h-4 mr-2" /> New Prompt
-          </Button>
+          <div className="flex items-center gap-3">
+            <Button
+              variant={activeTab === 'generate' ? 'default' : 'outline'}
+              onClick={() => setActiveTab(activeTab === 'generate' ? 'list' : 'generate')}
+              className={activeTab === 'generate' ? 'bg-[#3B82F6] text-white hover:bg-[#2563EB]' : 'border-border/50'}
+            >
+              <Sparkles className="w-4 h-4 mr-2" /> AI Generate
+            </Button>
+            <Button
+              onClick={() => {
+                setEditingPrompt(null);
+                setShowForm(!showForm);
+                setActiveTab('list');
+              }}
+              className="bg-[#3B82F6] text-white hover:bg-[#2563EB]"
+            >
+              <Plus className="w-4 h-4 mr-2" /> New Prompt
+            </Button>
+          </div>
         </div>
+
+        {/* AI Generator Tab */}
+        {activeTab === 'generate' && (
+          <div className="mb-8 p-6 rounded-lg border border-[#3B82F6]/30 bg-card/50">
+            <AIPromptGenerator
+              onPromptsCreated={async () => {
+                const updated = await base44.entities.Prompt.list('-created_date', 500);
+                setPrompts(updated);
+              }}
+            />
+          </div>
+        )}
 
         {/* Form */}
         {showForm && (
