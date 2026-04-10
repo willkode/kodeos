@@ -10,35 +10,48 @@ export default function AIPromptGenerator({ onPromptsCreated }) {
   const [isRunning, setIsRunning] = useState(false);
   const stopRef = useRef(false);
 
-  const parseLines = (text) => {
-    return text
-      .split('\n')
-      .map(line => line.trim())
-      .filter(line => line.length > 0);
+  const parseEntries = (text) => {
+    const lines = text.split('\n').map(line => line.trim()).filter(line => line.length > 0);
+    const entries = [];
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i];
+      // Skip section headers like "3. Base44 / Lovable..."
+      if (/^\d+\.\s/.test(line)) continue;
+      // Check if next line is a description (not a title-like line)
+      const nextLine = lines[i + 1];
+      if (nextLine && !/^\d+\.\s/.test(nextLine) && !nextLine.endsWith('Prompt') && !nextLine.endsWith('prompt')) {
+        entries.push({ title: line, description: nextLine });
+        i++; // skip description line
+      } else {
+        entries.push({ title: line, description: '' });
+      }
+    }
+    return entries;
   };
 
   const generateAndSave = async () => {
-    const lines = parseLines(input);
-    if (lines.length === 0) return;
+    const entries = parseEntries(input);
+    if (entries.length === 0) return;
 
     setIsRunning(true);
     stopRef.current = false;
 
-    const initialResults = lines.map(line => ({
-      title: line,
+    const initialResults = entries.map(entry => ({
+      title: entry.title,
       status: 'pending',
       error: null,
     }));
     setResults(initialResults);
 
-    for (let i = 0; i < lines.length; i++) {
+    for (let i = 0; i < entries.length; i++) {
       if (stopRef.current) break;
 
       setResults(prev => prev.map((r, idx) =>
         idx === i ? { ...r, status: 'generating' } : r
       ));
 
-      const promptIdea = lines[i];
+      const entry = entries[i];
+      const promptIdea = entry.description ? `${entry.title} — ${entry.description}` : entry.title;
 
       const aiResponse = await base44.integrations.Core.InvokeLLM({
         prompt: `You are a prompt engineer creating prompts for no-code AI development platforms (Base44, Lovable, Bolt, Replit, V0 by Vercel, etc.).
@@ -99,7 +112,7 @@ Rules:
     stopRef.current = true;
   };
 
-  const lines = parseLines(input);
+  const entries = parseEntries(input);
   const doneCount = results.filter(r => r.status === 'done').length;
   const errorCount = results.filter(r => r.status === 'error').length;
 
@@ -116,12 +129,12 @@ Rules:
         <Textarea
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder={"Build a SaaS pricing page with toggle\nCreate a real-time chat interface\nDashboard with analytics charts\nUser onboarding flow with progress bar"}
+          placeholder={"Master App Build Prompt\nGives the platform a complete build direction.\nPhased Build Prompt Series\nBreaks the app into build phases."}
           className="bg-background border-border/30 h-48 font-mono text-sm"
           disabled={isRunning}
         />
         <p className="text-xs text-muted-foreground mt-2">
-          {lines.length} prompt{lines.length !== 1 ? 's' : ''} detected
+          {entries.length} prompt{entries.length !== 1 ? 's' : ''} detected (supports Title + Description pairs)
         </p>
       </div>
 
@@ -129,11 +142,11 @@ Rules:
         {!isRunning ? (
           <Button
             onClick={generateAndSave}
-            disabled={lines.length === 0}
+            disabled={entries.length === 0}
             className="bg-[#3B82F6] text-white hover:bg-[#2563EB] font-semibold"
           >
             <Sparkles className="w-4 h-4 mr-2" />
-            Generate {lines.length} Prompt{lines.length !== 1 ? 's' : ''}
+            Generate {entries.length} Prompt{entries.length !== 1 ? 's' : ''}
           </Button>
         ) : (
           <Button onClick={handleStop} variant="destructive">
