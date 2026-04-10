@@ -3,7 +3,7 @@ import { base44 } from '@/api/base44Client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import PromptCard from '../components/PromptCard';
-import { Search, ChevronDown } from 'lucide-react';
+import { Search, ChevronDown, Bookmark } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -33,12 +33,16 @@ export default function Prompts() {
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedDifficulty, setSelectedDifficulty] = useState('');
   const [user, setUser] = useState(null);
+  const [savedPromptIds, setSavedPromptIds] = useState([]);
+  const urlParams = new URLSearchParams(window.location.search);
+  const [showSaved, setShowSaved] = useState(urlParams.get('tab') === 'saved');
 
   useEffect(() => {
     const loadData = async () => {
       try {
         const currentUser = await base44.auth.me();
         setUser(currentUser);
+        setSavedPromptIds(currentUser?.savedPrompts || []);
 
         const allPrompts = await base44.entities.Prompt.list('-created_date', 200);
         setPrompts(allPrompts);
@@ -52,7 +56,16 @@ export default function Prompts() {
     loadData();
   }, []);
 
+  const toggleSave = async (promptId) => {
+    const updated = savedPromptIds.includes(promptId)
+      ? savedPromptIds.filter(id => id !== promptId)
+      : [...savedPromptIds, promptId];
+    setSavedPromptIds(updated);
+    await base44.auth.updateMe({ savedPrompts: updated });
+  };
+
   const filtered = prompts.filter(p => {
+    if (showSaved && !savedPromptIds.includes(p.id)) return false;
     const matchesSearch =
       p.title.toLowerCase().includes(search.toLowerCase()) ||
       p.description.toLowerCase().includes(search.toLowerCase());
@@ -83,9 +96,25 @@ export default function Prompts() {
           <h1 className="text-4xl font-bold mb-4">
             Prompt <span className="neon-glow">Library</span>
           </h1>
-          <p className="text-muted-foreground">
-            {filtered.length} prompts available • Organized by use case
-          </p>
+          <div className="flex items-center gap-4 mt-2">
+            <button
+              onClick={() => setShowSaved(false)}
+              className={`text-sm font-medium pb-1 border-b-2 transition-colors ${
+                !showSaved ? 'border-[#3B82F6] text-white' : 'border-transparent text-[#A1A1AA] hover:text-white'
+              }`}
+            >
+              All Prompts ({prompts.length})
+            </button>
+            <button
+              onClick={() => setShowSaved(true)}
+              className={`text-sm font-medium pb-1 border-b-2 transition-colors flex items-center gap-1.5 ${
+                showSaved ? 'border-[#3B82F6] text-white' : 'border-transparent text-[#A1A1AA] hover:text-white'
+              }`}
+            >
+              <Bookmark className="w-3.5 h-3.5" />
+              Saved ({savedPromptIds.length})
+            </button>
+          </div>
         </div>
 
         {/* Search & Filters */}
@@ -178,7 +207,12 @@ export default function Prompts() {
         ) : (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filtered.map(prompt => (
-              <PromptCard key={prompt.id} prompt={prompt} />
+              <PromptCard
+                key={prompt.id}
+                prompt={prompt}
+                isSaved={savedPromptIds.includes(prompt.id)}
+                onToggleSave={() => toggleSave(prompt.id)}
+              />
             ))}
           </div>
         )}

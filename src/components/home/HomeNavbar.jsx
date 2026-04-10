@@ -18,6 +18,7 @@ export default function HomeNavbar({ user }) {
 
         <div className="hidden md:flex items-center gap-8 text-sm text-[#A1A1AA]">
           <span className="hover:text-white cursor-pointer transition-colors" onClick={() => navigate('/prompts')}>Library</span>
+          <span className="hover:text-white cursor-pointer transition-colors" onClick={() => navigate('/prompts?tab=saved')}>Saved</span>
           <span className="hover:text-white cursor-pointer transition-colors" onClick={() => navigate('/pricing')}>Pricing</span>
         </div>
 

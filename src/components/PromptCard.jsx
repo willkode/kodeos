@@ -1,8 +1,8 @@
 import { Button } from '@/components/ui/button';
-import { Copy, ExternalLink } from 'lucide-react';
+import { Copy, Bookmark } from 'lucide-react';
 import { useState } from 'react';
 
-export default function PromptCard({ prompt }) {
+export default function PromptCard({ prompt, isSaved, onToggleSave }) {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = async () => {
@@ -12,9 +12,17 @@ export default function PromptCard({ prompt }) {
   };
 
   return (
-    <div className="p-6 rounded-lg border border-border/30 bg-card/50 backdrop-blur-sm hover:border-primary/30 transition-all group">
+    <div className="p-6 rounded-lg border border-border/30 bg-card/50 backdrop-blur-sm hover:border-primary/30 transition-all group relative">
+      {/* Bookmark */}
+      <button
+        onClick={(e) => { e.stopPropagation(); onToggleSave(); }}
+        className="absolute top-4 right-4 p-1.5 rounded-lg hover:bg-white/[0.06] transition-colors"
+      >
+        <Bookmark className={`w-4 h-4 ${isSaved ? 'fill-[#3B82F6] text-[#3B82F6]' : 'text-[#71717A]'}`} />
+      </button>
+
       {/* Category & Difficulty */}
-      <div className="flex items-center justify-between mb-4">
+      <div className="flex items-center justify-between mb-4 pr-8">
         <div className="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-mono">
           {prompt.category}
         </div>
