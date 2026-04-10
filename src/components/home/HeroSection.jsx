@@ -61,16 +61,7 @@ export default function HeroSection({ hasPurchased, onGetStarted, onViewPricing 
           )}
         </div>
 
-        {/* Terminal snippet */}
-        <div
-          className="inline-flex items-center gap-3 px-5 py-3 rounded-xl border border-white/[0.08] bg-white/[0.02] cursor-pointer hover:bg-white/[0.04] transition-colors group"
-          onClick={handleCopy}
-        >
-          <span className="text-[#3B82F6] font-mono text-sm">$</span>
-          <code className="text-sm text-[#E4E4E7] font-mono">npx kodeos init</code>
-          <Copy className="w-3.5 h-3.5 text-[#71717A] group-hover:text-white transition-colors" />
-          {copied && <span className="text-xs text-[#3B82F6]">Copied!</span>}
-        </div>
+
       </div>
     </section>
   );
