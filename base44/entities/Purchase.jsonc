@@ -1,0 +1,33 @@
+{
+  "name": "Purchase",
+  "type": "object",
+  "properties": {
+    "stripePaymentIntentId": {
+      "type": "string",
+      "description": "Stripe Payment Intent ID"
+    },
+    "amount": {
+      "type": "number",
+      "description": "Amount paid in cents (2500 for $25)"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "completed",
+        "failed"
+      ],
+      "description": "Payment status"
+    },
+    "userEmail": {
+      "type": "string",
+      "description": "Email of the user who made the purchase"
+    }
+  },
+  "required": [
+    "stripePaymentIntentId",
+    "amount",
+    "status",
+    "userEmail"
+  ]
+}

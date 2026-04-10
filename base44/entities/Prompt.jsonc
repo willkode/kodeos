@@ -1,0 +1,77 @@
+{
+  "name": "Prompt",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Prompt title"
+    },
+    "description": {
+      "type": "string",
+      "description": "Short description of what the prompt does"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "Landing Pages",
+        "Auth Flows",
+        "Dashboards",
+        "E-commerce",
+        "Admin Panels",
+        "Forms",
+        "Real-time",
+        "AI Integration",
+        "Animations",
+        "State Management"
+      ],
+      "description": "Category/use case"
+    },
+    "content": {
+      "type": "string",
+      "description": "The full prompt text"
+    },
+    "platforms": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "Base44",
+          "Lovable",
+          "Bolt",
+          "Replit",
+          "Floot",
+          "Emergent.sh",
+          "V0 by Vercel",
+          "Vitara AI",
+          "Rocket.new",
+          "Meku"
+        ]
+      },
+      "description": "Compatible platforms"
+    },
+    "difficulty": {
+      "type": "string",
+      "enum": [
+        "Beginner",
+        "Intermediate",
+        "Advanced"
+      ],
+      "description": "Difficulty level"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Optional tags for filtering"
+    }
+  },
+  "required": [
+    "title",
+    "description",
+    "category",
+    "content",
+    "platforms",
+    "difficulty"
+  ]
+}
