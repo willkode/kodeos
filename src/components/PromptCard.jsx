@@ -21,17 +21,10 @@ export default function PromptCard({ prompt, isSaved, onToggleSave }) {
         <Bookmark className={`w-4 h-4 ${isSaved ? 'fill-[#3B82F6] text-[#3B82F6]' : 'text-[#71717A]'}`} />
       </button>
 
-      {/* Category & Difficulty */}
-      <div className="flex items-center justify-between mb-4 pr-8">
-        <div className="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-mono">
+      {/* Category */}
+      <div className="mb-4 pr-8">
+        <div className="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-mono">
           {prompt.category}
-        </div>
-        <div className={`text-xs font-semibold px-2 py-1 rounded ${
-          prompt.difficulty === 'Beginner' ? 'bg-green-500/10 text-green-400' :
-          prompt.difficulty === 'Intermediate' ? 'bg-yellow-500/10 text-yellow-400' :
-          'bg-red-500/10 text-red-400'
-        }`}>
-          {prompt.difficulty}
         </div>
       </div>
 
