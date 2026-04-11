@@ -64,8 +64,8 @@ export default function Pricing() {
             </div>
 
             <div className="mb-8">
-              <div className="text-5xl font-bold text-primary neon-glow mb-2">
-                $25
+              <div className="text-5xl font-bold text-primary mb-2">
+                $10
               </div>
               <p className="text-muted-foreground">One-time payment</p>
             </div>
