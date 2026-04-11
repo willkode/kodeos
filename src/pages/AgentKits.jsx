@@ -11,7 +11,7 @@ import { useOutletContext } from 'react-router-dom';
 import GuestLanding from '../components/GuestLanding';
 
 export default function AgentKits() {
-  const { user } = useOutletContext();
+  const { user, hasPurchased } = useOutletContext();
   const [kits, setKits] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
@@ -53,12 +53,13 @@ export default function AgentKits() {
     setPage(1);
   }, [search, selectedCategory]);
 
-  if (!user) {
+  if (!user || !hasPurchased) {
     return (
       <GuestLanding
         pageTitle="Agent Kits"
         pageDescription="Discover pre-built agent kits and tools to power your AI workflows — from automation to intelligent assistants."
         highlightKey="kits"
+        user={user}
       />
     );
   }

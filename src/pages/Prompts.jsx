@@ -14,7 +14,7 @@ import GuestLanding from '../components/GuestLanding';
 
 
 export default function Prompts() {
-  const { user } = useOutletContext();
+  const { user, hasPurchased } = useOutletContext();
   const [prompts, setPrompts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
@@ -58,12 +58,13 @@ export default function Prompts() {
     return matchesSearch && matchesCategory;
   });
 
-  if (!user) {
+  if (!user || !hasPurchased) {
     return (
       <GuestLanding
         pageTitle="Prompt Library"
         pageDescription="Curated, copy-paste prompts for every stage of vibecoding — from idea validation to production deployment."
         highlightKey="prompts"
+        user={user}
       />
     );
   }

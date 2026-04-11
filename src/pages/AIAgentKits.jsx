@@ -13,7 +13,7 @@ import { Progress } from '@/components/ui/progress';
 import GuestLanding from '../components/GuestLanding';
 
 export default function AIAgentKits() {
-  const { user } = useOutletContext();
+  const { user, hasPurchased } = useOutletContext();
   const [kits, setKits] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
@@ -83,12 +83,13 @@ export default function AIAgentKits() {
     setPage(1);
   }, [search]);
 
-  if (!user) {
+  if (!user || !hasPurchased) {
     return (
       <GuestLanding
         pageTitle="AI Models APIs"
         pageDescription="Browse hundreds of AI model APIs and tools to power your applications with cutting-edge intelligence."
         highlightKey="apis"
+        user={user}
       />
     );
   }

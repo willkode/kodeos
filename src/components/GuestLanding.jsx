@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
-import { ArrowRight, FileText, Cpu, Bot, Server, Clock, Puzzle, Lightbulb, TrendingUp, Lock } from 'lucide-react';
+import { ArrowRight, FileText, Cpu, Bot, Server, Clock, Puzzle, Lightbulb, TrendingUp, Lock, CreditCard } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import BorderGlow from './BorderGlow';
 
@@ -24,7 +25,8 @@ const steps = [
   { num: '03', title: 'Ship Faster', desc: 'Spend less time on setup and more time building what matters.' },
 ];
 
-export default function GuestLanding({ pageTitle, pageDescription, highlightKey }) {
+export default function GuestLanding({ pageTitle, pageDescription, highlightKey, user }) {
+  const navigate = useNavigate();
   const [counts, setCounts] = useState({});
 
   useEffect(() => {
@@ -55,8 +57,17 @@ export default function GuestLanding({ pageTitle, pageDescription, highlightKey 
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-[#3B82F6]/[0.04] rounded-full blur-[120px] pointer-events-none" />
           <div className="relative">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/[0.08] bg-white/[0.03] mb-6">
-              <Lock className="w-3.5 h-3.5 text-[#A1A1AA]" />
-              <span className="text-sm text-[#A1A1AA] font-medium">Sign in to access the full library</span>
+              {user ? (
+                <>
+                  <CreditCard className="w-3.5 h-3.5 text-[#A1A1AA]" />
+                  <span className="text-sm text-[#A1A1AA] font-medium">Upgrade to access the full library</span>
+                </>
+              ) : (
+                <>
+                  <Lock className="w-3.5 h-3.5 text-[#A1A1AA]" />
+                  <span className="text-sm text-[#A1A1AA] font-medium">Sign in to access the full library</span>
+                </>
+              )}
             </div>
             <h1 className="text-4xl md:text-6xl font-bold tracking-tight leading-[1.1] mb-4">
               {pageTitle}
@@ -71,10 +82,10 @@ export default function GuestLanding({ pageTitle, pageDescription, highlightKey 
             )}
             <Button
               size="lg"
-              onClick={() => base44.auth.redirectToLogin()}
+              onClick={() => user ? navigate('/pricing') : base44.auth.redirectToLogin()}
               className="bg-[#3B82F6] text-white hover:bg-[#2563EB] font-semibold px-8 h-12 text-base shadow-lg shadow-[#3B82F6]/20"
             >
-              Sign In to Access <ArrowRight className="w-4 h-4 ml-2" />
+              {user ? 'View Pricing' : 'Sign In to Access'} <ArrowRight className="w-4 h-4 ml-2" />
             </Button>
           </div>
         </div>
@@ -154,10 +165,10 @@ export default function GuestLanding({ pageTitle, pageDescription, highlightKey 
             </p>
             <Button
               size="lg"
-              onClick={() => base44.auth.redirectToLogin()}
+              onClick={() => user ? navigate('/pricing') : base44.auth.redirectToLogin()}
               className="bg-[#3B82F6] text-white hover:bg-[#2563EB] font-semibold px-8 h-12 text-base shadow-lg shadow-[#3B82F6]/20"
             >
-              Get Started <ArrowRight className="w-4 h-4 ml-2" />
+              {user ? 'Unlock Full Access' : 'Get Started'} <ArrowRight className="w-4 h-4 ml-2" />
             </Button>
           </div>
         </div>

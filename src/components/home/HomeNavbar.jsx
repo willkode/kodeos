@@ -4,8 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import GlitchLogo from './GlitchLogo';
 import NavExpandedTabs from '../NavExpandedTabs';
 
-export default function HomeNavbar({ user }) {
+export default function HomeNavbar({ user, hasPurchased }) {
   const navigate = useNavigate();
+  const hasAccess = user && hasPurchased;
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 border-b border-white/[0.06] bg-[#09090B]/80 backdrop-blur-xl">
@@ -15,11 +16,22 @@ export default function HomeNavbar({ user }) {
         </div>
 
         <div className="hidden md:flex items-center gap-8 text-sm text-[#A1A1AA]">
-          <span className="hover:text-white cursor-pointer transition-colors" onClick={() => navigate('/prompts')}>Prompts</span>
-          <span className="hover:text-white cursor-pointer transition-colors" onClick={() => navigate('/ai-models-apis')}>AI Models APIs</span>
-          <span className="hover:text-white cursor-pointer transition-colors" onClick={() => navigate('/agent-kits')}>Agent Kits</span>
-          <span className="hover:text-white cursor-pointer transition-colors" onClick={() => navigate('/mcp-servers')}>MCP Servers</span>
-          <span className="hover:text-white cursor-pointer transition-colors" onClick={() => navigate('/pricing')}>Pricing</span>
+          {hasAccess ? (
+            <>
+              <span className="hover:text-white cursor-pointer transition-colors" onClick={() => navigate('/prompts')}>Prompts</span>
+              <span className="hover:text-white cursor-pointer transition-colors" onClick={() => navigate('/ai-models-apis')}>AI Models APIs</span>
+              <span className="hover:text-white cursor-pointer transition-colors" onClick={() => navigate('/agent-kits')}>Agent Kits</span>
+              <span className="hover:text-white cursor-pointer transition-colors" onClick={() => navigate('/mcp-servers')}>MCP Servers</span>
+            </>
+          ) : (
+            <>
+              <span className="hover:text-white cursor-pointer transition-colors" onClick={() => navigate('/prompts')}>Prompts</span>
+              <span className="hover:text-white cursor-pointer transition-colors" onClick={() => navigate('/ai-models-apis')}>AI Models APIs</span>
+              <span className="hover:text-white cursor-pointer transition-colors" onClick={() => navigate('/agent-kits')}>Agent Kits</span>
+              <span className="hover:text-white cursor-pointer transition-colors" onClick={() => navigate('/mcp-servers')}>MCP Servers</span>
+              <span className="hover:text-white cursor-pointer transition-colors" onClick={() => navigate('/pricing')}>Pricing</span>
+            </>
+          )}
         </div>
 
         <div className="flex items-center gap-3">

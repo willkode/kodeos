@@ -11,7 +11,7 @@ import { useOutletContext } from 'react-router-dom';
 import GuestLanding from '../components/GuestLanding';
 
 export default function MCPServers() {
-  const { user } = useOutletContext();
+  const { user, hasPurchased } = useOutletContext();
   const [servers, setServers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
@@ -53,12 +53,13 @@ export default function MCPServers() {
     setPage(1);
   }, [search, selectedCategory]);
 
-  if (!user) {
+  if (!user || !hasPurchased) {
     return (
       <GuestLanding
         pageTitle="MCP Servers"
         pageDescription="Extend your AI capabilities with Model Context Protocol servers — connect LLMs to real-world tools and data."
         highlightKey="mcp"
+        user={user}
       />
     );
   }
