@@ -9,25 +9,22 @@ Deno.serve(async (req) => {
       return Response.json({ error: 'Forbidden' }, { status: 403 });
     }
 
-    // Get all uncategorized kits
-    const allKits = await base44.asServiceRole.entities.AIAgentKit.filter({}, '-created_date', 2000);
-    const uncategorized = allKits.filter(k => !k.category || k.category === 'Uncategorized');
-
-    if (uncategorized.length === 0) {
-      return Response.json({ message: 'All kits already categorized', updated: 0 });
+    const { batchIds } = await req.json();
+    if (!batchIds || !Array.isArray(batchIds) || batchIds.length === 0) {
+      return Response.json({ error: 'batchIds array is required' }, { status: 400 });
     }
 
-    // Process in batches of 20 for LLM
-    const batchSize = 20;
-    let updated = 0;
+    // Fetch the specific kits by ID
+    const kits = [];
+    for (const id of batchIds) {
+      const kit = await base44.asServiceRole.entities.AIAgentKit.get(id);
+      if (kit) kits.push(kit);
+    }
 
-    for (let i = 0; i < uncategorized.length; i += batchSize) {
-      const batch = uncategorized.slice(i, i + batchSize);
-      
-      const items = batch.map((k, idx) => `${idx + 1}. "${k.name}" - ${k.description?.substring(0, 150) || 'No description'}`).join('\n');
+    const items = kits.map((k, idx) => `${idx + 1}. "${k.name}" - ${k.description?.substring(0, 150) || 'No description'}`).join('\n');
 
-      const result = await base44.asServiceRole.integrations.Core.InvokeLLM({
-        prompt: `Categorize each of the following AI APIs/tools into exactly ONE category from this list:
+    const result = await base44.asServiceRole.integrations.Core.InvokeLLM({
+      prompt: `Categorize each of the following AI APIs/tools into exactly ONE category from this list:
 - Data Scraping & Web Extraction
 - Social Media & Marketing
 - AI & Machine Learning
@@ -53,34 +50,33 @@ Items to categorize:
 ${items}
 
 Return a JSON object with an "items" array where each element has "index" (1-based) and "category" (exact match from list above).`,
-        response_json_schema: {
-          type: "object",
-          properties: {
+      response_json_schema: {
+        type: "object",
+        properties: {
+          items: {
+            type: "array",
             items: {
-              type: "array",
-              items: {
-                type: "object",
-                properties: {
-                  index: { type: "number" },
-                  category: { type: "string" }
-                }
+              type: "object",
+              properties: {
+                index: { type: "number" },
+                category: { type: "string" }
               }
             }
           }
         }
-      });
+      }
+    });
 
-      // Update each kit with its category
-      for (const item of result.items) {
-        const kit = batch[item.index - 1];
-        if (kit && item.category) {
-          await base44.asServiceRole.entities.AIAgentKit.update(kit.id, { category: item.category });
-          updated++;
-        }
+    let updated = 0;
+    for (const item of result.items) {
+      const kit = kits[item.index - 1];
+      if (kit && item.category) {
+        await base44.asServiceRole.entities.AIAgentKit.update(kit.id, { category: item.category });
+        updated++;
       }
     }
 
-    return Response.json({ message: 'Categorization complete', updated, total: uncategorized.length });
+    return Response.json({ updated, total: kits.length });
   } catch (error) {
     return Response.json({ error: error.message }, { status: 500 });
   }

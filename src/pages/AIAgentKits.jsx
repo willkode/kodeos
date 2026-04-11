@@ -6,6 +6,7 @@ import { Search, X, Sparkles, Loader2 } from 'lucide-react';
 import AIAgentKitCard from '../components/AIAgentKitCard';
 import FilterSidebar from '../components/prompts/FilterSidebar';
 import { useOutletContext } from 'react-router-dom';
+import { Progress } from '@/components/ui/progress';
 
 export default function AIAgentKits() {
   const { user } = useOutletContext();
@@ -15,21 +16,32 @@ export default function AIAgentKits() {
   const [page, setPage] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState('');
   const [categorizing, setCategorizing] = useState(false);
+  const [catProgress, setCatProgress] = useState({ current: 0, total: 0 });
   const PAGE_SIZE = 30;
 
   const handleCategorize = async () => {
     setCategorizing(true);
     try {
-      const res = await base44.functions.invoke('categorizeAgentKits', {});
-      // Reload kits after categorization
       const allKits = await base44.entities.AIAgentKit.list('-created_date', 2000);
-      setKits(allKits);
-      alert(`Categorized ${res.data.updated} items!`);
+      const uncategorized = allKits.filter(k => !k.category || k.category === 'Uncategorized');
+      const batchSize = 20;
+      const totalBatches = Math.ceil(uncategorized.length / batchSize);
+      setCatProgress({ current: 0, total: totalBatches });
+
+      for (let i = 0; i < totalBatches; i++) {
+        const batch = uncategorized.slice(i * batchSize, (i + 1) * batchSize);
+        const ids = batch.map(k => k.id);
+        await base44.functions.invoke('categorizeAgentKits', { batchIds: ids });
+        setCatProgress({ current: i + 1, total: totalBatches });
+      }
+
+      const refreshed = await base44.entities.AIAgentKit.list('-created_date', 2000);
+      setKits(refreshed);
     } catch (err) {
       console.error('Categorization error:', err);
-      alert('Error categorizing items');
     } finally {
       setCategorizing(false);
+      setCatProgress({ current: 0, total: 0 });
     }
   };
 
@@ -99,18 +111,28 @@ export default function AIAgentKits() {
           <aside className="hidden lg:block w-56 flex-shrink-0">
             <div className="sticky top-24">
               {user?.role === 'admin' && (
-                <Button
-                  onClick={handleCategorize}
-                  disabled={categorizing}
-                  className="w-full mb-3 bg-[#3B82F6] text-white hover:bg-[#2563EB] text-xs font-semibold"
-                  size="sm"
-                >
-                  {categorizing ? (
-                    <><Loader2 className="w-3.5 h-3.5 mr-1.5 animate-spin" /> Categorizing...</>
-                  ) : (
-                    <><Sparkles className="w-3.5 h-3.5 mr-1.5" /> AI Categorize All</>
+                <>
+                  <Button
+                    onClick={handleCategorize}
+                    disabled={categorizing}
+                    className="w-full mb-3 bg-[#3B82F6] text-white hover:bg-[#2563EB] text-xs font-semibold"
+                    size="sm"
+                  >
+                    {categorizing ? (
+                      <><Loader2 className="w-3.5 h-3.5 mr-1.5 animate-spin" /> Categorizing...</>
+                    ) : (
+                      <><Sparkles className="w-3.5 h-3.5 mr-1.5" /> AI Categorize All</>
+                    )}
+                  </Button>
+                  {categorizing && catProgress.total > 0 && (
+                    <div className="w-full space-y-1 mb-3">
+                      <Progress value={(catProgress.current / catProgress.total) * 100} className="h-2" />
+                      <p className="text-[10px] text-[#71717A] text-center">
+                        {catProgress.current}/{catProgress.total} batches
+                      </p>
+                    </div>
                   )}
-                </Button>
+                </>
               )}
               <div className="p-4 rounded-xl border border-white/[0.06] bg-white/[0.02]">
               <FilterSidebar
