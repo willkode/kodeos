@@ -5,6 +5,7 @@ import HeroSection from '../components/home/HeroSection';
 import WhySection from '../components/home/WhySection';
 import HowToUseSection from '../components/home/HowToUseSection';
 import CTASection from '../components/home/CTASection';
+import RecommenderCTA from '../components/home/RecommenderCTA';
 import HomeFooter from '../components/home/HomeFooter';
 
 export default function Home() {
@@ -46,6 +47,7 @@ export default function Home() {
       <HeroSection hasPurchased={hasPurchased} onGetStarted={handleGetStarted} onViewPricing={() => navigate('/pricing')} />
       <WhySection />
       <HowToUseSection />
+      <RecommenderCTA hasPurchased={hasPurchased} />
       <CTASection hasPurchased={hasPurchased} onGetStarted={handleGetStarted} />
       <HomeFooter />
     </div>
