@@ -14,6 +14,7 @@ import AIAgentKits from './pages/AIAgentKits';
 import MCPServers from './pages/MCPServers';
 import AgentKits from './pages/AgentKits';
 import Dashboard from './pages/Dashboard';
+import Recommender from './pages/Recommender';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -50,6 +51,7 @@ const AuthenticatedApp = () => {
         <Route path="/mcp-servers" element={<MCPServers />} />
         <Route path="/agent-kits" element={<AgentKits />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/recommender" element={<Recommender />} />
         <Route path="/profile" element={<Dashboard />} />
         <Route path="/settings" element={<Dashboard />} />
         <Route path="*" element={<PageNotFound />} />
