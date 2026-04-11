@@ -45,7 +45,7 @@ const AuthenticatedApp = () => {
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/prompts" element={<Prompts />} />
         <Route path="/admin" element={<Admin />} />
-        <Route path="/ai-agent-kits" element={<AIAgentKits />} />
+        <Route path="/ai-models-apis" element={<AIAgentKits />} />
         <Route path="/mcp-servers" element={<MCPServers />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/profile" element={<Dashboard />} />
