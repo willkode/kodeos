@@ -45,9 +45,9 @@ export default function Home() {
   return (
     <div className="overflow-x-hidden pt-16">
       <HeroSection hasPurchased={hasPurchased} onGetStarted={handleGetStarted} onViewPricing={() => navigate('/pricing')} />
+      <RecommenderCTA hasPurchased={hasPurchased} />
       <WhySection />
       <HowToUseSection />
-      <RecommenderCTA hasPurchased={hasPurchased} />
       <CTASection hasPurchased={hasPurchased} onGetStarted={handleGetStarted} />
       <HomeFooter />
     </div>
