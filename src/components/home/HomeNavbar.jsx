@@ -26,7 +26,7 @@ export default function HomeNavbar({ user }) {
 
         <div className="flex items-center gap-3">
           {user ? (
-            <NavExpandedTabs />
+            <NavExpandedTabs user={user} />
           ) : (
             <Button
               size="sm"
