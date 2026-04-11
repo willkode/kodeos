@@ -9,6 +9,7 @@ import FilterSidebar from '../components/prompts/FilterSidebar';
 import ShineBorder from '../components/ShineBorder';
 import AnimatedText from '../components/AnimatedText';
 import { useOutletContext } from 'react-router-dom';
+import GuestLanding from '../components/GuestLanding';
 
 
 
@@ -56,6 +57,16 @@ export default function Prompts() {
 
     return matchesSearch && matchesCategory;
   });
+
+  if (!user) {
+    return (
+      <GuestLanding
+        pageTitle="Prompt Library"
+        pageDescription="Curated, copy-paste prompts for every stage of vibecoding — from idea validation to production deployment."
+        highlightKey="prompts"
+      />
+    );
+  }
 
   return (
     <div className="pt-16">

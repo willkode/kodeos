@@ -10,6 +10,7 @@ import ShineBorder from '../components/ShineBorder';
 import AnimatedText from '../components/AnimatedText';
 import { useOutletContext } from 'react-router-dom';
 import { Progress } from '@/components/ui/progress';
+import GuestLanding from '../components/GuestLanding';
 
 export default function AIAgentKits() {
   const { user } = useOutletContext();
@@ -81,6 +82,16 @@ export default function AIAgentKits() {
   useEffect(() => {
     setPage(1);
   }, [search]);
+
+  if (!user) {
+    return (
+      <GuestLanding
+        pageTitle="AI Models APIs"
+        pageDescription="Browse hundreds of AI model APIs and tools to power your applications with cutting-edge intelligence."
+        highlightKey="apis"
+      />
+    );
+  }
 
   return (
     <div className="pt-16">

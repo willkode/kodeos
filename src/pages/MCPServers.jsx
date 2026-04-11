@@ -8,6 +8,7 @@ import FilterSidebar from '../components/prompts/FilterSidebar';
 import ShineBorder from '../components/ShineBorder';
 import AnimatedText from '../components/AnimatedText';
 import { useOutletContext } from 'react-router-dom';
+import GuestLanding from '../components/GuestLanding';
 
 export default function MCPServers() {
   const { user } = useOutletContext();
@@ -51,6 +52,16 @@ export default function MCPServers() {
   useEffect(() => {
     setPage(1);
   }, [search, selectedCategory]);
+
+  if (!user) {
+    return (
+      <GuestLanding
+        pageTitle="MCP Servers"
+        pageDescription="Extend your AI capabilities with Model Context Protocol servers — connect LLMs to real-world tools and data."
+        highlightKey="mcp"
+      />
+    );
+  }
 
   return (
     <div className="pt-16">

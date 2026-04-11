@@ -8,6 +8,7 @@ import FilterSidebar from '../components/prompts/FilterSidebar';
 import ShineBorder from '../components/ShineBorder';
 import AnimatedText from '../components/AnimatedText';
 import { useOutletContext } from 'react-router-dom';
+import GuestLanding from '../components/GuestLanding';
 
 export default function AgentKits() {
   const { user } = useOutletContext();
@@ -51,6 +52,16 @@ export default function AgentKits() {
   useEffect(() => {
     setPage(1);
   }, [search, selectedCategory]);
+
+  if (!user) {
+    return (
+      <GuestLanding
+        pageTitle="Agent Kits"
+        pageDescription="Discover pre-built agent kits and tools to power your AI workflows — from automation to intelligent assistants."
+        highlightKey="kits"
+      />
+    );
+  }
 
   return (
     <div className="pt-16">
