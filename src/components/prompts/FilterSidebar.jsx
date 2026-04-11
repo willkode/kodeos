@@ -1,10 +1,10 @@
-import { PROMPT_CATEGORIES } from '../../lib/promptCategories';
-
 export default function FilterSidebar({
   selectedCategory,
   setSelectedCategory,
   categoryCounts,
 }) {
+  const categories = Object.keys(categoryCounts).sort((a, b) => categoryCounts[b] - categoryCounts[a]);
+
   return (
     <div className="w-full space-y-4">
       {/* Header */}
@@ -22,10 +22,9 @@ export default function FilterSidebar({
 
       {/* Category list */}
       <div className="space-y-0.5 max-h-[calc(100vh-12rem)] overflow-y-auto pr-1">
-        {PROMPT_CATEGORIES.map(cat => {
+        {categories.map(cat => {
           const isActive = selectedCategory === cat;
           const count = categoryCounts[cat] || 0;
-          if (count === 0) return null;
           return (
             <button
               key={cat}
