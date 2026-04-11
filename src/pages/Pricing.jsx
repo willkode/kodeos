@@ -21,11 +21,12 @@ export default function Pricing() {
   const handleCheckout = async () => {
     try {
       setLoading(true);
-      const user = await base44.auth.me();
-      if (!user) {
-        await base44.auth.redirectToLogin('/pricing');
+      const isAuth = await base44.auth.isAuthenticated();
+      if (!isAuth) {
+        base44.auth.redirectToLogin('/pricing');
         return;
       }
+      const user = await base44.auth.me();
       
       const response = await base44.functions.invoke('createCheckoutSession', {
         email: user.email
