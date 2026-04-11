@@ -3,7 +3,7 @@ import { base44 } from '@/api/base44Client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import PromptCard from '../components/PromptCard';
-import { Search, Bookmark, SlidersHorizontal, X } from 'lucide-react';
+import { Search, Bookmark, X } from 'lucide-react';
 import FilterSidebar from '../components/prompts/FilterSidebar';
 
 
@@ -13,7 +13,6 @@ export default function Prompts() {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
-  const [selectedDifficulty, setSelectedDifficulty] = useState('');
   const [user, setUser] = useState(null);
   const [savedPromptIds, setSavedPromptIds] = useState([]);
   const urlParams = new URLSearchParams(window.location.search);
@@ -52,9 +51,8 @@ export default function Prompts() {
       p.title.toLowerCase().includes(search.toLowerCase()) ||
       p.description.toLowerCase().includes(search.toLowerCase());
     const matchesCategory = !selectedCategory || p.category === selectedCategory;
-    const matchesDifficulty = !selectedDifficulty || p.difficulty === selectedDifficulty;
 
-    return matchesSearch && matchesCategory && matchesDifficulty;
+    return matchesSearch && matchesCategory;
   });
 
   return (
@@ -120,12 +118,7 @@ export default function Prompts() {
               <FilterSidebar
                 selectedCategory={selectedCategory}
                 setSelectedCategory={setSelectedCategory}
-                selectedDifficulty={selectedDifficulty}
-                setSelectedDifficulty={setSelectedDifficulty}
-                promptCounts={{
-                  category: prompts.reduce((acc, p) => { acc[p.category] = (acc[p.category] || 0) + 1; return acc; }, {}),
-                  difficulty: prompts.reduce((acc, p) => { acc[p.difficulty] = (acc[p.difficulty] || 0) + 1; return acc; }, {}),
-                }}
+                categoryCounts={prompts.reduce((acc, p) => { acc[p.category] = (acc[p.category] || 0) + 1; return acc; }, {})}
               />
             </div>
           </aside>
@@ -133,26 +126,15 @@ export default function Prompts() {
           {/* Main Content */}
           <div className="flex-1 min-w-0">
             {/* Active filters on mobile */}
-            {(selectedCategory || selectedDifficulty) && (
+            {selectedCategory && (
               <div className="flex flex-wrap gap-2 mb-4">
-                {selectedCategory && (
-                  <button
-                    onClick={() => setSelectedCategory('')}
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#3B82F6]/10 text-[#3B82F6] text-xs font-medium"
-                  >
-                    {selectedCategory}
-                    <X className="w-3 h-3" />
-                  </button>
-                )}
-                {selectedDifficulty && (
-                  <button
-                    onClick={() => setSelectedDifficulty('')}
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#3B82F6]/10 text-[#3B82F6] text-xs font-medium"
-                  >
-                    {selectedDifficulty}
-                    <X className="w-3 h-3" />
-                  </button>
-                )}
+                <button
+                  onClick={() => setSelectedCategory('')}
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#3B82F6]/10 text-[#3B82F6] text-xs font-medium"
+                >
+                  {selectedCategory}
+                  <X className="w-3 h-3" />
+                </button>
               </div>
             )}
 
