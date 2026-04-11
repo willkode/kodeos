@@ -11,6 +11,7 @@ import AnimatedText from '../components/AnimatedText';
 import { useOutletContext } from 'react-router-dom';
 import { Progress } from '@/components/ui/progress';
 import GuestLanding from '../components/GuestLanding';
+import ResourceDetailModal from '../components/ResourceDetailModal';
 
 export default function AIAgentKits() {
   const { user, hasPurchased } = useOutletContext();
@@ -22,6 +23,7 @@ export default function AIAgentKits() {
   const [categorizing, setCategorizing] = useState(false);
   const [catProgress, setCatProgress] = useState({ current: 0, total: 0 });
   const PAGE_SIZE = 30;
+  const [selectedItem, setSelectedItem] = useState(null);
 
   const handleCategorize = async () => {
     setCategorizing(true);
@@ -185,9 +187,16 @@ export default function AIAgentKits() {
               <>
                 <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-4">
                   {paginated.map(kit => (
-                    <AIAgentKitCard key={kit.id} kit={kit} />
+                    <AIAgentKitCard key={kit.id} kit={kit} onClick={setSelectedItem} />
                   ))}
                 </div>
+
+                <ResourceDetailModal
+                  item={selectedItem}
+                  type="api"
+                  open={!!selectedItem}
+                  onClose={() => setSelectedItem(null)}
+                />
 
                 {totalPages > 1 && (
                   <div className="flex items-center justify-center gap-2 mt-10">

@@ -17,6 +17,10 @@
     "category": {
       "type": "string",
       "description": "Category tag for filtering"
+    },
+    "detailed_info": {
+      "type": "string",
+      "description": "AI-generated detailed information about the resource"
     }
   },
   "required": [

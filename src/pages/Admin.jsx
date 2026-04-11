@@ -8,7 +8,8 @@ import PromptList from '../components/PromptList';
 import AIPromptGenerator from '../components/admin/AIPromptGenerator';
 import CategoryManager from '../components/admin/CategoryManager';
 import UserManager from '../components/admin/UserManager';
-import { Plus, Sparkles, List, FolderOpen, Users } from 'lucide-react';
+import ResourceInfoGenerator from '../components/admin/ResourceInfoGenerator';
+import { Plus, Sparkles, List, FolderOpen, Users, FileText } from 'lucide-react';
 import AnimatedText from '../components/AnimatedText';
 
 export default function Admin() {
@@ -113,6 +114,13 @@ export default function Admin() {
               <Users className="w-4 h-4 mr-2" /> Users
             </Button>
             <Button
+              variant={activeTab === 'resourceInfo' ? 'default' : 'outline'}
+              onClick={() => setActiveTab(activeTab === 'resourceInfo' ? 'list' : 'resourceInfo')}
+              className={activeTab === 'resourceInfo' ? 'bg-[#3B82F6] text-white hover:bg-[#2563EB]' : 'border-border/50'}
+            >
+              <FileText className="w-4 h-4 mr-2" /> Resource Info
+            </Button>
+            <Button
               variant={activeTab === 'categories' ? 'default' : 'outline'}
               onClick={() => setActiveTab(activeTab === 'categories' ? 'list' : 'categories')}
               className={activeTab === 'categories' ? 'bg-[#3B82F6] text-white hover:bg-[#2563EB]' : 'border-border/50'}
@@ -143,6 +151,13 @@ export default function Admin() {
         {activeTab === 'users' && (
           <div className="mb-8">
             <UserManager />
+          </div>
+        )}
+
+        {/* Resource Info Generator Tab */}
+        {activeTab === 'resourceInfo' && (
+          <div className="mb-8 p-6 rounded-lg border border-[#3B82F6]/30 bg-card/50">
+            <ResourceInfoGenerator />
           </div>
         )}
 

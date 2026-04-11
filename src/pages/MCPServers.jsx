@@ -9,6 +9,7 @@ import ShineBorder from '../components/ShineBorder';
 import AnimatedText from '../components/AnimatedText';
 import { useOutletContext } from 'react-router-dom';
 import GuestLanding from '../components/GuestLanding';
+import ResourceDetailModal from '../components/ResourceDetailModal';
 
 export default function MCPServers() {
   const { user, hasPurchased } = useOutletContext();
@@ -18,6 +19,7 @@ export default function MCPServers() {
   const [page, setPage] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState('');
   const PAGE_SIZE = 30;
+  const [selectedItem, setSelectedItem] = useState(null);
 
   useEffect(() => {
     const loadData = async () => {
@@ -129,9 +131,16 @@ export default function MCPServers() {
               <>
                 <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-4">
                   {paginated.map(server => (
-                    <MCPServerCard key={server.id} server={server} />
+                    <MCPServerCard key={server.id} server={server} onClick={setSelectedItem} />
                   ))}
                 </div>
+
+                <ResourceDetailModal
+                  item={selectedItem}
+                  type="mcp"
+                  open={!!selectedItem}
+                  onClose={() => setSelectedItem(null)}
+                />
 
                 {totalPages > 1 && (
                   <div className="flex items-center justify-center gap-2 mt-10">
