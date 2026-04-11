@@ -7,7 +7,8 @@ import PromptForm from '../components/PromptForm';
 import PromptList from '../components/PromptList';
 import AIPromptGenerator from '../components/admin/AIPromptGenerator';
 import CategoryManager from '../components/admin/CategoryManager';
-import { Plus, Sparkles, List, FolderOpen } from 'lucide-react';
+import UserManager from '../components/admin/UserManager';
+import { Plus, Sparkles, List, FolderOpen, Users } from 'lucide-react';
 import AnimatedText from '../components/AnimatedText';
 
 export default function Admin() {
@@ -105,6 +106,13 @@ export default function Admin() {
           </div>
           <div className="flex items-center gap-3">
             <Button
+              variant={activeTab === 'users' ? 'default' : 'outline'}
+              onClick={() => setActiveTab(activeTab === 'users' ? 'list' : 'users')}
+              className={activeTab === 'users' ? 'bg-[#3B82F6] text-white hover:bg-[#2563EB]' : 'border-border/50'}
+            >
+              <Users className="w-4 h-4 mr-2" /> Users
+            </Button>
+            <Button
               variant={activeTab === 'categories' ? 'default' : 'outline'}
               onClick={() => setActiveTab(activeTab === 'categories' ? 'list' : 'categories')}
               className={activeTab === 'categories' ? 'bg-[#3B82F6] text-white hover:bg-[#2563EB]' : 'border-border/50'}
@@ -130,6 +138,13 @@ export default function Admin() {
             </Button>
           </div>
         </div>
+
+        {/* Users Tab */}
+        {activeTab === 'users' && (
+          <div className="mb-8">
+            <UserManager />
+          </div>
+        )}
 
         {/* Categories Tab */}
         {activeTab === 'categories' && (
