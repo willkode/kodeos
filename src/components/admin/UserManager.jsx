@@ -6,6 +6,7 @@ import { Trash2, Plus, Check, Mail } from 'lucide-react';
 
 export default function UserManager() {
   const [users, setUsers] = useState([]);
+  const [purchases, setPurchases] = useState([]);
   const [loading, setLoading] = useState(true);
   const [inviteEmail, setInviteEmail] = useState('');
   const [inviting, setInviting] = useState(false);
@@ -17,8 +18,12 @@ export default function UserManager() {
 
   const loadUsers = async () => {
     try {
-      const allUsers = await base44.entities.User.list('-created_date', 1000);
+      const [allUsers, allPurchases] = await Promise.all([
+        base44.entities.User.list('-created_date', 1000),
+        base44.entities.Purchase.filter({ status: 'completed' }, '-created_date', 2000)
+      ]);
       setUsers(allUsers);
+      setPurchases(allPurchases);
     } catch (err) {
       console.error('Error loading users:', err);
     } finally {
@@ -54,7 +59,7 @@ export default function UserManager() {
   };
 
   const hasPurchased = (userEmail) => {
-    return users.some(u => u.email === userEmail && u.purchases?.length > 0);
+    return purchases.some(p => p.userEmail === userEmail);
   };
 
   if (loading) {
