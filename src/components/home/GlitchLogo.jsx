@@ -99,10 +99,10 @@ export default function GlitchLogo({ text = 'KODEOS', fontSize = 10 }) {
   }, [fontSize, getRandomChar, getRandomColor]);
 
   return (
-    <div ref={containerRef} className="relative overflow-hidden rounded-md" style={{ width: 'fit-content', height: '36px' }}>
+    <div ref={containerRef} className="relative overflow-hidden" style={{ width: 'fit-content', height: '64px' }}>
       <canvas ref={canvasRef} className="absolute inset-0 z-0" />
       <div className="absolute inset-0 z-0 pointer-events-none bg-[radial-gradient(circle,_transparent_60%,_black_100%)]" />
-      <div className="relative z-10 flex items-center justify-center h-full px-3">
+      <div className="relative z-10 flex items-center justify-center h-full px-4">
         <span className="text-xl font-bold tracking-widest text-white mix-blend-screen">{text}</span>
       </div>
     </div>
