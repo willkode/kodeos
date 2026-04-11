@@ -87,7 +87,7 @@ export default function AIAgentKits() {
       <div className="max-w-7xl mx-auto px-6 pt-8 pb-12">
         {/* Header */}
         <div className="mb-8">
-          <AnimatedText text="AI Agent Kits" className="mb-2" />
+          <AnimatedText text="AI Models APIs" className="mb-2" />
           <p className="text-[#A1A1AA]">
             Browse {kits.length.toLocaleString()} AI model APIs and tools to power your applications.
           </p>
