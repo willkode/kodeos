@@ -6,7 +6,8 @@ import { useNavigate } from 'react-router-dom';
 import PromptForm from '../components/PromptForm';
 import PromptList from '../components/PromptList';
 import AIPromptGenerator from '../components/admin/AIPromptGenerator';
-import { Plus, Sparkles, List } from 'lucide-react';
+import CategoryManager from '../components/admin/CategoryManager';
+import { Plus, Sparkles, List, FolderOpen } from 'lucide-react';
 
 export default function Admin() {
   const navigate = useNavigate();
@@ -118,6 +119,13 @@ export default function Admin() {
           </div>
           <div className="flex items-center gap-3">
             <Button
+              variant={activeTab === 'categories' ? 'default' : 'outline'}
+              onClick={() => setActiveTab(activeTab === 'categories' ? 'list' : 'categories')}
+              className={activeTab === 'categories' ? 'bg-[#3B82F6] text-white hover:bg-[#2563EB]' : 'border-border/50'}
+            >
+              <FolderOpen className="w-4 h-4 mr-2" /> Categories
+            </Button>
+            <Button
               variant={activeTab === 'generate' ? 'default' : 'outline'}
               onClick={() => setActiveTab(activeTab === 'generate' ? 'list' : 'generate')}
               className={activeTab === 'generate' ? 'bg-[#3B82F6] text-white hover:bg-[#2563EB]' : 'border-border/50'}
@@ -136,6 +144,19 @@ export default function Admin() {
             </Button>
           </div>
         </div>
+
+        {/* Categories Tab */}
+        {activeTab === 'categories' && (
+          <div className="mb-8 p-6 rounded-lg border border-[#3B82F6]/30 bg-card/50">
+            <CategoryManager
+              prompts={prompts}
+              onPromptsCreated={async () => {
+                const updated = await base44.entities.Prompt.list('-created_date', 500);
+                setPrompts(updated);
+              }}
+            />
+          </div>
+        )}
 
         {/* AI Generator Tab */}
         {activeTab === 'generate' && (
