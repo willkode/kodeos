@@ -1,0 +1,27 @@
+{
+  "name": "MCPServer",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Name of the MCP server"
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of what the MCP server does"
+    },
+    "url": {
+      "type": "string",
+      "description": "Link to the MCP server"
+    },
+    "category": {
+      "type": "string",
+      "description": "Category tag for filtering"
+    }
+  },
+  "required": [
+    "name",
+    "description",
+    "url"
+  ]
+}

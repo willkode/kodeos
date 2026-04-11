@@ -11,6 +11,7 @@ import Pricing from './pages/Pricing';
 import Prompts from './pages/Prompts';
 import Admin from './pages/Admin';
 import AIAgentKits from './pages/AIAgentKits';
+import MCPServers from './pages/MCPServers';
 import Dashboard from './pages/Dashboard';
 
 const AuthenticatedApp = () => {
@@ -45,6 +46,7 @@ const AuthenticatedApp = () => {
         <Route path="/prompts" element={<Prompts />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/ai-agent-kits" element={<AIAgentKits />} />
+        <Route path="/mcp-servers" element={<MCPServers />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/profile" element={<Dashboard />} />
         <Route path="/settings" element={<Dashboard />} />
