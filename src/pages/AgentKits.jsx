@@ -20,6 +20,19 @@ export default function AgentKits() {
   const [selectedCategory, setSelectedCategory] = useState('');
   const PAGE_SIZE = 30;
   const [selectedItem, setSelectedItem] = useState(null);
+  const [savedIds, setSavedIds] = useState([]);
+
+  useEffect(() => {
+    if (user) setSavedIds(user.savedAgentKits || []);
+  }, [user]);
+
+  const toggleSave = async (id) => {
+    const updated = savedIds.includes(id)
+      ? savedIds.filter(i => i !== id)
+      : [...savedIds, id];
+    setSavedIds(updated);
+    await base44.auth.updateMe({ savedAgentKits: updated });
+  };
 
   useEffect(() => {
     const loadData = async () => {
@@ -126,7 +139,7 @@ export default function AgentKits() {
               <>
                 <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-4">
                   {paginated.map(kit => (
-                    <AgentKitCard key={kit.id} kit={kit} onClick={setSelectedItem} />
+                    <AgentKitCard key={kit.id} kit={kit} onClick={setSelectedItem} isSaved={savedIds.includes(kit.id)} onToggleSave={() => toggleSave(kit.id)} />
                   ))}
                 </div>
 

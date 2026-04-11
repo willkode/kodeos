@@ -1,40 +1,97 @@
 import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
-import { useOutletContext } from 'react-router-dom';
+import { useOutletContext, useNavigate } from 'react-router-dom';
 import PromptCard from '../components/PromptCard';
 import AIAgentKitCard from '../components/AIAgentKitCard';
-import { Bookmark, Sparkles } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import AgentKitCard from '../components/AgentKitCard';
+import MCPServerCard from '../components/MCPServerCard';
+import ResourceDetailModal from '../components/ResourceDetailModal';
+import SavedResourceSection from '../components/SavedResourceSection';
+import { Sparkles } from 'lucide-react';
 import AnimatedText from '../components/AnimatedText';
 
 export default function Dashboard() {
   const { user } = useOutletContext();
   const navigate = useNavigate();
-  const [savedPrompts, setSavedPrompts] = useState([]);
   const [loading, setLoading] = useState(true);
+
   const [savedPromptIds, setSavedPromptIds] = useState([]);
+  const [savedAPIIds, setSavedAPIIds] = useState([]);
+  const [savedAgentIds, setSavedAgentIds] = useState([]);
+  const [savedMCPIds, setSavedMCPIds] = useState([]);
+
+  const [savedPrompts, setSavedPrompts] = useState([]);
+  const [savedAPIs, setSavedAPIs] = useState([]);
+  const [savedAgents, setSavedAgents] = useState([]);
+  const [savedMCPs, setSavedMCPs] = useState([]);
+
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [selectedType, setSelectedType] = useState('');
 
   useEffect(() => {
     const load = async () => {
       if (!user) { setLoading(false); return; }
-      const ids = user.savedPrompts || [];
-      setSavedPromptIds(ids);
-      if (ids.length > 0) {
-        const allPrompts = await base44.entities.Prompt.list('-created_date', 500);
-        setSavedPrompts(allPrompts.filter(p => ids.includes(p.id)));
-      }
+
+      const promptIds = user.savedPrompts || [];
+      const apiIds = user.savedAPIs || [];
+      const agentIds = user.savedAgentKits || [];
+      const mcpIds = user.savedMCPServers || [];
+
+      setSavedPromptIds(promptIds);
+      setSavedAPIIds(apiIds);
+      setSavedAgentIds(agentIds);
+      setSavedMCPIds(mcpIds);
+
+      const [allPrompts, allAPIs, allAgents, allMCPs] = await Promise.all([
+        promptIds.length > 0 ? base44.entities.Prompt.list('-created_date', 500) : Promise.resolve([]),
+        apiIds.length > 0 ? base44.entities.AIAgentKit.list('-created_date', 2000) : Promise.resolve([]),
+        agentIds.length > 0 ? base44.entities.AgentKit.list('-created_date', 2000) : Promise.resolve([]),
+        mcpIds.length > 0 ? base44.entities.MCPServer.list('-created_date', 2000) : Promise.resolve([]),
+      ]);
+
+      setSavedPrompts(allPrompts.filter(p => promptIds.includes(p.id)));
+      setSavedAPIs(allAPIs.filter(a => apiIds.includes(a.id)));
+      setSavedAgents(allAgents.filter(a => agentIds.includes(a.id)));
+      setSavedMCPs(allMCPs.filter(m => mcpIds.includes(m.id)));
       setLoading(false);
     };
     load();
   }, [user]);
 
-  const toggleSave = async (promptId) => {
+  const toggleSavePrompt = async (promptId) => {
     const updated = savedPromptIds.includes(promptId)
       ? savedPromptIds.filter(id => id !== promptId)
       : [...savedPromptIds, promptId];
     setSavedPromptIds(updated);
     setSavedPrompts(prev => prev.filter(p => updated.includes(p.id)));
     await base44.auth.updateMe({ savedPrompts: updated });
+  };
+
+  const toggleSaveAPI = async (id) => {
+    const updated = savedAPIIds.includes(id)
+      ? savedAPIIds.filter(i => i !== id)
+      : [...savedAPIIds, id];
+    setSavedAPIIds(updated);
+    setSavedAPIs(prev => prev.filter(a => updated.includes(a.id)));
+    await base44.auth.updateMe({ savedAPIs: updated });
+  };
+
+  const toggleSaveAgent = async (id) => {
+    const updated = savedAgentIds.includes(id)
+      ? savedAgentIds.filter(i => i !== id)
+      : [...savedAgentIds, id];
+    setSavedAgentIds(updated);
+    setSavedAgents(prev => prev.filter(a => updated.includes(a.id)));
+    await base44.auth.updateMe({ savedAgentKits: updated });
+  };
+
+  const toggleSaveMCP = async (id) => {
+    const updated = savedMCPIds.includes(id)
+      ? savedMCPIds.filter(i => i !== id)
+      : [...savedMCPIds, id];
+    setSavedMCPIds(updated);
+    setSavedMCPs(prev => prev.filter(m => updated.includes(m.id)));
+    await base44.auth.updateMe({ savedMCPServers: updated });
   };
 
   if (loading) {
@@ -63,33 +120,71 @@ export default function Dashboard() {
           </button>
         </div>
 
-        {/* Saved Prompts */}
-        <div className="mb-12">
-          <div className="flex items-center gap-2 mb-6">
-            <Bookmark className="w-5 h-5 text-[#3B82F6]" />
-            <h2 className="text-xl font-semibold">Saved Prompts</h2>
-            <span className="text-sm text-[#71717A]">({savedPrompts.length})</span>
-          </div>
-
-          {savedPrompts.length === 0 ? (
-            <div className="text-center py-16 border border-white/[0.06] rounded-xl bg-white/[0.02]">
-              <Bookmark className="w-10 h-10 text-[#71717A] mx-auto mb-3" />
-              <p className="text-[#A1A1AA] mb-1">No saved prompts yet</p>
-              <p className="text-sm text-[#71717A]">Browse the prompt library and bookmark your favorites.</p>
-            </div>
-          ) : (
-            <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
-              {savedPrompts.map(prompt => (
-                <PromptCard
-                  key={prompt.id}
-                  prompt={prompt}
-                  isSaved={true}
-                  onToggleSave={() => toggleSave(prompt.id)}
-                />
-              ))}
-            </div>
+        <SavedResourceSection
+          title="Saved Prompts"
+          items={savedPrompts}
+          emptyText="Browse the prompt library and bookmark your favorites."
+          renderItem={(prompt) => (
+            <PromptCard
+              key={prompt.id}
+              prompt={prompt}
+              isSaved={true}
+              onToggleSave={() => toggleSavePrompt(prompt.id)}
+            />
           )}
-        </div>
+        />
+
+        <SavedResourceSection
+          title="Saved AI Model APIs"
+          items={savedAPIs}
+          emptyText="Browse AI Model APIs and save your favorites."
+          renderItem={(api) => (
+            <AIAgentKitCard
+              key={api.id}
+              kit={api}
+              isSaved={true}
+              onToggleSave={() => toggleSaveAPI(api.id)}
+              onClick={(item) => { setSelectedItem(item); setSelectedType('api'); }}
+            />
+          )}
+        />
+
+        <SavedResourceSection
+          title="Saved Agent Kits"
+          items={savedAgents}
+          emptyText="Browse Agent Kits and save your favorites."
+          renderItem={(kit) => (
+            <AgentKitCard
+              key={kit.id}
+              kit={kit}
+              isSaved={true}
+              onToggleSave={() => toggleSaveAgent(kit.id)}
+              onClick={(item) => { setSelectedItem(item); setSelectedType('agent'); }}
+            />
+          )}
+        />
+
+        <SavedResourceSection
+          title="Saved MCP Servers"
+          items={savedMCPs}
+          emptyText="Browse MCP Servers and save your favorites."
+          renderItem={(server) => (
+            <MCPServerCard
+              key={server.id}
+              server={server}
+              isSaved={true}
+              onToggleSave={() => toggleSaveMCP(server.id)}
+              onClick={(item) => { setSelectedItem(item); setSelectedType('mcp'); }}
+            />
+          )}
+        />
+
+        <ResourceDetailModal
+          item={selectedItem}
+          type={selectedType}
+          open={!!selectedItem}
+          onClose={() => setSelectedItem(null)}
+        />
       </div>
     </div>
   );

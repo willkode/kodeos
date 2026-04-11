@@ -20,6 +20,19 @@ export default function MCPServers() {
   const [selectedCategory, setSelectedCategory] = useState('');
   const PAGE_SIZE = 30;
   const [selectedItem, setSelectedItem] = useState(null);
+  const [savedIds, setSavedIds] = useState([]);
+
+  useEffect(() => {
+    if (user) setSavedIds(user.savedMCPServers || []);
+  }, [user]);
+
+  const toggleSave = async (id) => {
+    const updated = savedIds.includes(id)
+      ? savedIds.filter(i => i !== id)
+      : [...savedIds, id];
+    setSavedIds(updated);
+    await base44.auth.updateMe({ savedMCPServers: updated });
+  };
 
   useEffect(() => {
     const loadData = async () => {
@@ -131,7 +144,7 @@ export default function MCPServers() {
               <>
                 <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-4">
                   {paginated.map(server => (
-                    <MCPServerCard key={server.id} server={server} onClick={setSelectedItem} />
+                    <MCPServerCard key={server.id} server={server} onClick={setSelectedItem} isSaved={savedIds.includes(server.id)} onToggleSave={() => toggleSave(server.id)} />
                   ))}
                 </div>
 
