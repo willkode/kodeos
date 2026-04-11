@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { base44 } from '@/api/base44Client';
 import { Sparkles, Loader2, CheckCircle2, AlertCircle, Play } from 'lucide-react';
+import { PROMPT_CATEGORIES } from '../../lib/promptCategories';
 
 export default function AIPromptGenerator({ onPromptsCreated }) {
   const [input, setInput] = useState('');
@@ -62,7 +63,7 @@ Generate a complete, production-ready prompt object. The prompt should be detail
 
 Rules:
 - The "content" field should be a thorough, multi-paragraph prompt (at least 200 words) that tells an AI exactly what to build
-- Pick the most relevant category from: Landing Pages, Auth Flows, Dashboards, E-commerce, Admin Panels, Forms, Real-time, AI Integration, Animations, State Management
+- Pick the most relevant category from: ${PROMPT_CATEGORIES.join(', ')}
 - Pick difficulty from: Beginner, Intermediate, Advanced
 - Pick 2-5 most relevant platforms from: Base44, Lovable, Bolt, Replit, Floot, Emergent.sh, V0 by Vercel, Vitara AI, Rocket.new, Meku
 - Generate 2-5 relevant tags`,
@@ -73,7 +74,7 @@ Rules:
             description: { type: "string" },
             category: {
               type: "string",
-              enum: ["Landing Pages", "Auth Flows", "Dashboards", "E-commerce", "Admin Panels", "Forms", "Real-time", "AI Integration", "Animations", "State Management"]
+              enum: PROMPT_CATEGORIES
             },
             content: { type: "string" },
             platforms: {

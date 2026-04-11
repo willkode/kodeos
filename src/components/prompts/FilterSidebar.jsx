@@ -1,18 +1,8 @@
 import { X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { PROMPT_CATEGORIES } from '../../lib/promptCategories';
 
-const categories = [
-  'Landing Pages',
-  'Auth Flows',
-  'Dashboards',
-  'E-commerce',
-  'Admin Panels',
-  'Forms',
-  'Real-time',
-  'AI Integration',
-  'Animations',
-  'State Management'
-];
+const categories = PROMPT_CATEGORIES;
 
 const difficulties = [
   { label: 'Beginner', color: 'bg-green-500/10 text-green-400 border-green-500/20' },

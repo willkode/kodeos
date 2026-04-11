@@ -9,19 +9,9 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
+import { PROMPT_CATEGORIES } from '../lib/promptCategories';
 
-const categories = [
-  'Landing Pages',
-  'Auth Flows',
-  'Dashboards',
-  'E-commerce',
-  'Admin Panels',
-  'Forms',
-  'Real-time',
-  'AI Integration',
-  'Animations',
-  'State Management'
-];
+const categories = PROMPT_CATEGORIES;
 
 const platforms = [
   'Base44',
