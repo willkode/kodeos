@@ -4,8 +4,8 @@ import { cn } from '@/lib/utils';
 
 const AnimatedText = forwardRef(({
   text,
-  duration = 0.5,
-  delay = 0.1,
+  duration = 0.25,
+  delay = 0.05,
   replay = true,
   className,
   textClassName,
