@@ -1,7 +1,8 @@
 import { useState, useRef, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Home, User, Settings, LogOut } from 'lucide-react';
+import { Home, User, Settings, LogOut, Shield } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useOutletContext } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 
 const spanVariants = {
@@ -18,7 +19,7 @@ const spanVariants = {
   },
 };
 
-const TABS = [
+const BASE_TABS = [
   { title: 'Dashboard', icon: Home, path: '/dashboard' },
   { title: 'Profile', icon: User, path: '/profile' },
   { type: 'separator' },
@@ -26,10 +27,17 @@ const TABS = [
   { title: 'Logout', icon: LogOut, action: 'logout' },
 ];
 
+const ADMIN_TAB = { title: 'Admin', icon: Shield, path: '/admin' };
+
 export default function NavExpandedTabs() {
   const [selected, setSelected] = useState(null);
   const containerRef = useRef(null);
   const navigate = useNavigate();
+  const { user } = useOutletContext();
+
+  const TABS = user?.role === 'admin'
+    ? [...BASE_TABS.slice(0, 3), ADMIN_TAB, ...BASE_TABS.slice(3)]
+    : BASE_TABS;
 
   useEffect(() => {
     const handleClickOutside = (e) => {
