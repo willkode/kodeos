@@ -2,6 +2,7 @@ import { Button } from '@/components/ui/button';
 import { base44 } from '@/api/base44Client';
 import { useNavigate } from 'react-router-dom';
 import GlitchLogo from './GlitchLogo';
+import NavExpandedTabs from '../NavExpandedTabs';
 
 export default function HomeNavbar({ user }) {
   const navigate = useNavigate();
@@ -25,17 +26,7 @@ export default function HomeNavbar({ user }) {
 
         <div className="flex items-center gap-3">
           {user ? (
-            <>
-              <span className="text-sm text-[#A1A1AA] hidden sm:block">{user.email}</span>
-              <Button
-                size="sm"
-                variant="ghost"
-                className="text-[#A1A1AA] hover:text-white hover:bg-white/[0.06]"
-                onClick={() => base44.auth.logout()}
-              >
-                Logout
-              </Button>
-            </>
+            <NavExpandedTabs />
           ) : (
             <Button
               size="sm"

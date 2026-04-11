@@ -11,6 +11,7 @@ import Pricing from './pages/Pricing';
 import Prompts from './pages/Prompts';
 import Admin from './pages/Admin';
 import AIAgentKits from './pages/AIAgentKits';
+import Dashboard from './pages/Dashboard';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -44,6 +45,9 @@ const AuthenticatedApp = () => {
         <Route path="/prompts" element={<Prompts />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/ai-agent-kits" element={<AIAgentKits />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/profile" element={<Dashboard />} />
+        <Route path="/settings" element={<Dashboard />} />
         <Route path="*" element={<PageNotFound />} />
       </Route>
     </Routes>
