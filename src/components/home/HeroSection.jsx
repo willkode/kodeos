@@ -1,15 +1,9 @@
-import { ArrowRight, Copy } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useState } from 'react';
+import LibraryCounters from './LibraryCounters';
 
 export default function HeroSection({ hasPurchased, onGetStarted, onViewPricing }) {
-  const [copied, setCopied] = useState(false);
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText('npx kodeos init');
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
 
   return (
     <section className="relative pt-32 pb-24 px-6">
@@ -21,22 +15,22 @@ export default function HeroSection({ hasPurchased, onGetStarted, onViewPricing 
         {/* Badge */}
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/[0.08] bg-white/[0.03] mb-8">
           <div className="w-1.5 h-1.5 rounded-full bg-[#3B82F6] animate-pulse" />
-          <span className="text-sm text-[#A1A1AA] font-medium">The prompt library for vibecoders</span>
+          <span className="text-sm text-[#A1A1AA] font-medium">The ultimate toolkit for vibecoders</span>
         </div>
 
         {/* Title */}
         <h1 className="text-5xl md:text-7xl font-bold tracking-tight leading-[1.1] mb-6">
-          Build faster with
+          Ship apps faster with
           <br />
-          <span className="bg-gradient-to-r from-[#3B82F6] via-[#60A5FA] to-[#3B82F6] bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-[#3B82F6] via-[#60A5FA] to-[#A78BFA] bg-clip-text text-transparent">
             KodeOS
           </span>
         </h1>
 
         {/* Subtitle */}
         <p className="text-lg md:text-xl text-[#A1A1AA] max-w-2xl mx-auto mb-10 leading-relaxed">
-          200+ production-ready prompts for Base44, Lovable, Bolt, and more.
-          Engineered for no-code platforms. One-time payment, lifetime access.
+          Prompts, AI model APIs, agent kits, and MCP servers — all in one place.
+          The curated toolkit that turns vibecoding into shipping.
         </p>
 
         {/* CTA buttons */}
@@ -61,7 +55,10 @@ export default function HeroSection({ hasPurchased, onGetStarted, onViewPricing 
           )}
         </div>
 
-
+        {/* Counters */}
+        <div className="mt-16">
+          <LibraryCounters />
+        </div>
       </div>
     </section>
   );

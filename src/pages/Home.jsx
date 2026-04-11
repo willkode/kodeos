@@ -1,10 +1,9 @@
-import { ArrowRight, Code, Sparkles, Zap, Terminal, ChevronRight, Copy } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import { useState, useEffect } from 'react';
 import HeroSection from '../components/home/HeroSection';
-import FeaturesSection from '../components/home/FeaturesSection';
+import WhySection from '../components/home/WhySection';
+import HowToUseSection from '../components/home/HowToUseSection';
 import CTASection from '../components/home/CTASection';
 import HomeFooter from '../components/home/HomeFooter';
 
@@ -45,7 +44,8 @@ export default function Home() {
   return (
     <div className="overflow-x-hidden pt-16">
       <HeroSection hasPurchased={hasPurchased} onGetStarted={handleGetStarted} onViewPricing={() => navigate('/pricing')} />
-      <FeaturesSection />
+      <WhySection />
+      <HowToUseSection />
       <CTASection hasPurchased={hasPurchased} onGetStarted={handleGetStarted} />
       <HomeFooter />
     </div>
