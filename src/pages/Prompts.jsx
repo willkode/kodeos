@@ -60,7 +60,7 @@ export default function Prompts() {
       {/* Navbar */}
       <nav className="border-b border-border/30 backdrop-blur-md bg-background/50 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <div className="text-xl font-bold neon-glow font-mono">KodeOS</div>
+          <div className="text-xl font-bold font-mono">KodeOS</div>
           <div className="flex items-center gap-4">
             <span className="text-sm text-muted-foreground">{user?.email}</span>
             <Button size="sm" variant="outline" onClick={() => base44.auth.logout()}>
