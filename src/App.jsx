@@ -9,6 +9,7 @@ import Home from './pages/Home';
 import Pricing from './pages/Pricing';
 import Prompts from './pages/Prompts';
 import Admin from './pages/Admin';
+import AIAgentKits from './pages/AIAgentKits';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -40,6 +41,7 @@ const AuthenticatedApp = () => {
       <Route path="/pricing" element={<Pricing />} />
       <Route path="/prompts" element={<Prompts />} />
       <Route path="/admin" element={<Admin />} />
+      <Route path="/ai-agent-kits" element={<AIAgentKits />} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
