@@ -85,7 +85,7 @@ export default function Prompts() {
         </div>
 
         {/* Search */}
-        <div className="mb-8 max-w-2xl">
+        <div className="mb-8">
           <GradientSearchInput
             placeholder="Search prompts..."
             value={search}

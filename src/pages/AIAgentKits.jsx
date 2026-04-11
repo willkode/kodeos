@@ -94,7 +94,7 @@ export default function AIAgentKits() {
         </div>
 
         {/* Search */}
-        <div className="mb-8 max-w-2xl">
+        <div className="mb-8">
           <GradientSearchInput
             placeholder="Search AI agent kits..."
             value={search}
