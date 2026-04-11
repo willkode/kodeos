@@ -4,6 +4,7 @@ import { useOutletContext } from 'react-router-dom';
 import PromptCard from '../components/PromptCard';
 import AIAgentKitCard from '../components/AIAgentKitCard';
 import { Bookmark } from 'lucide-react';
+import AnimatedText from '../components/AnimatedText';
 
 export default function Dashboard() {
   const { user } = useOutletContext();
@@ -46,9 +47,7 @@ export default function Dashboard() {
     <div className="pt-16">
       <div className="max-w-7xl mx-auto px-6 py-12">
         <div className="mb-8">
-          <h1 className="text-4xl font-bold mb-2">
-            Your <span className="bg-gradient-to-r from-[#3B82F6] to-[#60A5FA] bg-clip-text text-transparent">Dashboard</span>
-          </h1>
+          <AnimatedText text="Your Dashboard" className="mb-2" />
           <p className="text-[#A1A1AA]">
             Welcome back{user?.full_name ? `, ${user.full_name}` : ''}. Here are your saved items.
           </p>

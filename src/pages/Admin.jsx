@@ -8,6 +8,7 @@ import PromptList from '../components/PromptList';
 import AIPromptGenerator from '../components/admin/AIPromptGenerator';
 import CategoryManager from '../components/admin/CategoryManager';
 import { Plus, Sparkles, List, FolderOpen } from 'lucide-react';
+import AnimatedText from '../components/AnimatedText';
 
 export default function Admin() {
   const navigate = useNavigate();
@@ -97,9 +98,7 @@ export default function Admin() {
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-4xl font-bold mb-2">
-              Manage <span className="text-[#3B82F6]">Prompts</span>
-            </h1>
+            <AnimatedText text="Manage Prompts" className="mb-2" />
             <p className="text-muted-foreground">
               {filtered.length} prompts in library
             </p>

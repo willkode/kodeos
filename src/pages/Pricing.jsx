@@ -3,6 +3,7 @@ import { ArrowRight, Check } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import { useState } from 'react';
+import AnimatedText from '../components/AnimatedText';
 
 export default function Pricing() {
   const navigate = useNavigate();
@@ -44,9 +45,11 @@ export default function Pricing() {
     <div className="pt-16">
       <div className="max-w-4xl mx-auto px-6 py-20">
         <div className="text-center mb-16">
-          <h1 className="text-5xl font-bold mb-4">
-            One Price. <span className="neon-glow">Lifetime Access.</span>
-          </h1>
+          <AnimatedText
+            text="One Price. Lifetime Access."
+            className="mb-4 items-center"
+            textClassName="text-5xl"
+          />
           <p className="text-xl text-muted-foreground">
             Everything you need to build faster, forever.
           </p>

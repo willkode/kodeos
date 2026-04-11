@@ -7,6 +7,7 @@ import GradientSearchInput from '../components/GradientSearchInput';
 import AIAgentKitCard from '../components/AIAgentKitCard';
 import FilterSidebar from '../components/prompts/FilterSidebar';
 import ShineBorder from '../components/ShineBorder';
+import AnimatedText from '../components/AnimatedText';
 import { useOutletContext } from 'react-router-dom';
 import { Progress } from '@/components/ui/progress';
 
@@ -86,9 +87,7 @@ export default function AIAgentKits() {
       <div className="max-w-7xl mx-auto px-6 pt-8 pb-12">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-4xl font-bold mb-2">
-            AI Agent <span className="bg-gradient-to-r from-[#3B82F6] to-[#60A5FA] bg-clip-text text-transparent">Kits</span>
-          </h1>
+          <AnimatedText text="AI Agent Kits" className="mb-2" />
           <p className="text-[#A1A1AA]">
             Browse {kits.length.toLocaleString()} AI model APIs and tools to power your applications.
           </p>

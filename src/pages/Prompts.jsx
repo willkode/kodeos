@@ -7,6 +7,7 @@ import { Bookmark, X } from 'lucide-react';
 import GradientSearchInput from '../components/GradientSearchInput';
 import FilterSidebar from '../components/prompts/FilterSidebar';
 import ShineBorder from '../components/ShineBorder';
+import AnimatedText from '../components/AnimatedText';
 import { useOutletContext } from 'react-router-dom';
 
 
@@ -61,9 +62,7 @@ export default function Prompts() {
       <div className="max-w-7xl mx-auto px-6 py-12">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-4xl font-bold mb-4">
-            Prompt <span className="neon-glow">Library</span>
-          </h1>
+          <AnimatedText text="Prompt Library" className="mb-4" />
           <div className="flex items-center gap-4 mt-2">
             <button
               onClick={() => setShowSaved(false)}
