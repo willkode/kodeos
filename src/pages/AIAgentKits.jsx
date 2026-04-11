@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Search, X } from 'lucide-react';
+import { Search, X, Sparkles, Loader2 } from 'lucide-react';
 import AIAgentKitCard from '../components/AIAgentKitCard';
 import HomeNavbar from '../components/home/HomeNavbar';
 import FilterSidebar from '../components/prompts/FilterSidebar';
@@ -14,7 +14,24 @@ export default function AIAgentKits() {
   const [user, setUser] = useState(null);
   const [page, setPage] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState('');
+  const [categorizing, setCategorizing] = useState(false);
   const PAGE_SIZE = 30;
+
+  const handleCategorize = async () => {
+    setCategorizing(true);
+    try {
+      const res = await base44.functions.invoke('categorizeAgentKits', {});
+      // Reload kits after categorization
+      const allKits = await base44.entities.AIAgentKit.list('-created_date', 2000);
+      setKits(allKits);
+      alert(`Categorized ${res.data.updated} items!`);
+    } catch (err) {
+      console.error('Categorization error:', err);
+      alert('Error categorizing items');
+    } finally {
+      setCategorizing(false);
+    }
+  };
 
   useEffect(() => {
     const loadData = async () => {
@@ -84,12 +101,28 @@ export default function AIAgentKits() {
         <div className="flex gap-8">
           {/* Sidebar */}
           <aside className="hidden lg:block w-56 flex-shrink-0">
-            <div className="sticky top-24 p-4 rounded-xl border border-white/[0.06] bg-white/[0.02]">
+            <div className="sticky top-24">
+              {user?.role === 'admin' && (
+                <Button
+                  onClick={handleCategorize}
+                  disabled={categorizing}
+                  className="w-full mb-3 bg-[#3B82F6] text-white hover:bg-[#2563EB] text-xs font-semibold"
+                  size="sm"
+                >
+                  {categorizing ? (
+                    <><Loader2 className="w-3.5 h-3.5 mr-1.5 animate-spin" /> Categorizing...</>
+                  ) : (
+                    <><Sparkles className="w-3.5 h-3.5 mr-1.5" /> AI Categorize All</>
+                  )}
+                </Button>
+              )}
+              <div className="p-4 rounded-xl border border-white/[0.06] bg-white/[0.02]">
               <FilterSidebar
                 selectedCategory={selectedCategory}
                 setSelectedCategory={setSelectedCategory}
                 categoryCounts={categoryCounts}
               />
+              </div>
             </div>
           </aside>
 
