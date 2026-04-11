@@ -43,12 +43,8 @@ export default function UserManager() {
   const handleGrantAccess = async (userId) => {
     setGrantingAccess(prev => ({ ...prev, [userId]: true }));
     try {
-      await base44.asServiceRole.entities.Purchase.create({
-        userEmail: users.find(u => u.id === userId)?.email,
-        stripePaymentIntentId: 'admin-grant-' + Date.now(),
-        amount: 0,
-        status: 'completed'
-      });
+      const userEmail = users.find(u => u.id === userId)?.email;
+      await base44.functions.invoke('grantUserAccess', { userEmail });
       await loadUsers();
     } catch (err) {
       console.error('Error granting access:', err);
