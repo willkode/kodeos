@@ -12,21 +12,20 @@ export default function ShineBorder({
 
   return (
     <div
-      style={{ '--border-radius': `${borderRadius}px` }}
+      style={{
+        '--border-radius': `${borderRadius}px`,
+        '--border-width': `${borderWidth}px`,
+        '--shine-pulse-duration': `${duration}s`,
+        '--mask-linear-gradient': 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+        '--background-radial-gradient': `radial-gradient(transparent,transparent,${colorStr},transparent,transparent)`,
+      }}
       className={cn(
-        'relative grid w-full place-items-center rounded-xl bg-transparent',
+        'relative w-full overflow-hidden rounded-xl',
         className
       )}
     >
       <div
-        style={{
-          '--border-width': `${borderWidth}px`,
-          '--border-radius': `${borderRadius}px`,
-          '--shine-pulse-duration': `${duration}s`,
-          '--mask-linear-gradient': 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
-          '--background-radial-gradient': `radial-gradient(transparent,transparent,${colorStr},transparent,transparent)`,
-        }}
-        className="before:absolute before:inset-0 before:aspect-square before:size-full before:rounded-xl before:p-[--border-width] before:will-change-[background-position] before:content-[''] before:![-webkit-mask-composite:xor] before:[background-image:--background-radial-gradient] before:[background-size:300%_300%] before:![mask-composite:exclude] before:[mask:--mask-linear-gradient] motion-safe:before:animate-shine-pulse"
+        className="absolute inset-0 rounded-xl p-[--border-width] will-change-[background-position] content-[''] ![-webkit-mask-composite:xor] [background-image:--background-radial-gradient] [background-size:300%_300%] ![mask-composite:exclude] [mask:--mask-linear-gradient] motion-safe:animate-shine-pulse"
       />
       <div className="relative z-10 w-full">{children}</div>
     </div>
