@@ -66,15 +66,12 @@ module.exports = {
   			}
   		},
   		keyframes: {
-  			'accordion-down': {
-  				from: {
-  					height: '0'
-  				},
-  				to: {
-  					height: 'var(--radix-accordion-content-height)'
-  				}
+  			'shine-pulse': {
+  				'0%': { 'background-position': '0% 0%' },
+  				'50%': { 'background-position': '100% 100%' },
+  				'to': { 'background-position': '0% 0%' },
   			},
-  			'accordion-up': {
+  			'accordion-down': {
   				from: {
   					height: 'var(--radix-accordion-content-height)'
   				},
@@ -84,6 +81,7 @@ module.exports = {
   			}
   		},
   		animation: {
+  			'shine-pulse': 'shine-pulse var(--shine-pulse-duration, 14s) infinite linear',
   			'accordion-down': 'accordion-down 0.2s ease-out',
   			'accordion-up': 'accordion-up 0.2s ease-out'
   		}

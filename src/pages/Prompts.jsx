@@ -6,6 +6,7 @@ import PromptCard from '../components/PromptCard';
 import { Bookmark, X } from 'lucide-react';
 import GradientSearchInput from '../components/GradientSearchInput';
 import FilterSidebar from '../components/prompts/FilterSidebar';
+import ShineBorder from '../components/ShineBorder';
 import { useOutletContext } from 'react-router-dom';
 
 
@@ -97,13 +98,15 @@ export default function Prompts() {
         <div className="flex gap-8">
           {/* Sidebar */}
           <aside className="hidden lg:block w-56 flex-shrink-0">
-            <div className="sticky top-24 p-4 rounded-xl border border-white/[0.06] bg-white/[0.02]">
-              <FilterSidebar
-                selectedCategory={selectedCategory}
-                setSelectedCategory={setSelectedCategory}
-                categoryCounts={prompts.reduce((acc, p) => { acc[p.category] = (acc[p.category] || 0) + 1; return acc; }, {})}
-              />
-            </div>
+            <ShineBorder color={['#3B82F6', '#A855F7', '#38bdf8']}>
+              <div className="p-4 rounded-xl bg-white/[0.02]">
+                <FilterSidebar
+                  selectedCategory={selectedCategory}
+                  setSelectedCategory={setSelectedCategory}
+                  categoryCounts={prompts.reduce((acc, p) => { acc[p.category] = (acc[p.category] || 0) + 1; return acc; }, {})}
+                />
+              </div>
+            </ShineBorder>
           </aside>
 
           {/* Main Content */}

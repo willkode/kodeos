@@ -6,6 +6,7 @@ import { X, Sparkles, Loader2 } from 'lucide-react';
 import GradientSearchInput from '../components/GradientSearchInput';
 import AIAgentKitCard from '../components/AIAgentKitCard';
 import FilterSidebar from '../components/prompts/FilterSidebar';
+import ShineBorder from '../components/ShineBorder';
 import { useOutletContext } from 'react-router-dom';
 import { Progress } from '@/components/ui/progress';
 
@@ -131,13 +132,15 @@ export default function AIAgentKits() {
                   )}
                 </>
               )}
-              <div className="p-4 rounded-xl border border-white/[0.06] bg-white/[0.02]">
-              <FilterSidebar
-                selectedCategory={selectedCategory}
-                setSelectedCategory={setSelectedCategory}
-                categoryCounts={categoryCounts}
-              />
-              </div>
+              <ShineBorder color={['#3B82F6', '#A855F7', '#38bdf8']}>
+                <div className="p-4 rounded-xl bg-white/[0.02]">
+                  <FilterSidebar
+                    selectedCategory={selectedCategory}
+                    setSelectedCategory={setSelectedCategory}
+                    categoryCounts={categoryCounts}
+                  />
+                </div>
+              </ShineBorder>
             </div>
           </aside>
 
