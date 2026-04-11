@@ -41,22 +41,7 @@ export default function Pricing() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-card">
-      {/* Navbar */}
-      <nav className="border-b border-border/30 backdrop-blur-md bg-background/50 sticky top-0 z-50">
-        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-          <button
-            onClick={() => navigate('/')}
-            className="text-xl font-bold neon-glow font-mono hover:opacity-80 transition"
-          >
-            KodeOS
-          </button>
-          <Button variant="outline" size="sm" onClick={() => navigate('/')}>
-            Back
-          </Button>
-        </div>
-      </nav>
-
+    <div className="pt-16">
       <div className="max-w-4xl mx-auto px-6 py-20">
         <div className="text-center mb-16">
           <h1 className="text-5xl font-bold mb-4">

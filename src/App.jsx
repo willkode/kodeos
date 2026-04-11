@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import PageNotFound from './lib/PageNotFound';
 import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
+import Layout from './components/Layout';
 import Home from './pages/Home';
 import Pricing from './pages/Pricing';
 import Prompts from './pages/Prompts';
@@ -37,12 +38,14 @@ const AuthenticatedApp = () => {
   // Render the main app
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/pricing" element={<Pricing />} />
-      <Route path="/prompts" element={<Prompts />} />
-      <Route path="/admin" element={<Admin />} />
-      <Route path="/ai-agent-kits" element={<AIAgentKits />} />
-      <Route path="*" element={<PageNotFound />} />
+      <Route element={<Layout />}>
+        <Route path="/" element={<Home />} />
+        <Route path="/pricing" element={<Pricing />} />
+        <Route path="/prompts" element={<Prompts />} />
+        <Route path="/admin" element={<Admin />} />
+        <Route path="/ai-agent-kits" element={<AIAgentKits />} />
+        <Route path="*" element={<PageNotFound />} />
+      </Route>
     </Routes>
   );
 };

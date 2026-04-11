@@ -92,20 +92,7 @@ export default function Admin() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-card">
-      {/* Navbar */}
-      <nav className="border-b border-border/30 backdrop-blur-md bg-background/50 sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <div className="text-xl font-bold neon-glow font-mono">KodeOS Admin</div>
-          <div className="flex items-center gap-4">
-            <span className="text-sm text-muted-foreground">{user?.email}</span>
-            <Button size="sm" variant="outline" onClick={() => base44.auth.logout()}>
-              Logout
-            </Button>
-          </div>
-        </div>
-      </nav>
-
+    <div className="pt-16">
       <div className="max-w-7xl mx-auto px-6 py-12">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">

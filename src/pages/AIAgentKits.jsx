@@ -4,14 +4,14 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Search, X, Sparkles, Loader2 } from 'lucide-react';
 import AIAgentKitCard from '../components/AIAgentKitCard';
-import HomeNavbar from '../components/home/HomeNavbar';
 import FilterSidebar from '../components/prompts/FilterSidebar';
+import { useOutletContext } from 'react-router-dom';
 
 export default function AIAgentKits() {
+  const { user } = useOutletContext();
   const [kits, setKits] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
-  const [user, setUser] = useState(null);
   const [page, setPage] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState('');
   const [categorizing, setCategorizing] = useState(false);
@@ -36,8 +36,6 @@ export default function AIAgentKits() {
   useEffect(() => {
     const loadData = async () => {
       try {
-        const currentUser = await base44.auth.me();
-        setUser(currentUser);
         const allKits = await base44.entities.AIAgentKit.list('-created_date', 2000);
         setKits(allKits);
       } catch (err) {
@@ -70,10 +68,8 @@ export default function AIAgentKits() {
   }, [search]);
 
   return (
-    <div className="min-h-screen bg-[#09090B] text-white">
-      <HomeNavbar user={user} />
-
-      <div className="max-w-7xl mx-auto px-6 pt-24 pb-12">
+    <div className="pt-16">
+      <div className="max-w-7xl mx-auto px-6 pt-8 pb-12">
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-4xl font-bold mb-2">

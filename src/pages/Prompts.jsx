@@ -5,15 +5,16 @@ import { Input } from '@/components/ui/input';
 import PromptCard from '../components/PromptCard';
 import { Search, Bookmark, X } from 'lucide-react';
 import FilterSidebar from '../components/prompts/FilterSidebar';
+import { useOutletContext } from 'react-router-dom';
 
 
 
 export default function Prompts() {
+  const { user } = useOutletContext();
   const [prompts, setPrompts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
-  const [user, setUser] = useState(null);
   const [savedPromptIds, setSavedPromptIds] = useState([]);
   const urlParams = new URLSearchParams(window.location.search);
   const [showSaved, setShowSaved] = useState(urlParams.get('tab') === 'saved');
@@ -21,10 +22,9 @@ export default function Prompts() {
   useEffect(() => {
     const loadData = async () => {
       try {
-        const currentUser = await base44.auth.me();
-        setUser(currentUser);
-        setSavedPromptIds(currentUser?.savedPrompts || []);
-
+        if (user) {
+          setSavedPromptIds(user?.savedPrompts || []);
+        }
         const allPrompts = await base44.entities.Prompt.list('-created_date', 200);
         setPrompts(allPrompts);
       } catch (err) {
@@ -33,9 +33,8 @@ export default function Prompts() {
         setLoading(false);
       }
     };
-
     loadData();
-  }, []);
+  }, [user]);
 
   const toggleSave = async (promptId) => {
     const updated = savedPromptIds.includes(promptId)
@@ -56,20 +55,7 @@ export default function Prompts() {
   });
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-card">
-      {/* Navbar */}
-      <nav className="border-b border-border/30 backdrop-blur-md bg-background/50 sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <div className="text-xl font-bold font-mono">KodeOS</div>
-          <div className="flex items-center gap-4">
-            <span className="text-sm text-muted-foreground">{user?.email}</span>
-            <Button size="sm" variant="outline" onClick={() => base44.auth.logout()}>
-              Logout
-            </Button>
-          </div>
-        </div>
-      </nav>
-
+    <div className="pt-16">
       <div className="max-w-7xl mx-auto px-6 py-12">
         {/* Header */}
         <div className="mb-8">

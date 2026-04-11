@@ -6,7 +6,6 @@ import { useState, useEffect } from 'react';
 import HeroSection from '../components/home/HeroSection';
 import FeaturesSection from '../components/home/FeaturesSection';
 import CTASection from '../components/home/CTASection';
-import HomeNavbar from '../components/home/HomeNavbar';
 import HomeFooter from '../components/home/HomeFooter';
 
 export default function Home() {
@@ -44,8 +43,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-[#09090B] text-white overflow-x-hidden">
-      <HomeNavbar user={user} />
+    <div className="overflow-x-hidden pt-16">
       <HeroSection hasPurchased={hasPurchased} onGetStarted={handleGetStarted} onViewPricing={() => navigate('/pricing')} />
       <FeaturesSection />
       <CTASection hasPurchased={hasPurchased} onGetStarted={handleGetStarted} />
