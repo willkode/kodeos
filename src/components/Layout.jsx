@@ -13,11 +13,15 @@ export default function Layout() {
         const currentUser = await base44.auth.me();
         setUser(currentUser);
         if (currentUser) {
-          const purchases = await base44.entities.Purchase.filter({
-            userEmail: currentUser.email,
-            status: 'completed'
-          });
-          setHasPurchased(purchases.length > 0);
+          if (currentUser.role === 'admin') {
+            setHasPurchased(true);
+          } else {
+            const purchases = await base44.entities.Purchase.filter({
+              userEmail: currentUser.email,
+              status: 'completed'
+            });
+            setHasPurchased(purchases.length > 0);
+          }
         }
       } catch {
         setUser(null);
