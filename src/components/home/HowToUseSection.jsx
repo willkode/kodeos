@@ -1,4 +1,5 @@
 import { Search, Copy, Rocket } from 'lucide-react';
+import BorderGlow from '../BorderGlow';
 
 const steps = [
   {
@@ -46,17 +47,19 @@ export default function HowToUseSection() {
           
           <div className="grid md:grid-cols-3 gap-8">
             {steps.map((step, i) => (
-              <div key={i} className="text-center relative">
-                <div
-                  className="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-5 relative z-10"
-                  style={{ backgroundColor: `${step.color}15`, border: `1px solid ${step.color}30` }}
-                >
-                  <step.icon className="w-6 h-6" style={{ color: step.color }} />
+              <BorderGlow key={i}>
+                <div className="text-center p-6">
+                  <div
+                    className="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-5 relative z-10"
+                    style={{ backgroundColor: `${step.color}15`, border: `1px solid ${step.color}30` }}
+                  >
+                    <step.icon className="w-6 h-6" style={{ color: step.color }} />
+                  </div>
+                  <div className="text-xs font-mono text-[#71717A] mb-2">{step.num}</div>
+                  <h3 className="text-lg font-semibold mb-2">{step.title}</h3>
+                  <p className="text-sm text-[#A1A1AA] leading-relaxed max-w-xs mx-auto">{step.desc}</p>
                 </div>
-                <div className="text-xs font-mono text-[#71717A] mb-2">{step.num}</div>
-                <h3 className="text-lg font-semibold mb-2">{step.title}</h3>
-                <p className="text-sm text-[#A1A1AA] leading-relaxed max-w-xs mx-auto">{step.desc}</p>
-              </div>
+              </BorderGlow>
             ))}
           </div>
         </div>

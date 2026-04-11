@@ -1,4 +1,5 @@
 import { Lightbulb, Clock, Puzzle, TrendingUp } from 'lucide-react';
+import BorderGlow from '../BorderGlow';
 
 const reasons = [
   {
@@ -47,19 +48,18 @@ export default function WhySection() {
 
         <div className="grid md:grid-cols-2 gap-4">
           {reasons.map((r, i) => (
-            <div
-              key={i}
-              className="group p-6 rounded-2xl border border-white/[0.06] bg-white/[0.02] hover:bg-white/[0.04] hover:border-white/[0.1] transition-all duration-300"
-            >
-              <div
-                className="w-10 h-10 rounded-xl flex items-center justify-center mb-4"
-                style={{ backgroundColor: `${r.color}15` }}
-              >
-                <r.icon className="w-5 h-5" style={{ color: r.color }} />
+            <BorderGlow key={i}>
+              <div className="p-6">
+                <div
+                  className="w-10 h-10 rounded-xl flex items-center justify-center mb-4"
+                  style={{ backgroundColor: `${r.color}15` }}
+                >
+                  <r.icon className="w-5 h-5" style={{ color: r.color }} />
+                </div>
+                <h3 className="text-lg font-semibold mb-2">{r.title}</h3>
+                <p className="text-sm text-[#A1A1AA] leading-relaxed">{r.desc}</p>
               </div>
-              <h3 className="text-lg font-semibold mb-2">{r.title}</h3>
-              <p className="text-sm text-[#A1A1AA] leading-relaxed">{r.desc}</p>
-            </div>
+            </BorderGlow>
           ))}
         </div>
       </div>
