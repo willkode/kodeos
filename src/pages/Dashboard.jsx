@@ -3,11 +3,13 @@ import { base44 } from '@/api/base44Client';
 import { useOutletContext } from 'react-router-dom';
 import PromptCard from '../components/PromptCard';
 import AIAgentKitCard from '../components/AIAgentKitCard';
-import { Bookmark } from 'lucide-react';
+import { Bookmark, Sparkles } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import AnimatedText from '../components/AnimatedText';
 
 export default function Dashboard() {
   const { user } = useOutletContext();
+  const navigate = useNavigate();
   const [savedPrompts, setSavedPrompts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [savedPromptIds, setSavedPromptIds] = useState([]);
@@ -46,11 +48,19 @@ export default function Dashboard() {
   return (
     <div className="pt-16">
       <div className="max-w-7xl mx-auto px-6 py-12">
-        <div className="mb-8">
-          <AnimatedText text="Your Dashboard" className="mb-2" />
-          <p className="text-[#A1A1AA]">
-            Welcome back{user?.full_name ? `, ${user.full_name}` : ''}. Here are your saved items.
-          </p>
+        <div className="mb-8 flex items-start justify-between">
+          <div>
+            <AnimatedText text="Your Dashboard" className="mb-2" />
+            <p className="text-[#A1A1AA]">
+              Welcome back{user?.full_name ? `, ${user.full_name}` : ''}. Here are your saved items.
+            </p>
+          </div>
+          <button
+            onClick={() => navigate('/recommender')}
+            className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#3B82F6] text-white text-sm font-semibold hover:bg-[#2563EB] transition-colors shadow-lg shadow-[#3B82F6]/20 flex-shrink-0"
+          >
+            <Sparkles className="w-4 h-4" /> AI Recommender
+          </button>
         </div>
 
         {/* Saved Prompts */}
