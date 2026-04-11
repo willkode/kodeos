@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Search, X, Sparkles, Loader2 } from 'lucide-react';
+import { X, Sparkles, Loader2 } from 'lucide-react';
+import GradientSearchInput from '../components/GradientSearchInput';
 import AIAgentKitCard from '../components/AIAgentKitCard';
 import FilterSidebar from '../components/prompts/FilterSidebar';
 import { useOutletContext } from 'react-router-dom';
@@ -93,16 +94,12 @@ export default function AIAgentKits() {
         </div>
 
         {/* Search */}
-        <div className="mb-8">
-          <div className="relative max-w-md">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#71717A]" />
-            <Input
-              placeholder="Search AI agent kits..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="pl-10 bg-white/[0.04] border-white/[0.08] text-white placeholder:text-[#71717A]"
-            />
-          </div>
+        <div className="mb-8 max-w-2xl">
+          <GradientSearchInput
+            placeholder="Search AI agent kits..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
         </div>
 
         {/* Sidebar + Grid Layout */}

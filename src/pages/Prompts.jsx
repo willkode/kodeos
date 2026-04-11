@@ -3,7 +3,8 @@ import { base44 } from '@/api/base44Client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import PromptCard from '../components/PromptCard';
-import { Search, Bookmark, X } from 'lucide-react';
+import { Bookmark, X } from 'lucide-react';
+import GradientSearchInput from '../components/GradientSearchInput';
 import FilterSidebar from '../components/prompts/FilterSidebar';
 import { useOutletContext } from 'react-router-dom';
 
@@ -84,16 +85,12 @@ export default function Prompts() {
         </div>
 
         {/* Search */}
-        <div className="mb-8">
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-            <Input
-              placeholder="Search prompts..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="pl-10 bg-card border-border/30"
-            />
-          </div>
+        <div className="mb-8 max-w-2xl">
+          <GradientSearchInput
+            placeholder="Search prompts..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
         </div>
 
         {/* Sidebar + Grid Layout */}
