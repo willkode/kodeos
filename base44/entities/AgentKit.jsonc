@@ -1,0 +1,27 @@
+{
+  "name": "AgentKit",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Name of the agent kit"
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of the agent kit"
+    },
+    "url": {
+      "type": "string",
+      "description": "Link to the agent kit"
+    },
+    "category": {
+      "type": "string",
+      "description": "Category tag for filtering"
+    }
+  },
+  "required": [
+    "name",
+    "description",
+    "url"
+  ]
+}

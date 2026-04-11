@@ -19,6 +19,7 @@ export default function HomeNavbar({ user }) {
             <>
               <span className="hover:text-white cursor-pointer transition-colors" onClick={() => navigate('/prompts')}>Prompts</span>
               <span className="hover:text-white cursor-pointer transition-colors" onClick={() => navigate('/ai-models-apis')}>AI Models APIs</span>
+              <span className="hover:text-white cursor-pointer transition-colors" onClick={() => navigate('/agent-kits')}>Agent Kits</span>
               <span className="hover:text-white cursor-pointer transition-colors" onClick={() => navigate('/mcp-servers')}>MCP Servers</span>
             </>
           )}

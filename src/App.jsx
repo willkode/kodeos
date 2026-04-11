@@ -12,6 +12,7 @@ import Prompts from './pages/Prompts';
 import Admin from './pages/Admin';
 import AIAgentKits from './pages/AIAgentKits';
 import MCPServers from './pages/MCPServers';
+import AgentKits from './pages/AgentKits';
 import Dashboard from './pages/Dashboard';
 
 const AuthenticatedApp = () => {
@@ -47,6 +48,7 @@ const AuthenticatedApp = () => {
         <Route path="/admin" element={<Admin />} />
         <Route path="/ai-models-apis" element={<AIAgentKits />} />
         <Route path="/mcp-servers" element={<MCPServers />} />
+        <Route path="/agent-kits" element={<AgentKits />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/profile" element={<Dashboard />} />
         <Route path="/settings" element={<Dashboard />} />
