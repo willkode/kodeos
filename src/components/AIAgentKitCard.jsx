@@ -1,6 +1,6 @@
 import { ExternalLink } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import BorderGlow from './BorderGlow';
+import FlipButton from './FlipButton';
 
 export default function AIAgentKitCard({ kit }) {
   return (
@@ -11,10 +11,7 @@ export default function AIAgentKitCard({ kit }) {
           {kit.description}
         </p>
         <a href={kit.url} target="_blank" rel="noopener noreferrer">
-          <Button size="sm" className="w-full bg-primary text-primary-foreground hover:bg-primary/90">
-            <ExternalLink className="w-4 h-4 mr-2" />
-            View API
-          </Button>
+          <FlipButton text="View API" textAlt="View API" />
         </a>
       </div>
     </BorderGlow>

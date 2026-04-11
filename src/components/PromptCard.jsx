@@ -1,7 +1,7 @@
-import { Button } from '@/components/ui/button';
 import { Copy, Bookmark } from 'lucide-react';
 import { useState } from 'react';
 import BorderGlow from './BorderGlow';
+import FlipButton from './FlipButton';
 
 export default function PromptCard({ prompt, isSaved, onToggleSave }) {
   const [copied, setCopied] = useState(false);
@@ -61,14 +61,11 @@ export default function PromptCard({ prompt, isSaved, onToggleSave }) {
         </div>
 
         {/* Actions */}
-        <Button
-          size="sm"
+        <FlipButton
+          text="Copy Prompt"
+          textAlt="Copied!"
           onClick={handleCopy}
-          className="w-full bg-primary text-primary-foreground hover:bg-primary/90 neon-glow"
-        >
-          <Copy className="w-4 h-4 mr-2" />
-          {copied ? 'Copied!' : 'Copy Prompt'}
-        </Button>
+        />
       </div>
     </BorderGlow>
   );
