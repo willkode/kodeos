@@ -16,21 +16,17 @@ export default function ResourceInfoGenerator() {
   const [progress, setProgress] = useState({ current: 0, total: 0 });
   const [results, setResults] = useState({});
 
-  const handleGenerate = async (entityType) => {
-    setRunning(true);
+  const generateForType = async (entityType) => {
     setCurrentType(entityType);
     setProgress({ current: 0, total: 0 });
 
     const entityName = ENTITY_TYPES.find(t => t.key === entityType).entity;
-
     const allItems = await base44.entities[entityName].list('-created_date', 2000);
     const needsInfo = allItems.filter(item => !item.detailed_info);
 
     if (needsInfo.length === 0) {
       setResults(prev => ({ ...prev, [entityType]: 'All items already have detailed info!' }));
-      setRunning(false);
-      setCurrentType('');
-      return;
+      return 0;
     }
 
     const batchSize = 5;
@@ -41,17 +37,27 @@ export default function ResourceInfoGenerator() {
     for (let i = 0; i < totalBatches; i++) {
       const batch = needsInfo.slice(i * batchSize, (i + 1) * batchSize);
       const batchIds = batch.map(item => item.id);
-
-      await base44.functions.invoke('generateResourceInfo', {
-        entityType,
-        batchIds,
-      });
-
+      await base44.functions.invoke('generateResourceInfo', { entityType, batchIds });
       processed += batch.length;
       setProgress({ current: i + 1, total: totalBatches });
     }
 
     setResults(prev => ({ ...prev, [entityType]: `Generated info for ${processed} items` }));
+    return processed;
+  };
+
+  const handleGenerateAll = async () => {
+    setRunning(true);
+    for (const { key } of ENTITY_TYPES) {
+      await generateForType(key);
+    }
+    setRunning(false);
+    setCurrentType('');
+  };
+
+  const handleGenerate = async (entityType) => {
+    setRunning(true);
+    await generateForType(entityType);
     setRunning(false);
     setCurrentType('');
   };
@@ -63,6 +69,18 @@ export default function ResourceInfoGenerator() {
         <p className="text-xs text-[#A1A1AA] mb-4">
           Use AI to generate detailed descriptions for resources that don't have them yet. This powers the detail modals.
         </p>
+        <Button
+          onClick={handleGenerateAll}
+          disabled={running}
+          className="bg-purple-600 text-white hover:bg-purple-700 text-xs font-semibold"
+          size="sm"
+        >
+          {running && currentType !== '' ? (
+            <><Loader2 className="w-3.5 h-3.5 mr-1 animate-spin" /> Generating All...</>
+          ) : (
+            <><Sparkles className="w-3.5 h-3.5 mr-1" /> Generate All (Batches of 5)</>
+          )}
+        </Button>
       </div>
 
       <div className="grid gap-3">
