@@ -5,7 +5,9 @@ import PromptCard from '../components/PromptCard';
 import AIAgentKitCard from '../components/AIAgentKitCard';
 import AgentKitCard from '../components/AgentKitCard';
 import MCPServerCard from '../components/MCPServerCard';
+import AppStarterKitCard from '../components/AppStarterKitCard';
 import ResourceDetailModal from '../components/ResourceDetailModal';
+import AppStarterKitDetailModal from '../components/AppStarterKitDetailModal';
 import SavedResourceSection from '../components/SavedResourceSection';
 import { Sparkles } from 'lucide-react';
 import AnimatedText from '../components/AnimatedText';
@@ -19,14 +21,17 @@ export default function Dashboard() {
   const [savedAPIIds, setSavedAPIIds] = useState([]);
   const [savedAgentIds, setSavedAgentIds] = useState([]);
   const [savedMCPIds, setSavedMCPIds] = useState([]);
+  const [savedStarterIds, setSavedStarterIds] = useState([]);
 
   const [savedPrompts, setSavedPrompts] = useState([]);
   const [savedAPIs, setSavedAPIs] = useState([]);
   const [savedAgents, setSavedAgents] = useState([]);
   const [savedMCPs, setSavedMCPs] = useState([]);
+  const [savedStarters, setSavedStarters] = useState([]);
 
   const [selectedItem, setSelectedItem] = useState(null);
   const [selectedType, setSelectedType] = useState('');
+  const [selectedStarter, setSelectedStarter] = useState(null);
 
   useEffect(() => {
     const load = async () => {
@@ -36,23 +41,27 @@ export default function Dashboard() {
       const apiIds = user.savedAPIs || [];
       const agentIds = user.savedAgentKits || [];
       const mcpIds = user.savedMCPServers || [];
+      const starterIds = user.savedStarterKits || [];
 
       setSavedPromptIds(promptIds);
       setSavedAPIIds(apiIds);
       setSavedAgentIds(agentIds);
       setSavedMCPIds(mcpIds);
+      setSavedStarterIds(starterIds);
 
-      const [allPrompts, allAPIs, allAgents, allMCPs] = await Promise.all([
+      const [allPrompts, allAPIs, allAgents, allMCPs, allStarters] = await Promise.all([
         promptIds.length > 0 ? base44.entities.Prompt.list('-created_date', 500) : Promise.resolve([]),
         apiIds.length > 0 ? base44.entities.AIAgentKit.list('-created_date', 2000) : Promise.resolve([]),
         agentIds.length > 0 ? base44.entities.AgentKit.list('-created_date', 2000) : Promise.resolve([]),
         mcpIds.length > 0 ? base44.entities.MCPServer.list('-created_date', 2000) : Promise.resolve([]),
+        starterIds.length > 0 ? base44.entities.AppStarterKit.list('-created_date', 2000) : Promise.resolve([]),
       ]);
 
       setSavedPrompts(allPrompts.filter(p => promptIds.includes(p.id)));
       setSavedAPIs(allAPIs.filter(a => apiIds.includes(a.id)));
       setSavedAgents(allAgents.filter(a => agentIds.includes(a.id)));
       setSavedMCPs(allMCPs.filter(m => mcpIds.includes(m.id)));
+      setSavedStarters(allStarters.filter(s => starterIds.includes(s.id)));
       setLoading(false);
     };
     load();
@@ -92,6 +101,15 @@ export default function Dashboard() {
     setSavedMCPIds(updated);
     setSavedMCPs(prev => prev.filter(m => updated.includes(m.id)));
     await base44.auth.updateMe({ savedMCPServers: updated });
+  };
+
+  const toggleSaveStarter = async (id) => {
+    const updated = savedStarterIds.includes(id)
+      ? savedStarterIds.filter(i => i !== id)
+      : [...savedStarterIds, id];
+    setSavedStarterIds(updated);
+    setSavedStarters(prev => prev.filter(s => updated.includes(s.id)));
+    await base44.auth.updateMe({ savedStarterKits: updated });
   };
 
   if (loading) {
@@ -179,11 +197,33 @@ export default function Dashboard() {
           )}
         />
 
+        <SavedResourceSection
+          title="Saved Starter Kits"
+          items={savedStarters}
+          emptyText="Browse App Starter Kits and save your favorites."
+          browsePath="/app-starter-kits"
+          renderItem={(kit) => (
+            <AppStarterKitCard
+              key={kit.id}
+              kit={kit}
+              isSaved={true}
+              onToggleSave={() => toggleSaveStarter(kit.id)}
+              onClick={setSelectedStarter}
+            />
+          )}
+        />
+
         <ResourceDetailModal
           item={selectedItem}
           type={selectedType}
           open={!!selectedItem}
           onClose={() => setSelectedItem(null)}
+        />
+
+        <AppStarterKitDetailModal
+          item={selectedStarter}
+          open={!!selectedStarter}
+          onClose={() => setSelectedStarter(null)}
         />
       </div>
     </div>
