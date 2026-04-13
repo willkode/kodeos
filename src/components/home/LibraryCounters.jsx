@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { base44 } from '@/api/base44Client';
 import { useNavigate } from 'react-router-dom';
-import { FileText, Cpu, Bot, Server } from 'lucide-react';
+import { FileText, Cpu, Bot, Server, Boxes } from 'lucide-react';
 import BorderGlow from '../BorderGlow';
 
 const categories = [
@@ -9,6 +9,7 @@ const categories = [
   { key: 'apis', label: 'AI Model APIs', icon: Cpu, color: '#A78BFA', path: '/ai-models-apis', entity: 'AIAgentKit' },
   { key: 'kits', label: 'Agent Kits', icon: Bot, color: '#38BDF8', path: '/agent-kits', entity: 'AgentKit' },
   { key: 'mcp', label: 'MCP Servers', icon: Server, color: '#FBBF24', path: '/mcp-servers', entity: 'MCPServer' },
+  { key: 'starters', label: 'Starter Kits', icon: Boxes, color: '#F472B6', path: '/app-starter-kits', entity: 'AppStarterKit' },
 ];
 
 export default function LibraryCounters() {
@@ -37,7 +38,7 @@ export default function LibraryCounters() {
 
   return (
     <div className="w-full max-w-4xl mx-auto">
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+      <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
         {categories.map((cat) => (
           <BorderGlow key={cat.key}>
             <button
