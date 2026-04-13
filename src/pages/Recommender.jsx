@@ -19,8 +19,7 @@ export default function Recommender() {
   const { user, hasPurchased } = useOutletContext();
   const navigate = useNavigate();
   const [appDescription, setAppDescription] = useState('');
-  const [industry, setIndustry] = useState('');
-  const [targetAudience, setTargetAudience] = useState('');
+
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState(null);
 
@@ -63,8 +62,7 @@ export default function Recommender() {
 
 APP DETAILS:
 - Description: ${appDescription}
-- Industry: ${industry || 'Not specified'}
-- Target Audience: ${targetAudience || 'Not specified'}
+
 
 AVAILABLE AI MODEL APIs:
 ${apiNames}
@@ -135,33 +133,6 @@ Return a JSON object with:
               loading={loading}
               placeholder="e.g. A project management tool that helps remote teams track tasks, set deadlines, and collaborate in real-time..."
             />
-          </div>
-
-          <div className="grid sm:grid-cols-2 gap-5">
-            <div>
-              <label className="block text-sm font-medium mb-2">Industry</label>
-              <select
-                value={industry}
-                onChange={(e) => setIndustry(e.target.value)}
-                className="w-full h-11 px-4 rounded-xl bg-white/[0.04] border border-white/[0.08] text-white text-sm focus:outline-none focus:ring-1 focus:ring-[#3B82F6] appearance-none cursor-pointer"
-              >
-                <option value="" className="bg-[#09090B]">Select industry...</option>
-                {INDUSTRIES.map(ind => (
-                  <option key={ind} value={ind} className="bg-[#09090B]">{ind}</option>
-                ))}
-              </select>
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium mb-2">Target Audience</label>
-              <input
-                type="text"
-                value={targetAudience}
-                onChange={(e) => setTargetAudience(e.target.value)}
-                placeholder="e.g. Small business owners, developers, students..."
-                className="w-full h-11 px-4 rounded-xl bg-white/[0.04] border border-white/[0.08] text-white placeholder-[#71717A] text-sm focus:outline-none focus:ring-1 focus:ring-[#3B82F6]"
-              />
-            </div>
           </div>
 
           <Button
