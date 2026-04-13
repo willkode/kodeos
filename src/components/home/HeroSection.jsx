@@ -7,9 +7,8 @@ export default function HeroSection({ hasPurchased, onGetStarted, onViewPricing 
 
   return (
     <section className="relative pt-32 pb-24 px-6">
-      {/* Gradient orb backgrounds */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-[#3B82F6]/[0.06] rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute top-20 right-0 w-[400px] h-[400px] bg-purple-500/[0.03] rounded-full blur-[100px] pointer-events-none" />
+      {/* Gradient background */}
+      <div className="absolute inset-0 h-full w-full [background:radial-gradient(125%_125%_at_50%_-50%,#6366f136_40%,transparent_100%)] pointer-events-none" />
 
       <div className="max-w-4xl mx-auto text-center relative">
         {/* Badge */}
