@@ -35,22 +35,23 @@ export default function Recommender() {
       ]);
       setLibraryData({ apis, kits, mcp });
     };
-    if (user && hasPurchased) loadLibrary();
-  }, [user, hasPurchased]);
+    loadLibrary();
+  }, []);
 
-  if (!user || !hasPurchased) {
-    return (
-      <GuestLanding
-        pageTitle="AI Stack Recommender"
-        pageDescription="Tell us about your app and get personalized recommendations for AI APIs, agent kits, and MCP servers."
-        highlightKey="apis"
-        user={user}
-      />
-    );
-  }
+
 
   const handleRecommend = async () => {
     if (!appDescription.trim()) return;
+
+    if (!user) {
+      base44.auth.redirectToLogin('/recommender');
+      return;
+    }
+
+    if (!hasPurchased) {
+      navigate('/pricing');
+      return;
+    }
     setLoading(true);
     setResults(null);
 
