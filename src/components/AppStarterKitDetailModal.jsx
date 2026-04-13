@@ -36,8 +36,16 @@ export default function AppStarterKitDetailModal({ item, open, onClose }) {
 
   const color = categoryColors[item.category] || '#3B82F6';
 
+  const buildFullPrompt = () => {
+    let full = item.prompt;
+    if (item.ai_apis?.length) full += `\n\nAI / APIs to use: ${item.ai_apis.join(', ')}`;
+    if (item.agents?.length) full += `\nAgents to use: ${item.agents.join(', ')}`;
+    if (item.mcp_servers?.length) full += `\nMCP Servers to use: ${item.mcp_servers.join(', ')}`;
+    return full;
+  };
+
   const handleCopyPrompt = () => {
-    navigator.clipboard.writeText(item.prompt);
+    navigator.clipboard.writeText(buildFullPrompt());
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -84,9 +92,31 @@ export default function AppStarterKitDetailModal({ item, open, onClose }) {
                 {copied ? <><Check className="w-3 h-3 mr-1" /> Copied</> : <><Copy className="w-3 h-3 mr-1" /> Copy</>}
               </Button>
             </div>
-            <p className="text-sm text-[#D4D4D8] leading-relaxed italic">
+            <p className="text-sm text-[#D4D4D8] leading-relaxed italic mb-3">
               "{item.prompt}"
             </p>
+            {(item.ai_apis?.length > 0 || item.agents?.length > 0 || item.mcp_servers?.length > 0) && (
+              <div className="space-y-2 pt-3 border-t border-white/[0.06]">
+                {item.ai_apis?.length > 0 && (
+                  <div className="flex items-start gap-2 text-xs">
+                    <Cpu className="w-3.5 h-3.5 mt-0.5 text-[#A78BFA] shrink-0" />
+                    <span className="text-[#A1A1AA]"><span className="text-[#D4D4D8] font-medium">AI / APIs:</span> {item.ai_apis.join(', ')}</span>
+                  </div>
+                )}
+                {item.agents?.length > 0 && (
+                  <div className="flex items-start gap-2 text-xs">
+                    <Bot className="w-3.5 h-3.5 mt-0.5 text-[#38BDF8] shrink-0" />
+                    <span className="text-[#A1A1AA]"><span className="text-[#D4D4D8] font-medium">Agents:</span> {item.agents.join(', ')}</span>
+                  </div>
+                )}
+                {item.mcp_servers?.length > 0 && (
+                  <div className="flex items-start gap-2 text-xs">
+                    <Server className="w-3.5 h-3.5 mt-0.5 text-[#FBBF24] shrink-0" />
+                    <span className="text-[#A1A1AA]"><span className="text-[#D4D4D8] font-medium">MCP Servers:</span> {item.mcp_servers.join(', ')}</span>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         </div>
       </DialogContent>
