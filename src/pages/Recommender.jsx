@@ -3,6 +3,7 @@ import { useOutletContext, useNavigate } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
 import { Button } from '@/components/ui/button';
 import { Sparkles, Loader2 } from 'lucide-react';
+import AnimatedAIInput from '../components/ui/animated-ai-input';
 import AnimatedText from '../components/AnimatedText';
 import RecommendationResults from '../components/RecommendationResults';
 import GuestLanding from '../components/GuestLanding';
@@ -127,11 +128,12 @@ Return a JSON object with:
         <div className="space-y-5 mb-10">
           <div>
             <label className="block text-sm font-medium mb-2">What does your app do? *</label>
-            <textarea
+            <AnimatedAIInput
               value={appDescription}
-              onChange={(e) => setAppDescription(e.target.value)}
+              onChange={(val) => setAppDescription(typeof val === 'string' ? val : val?.target?.value || '')}
+              onSubmit={handleRecommend}
+              loading={loading}
               placeholder="e.g. A project management tool that helps remote teams track tasks, set deadlines, and collaborate in real-time..."
-              className="w-full h-32 px-4 py-3 rounded-xl bg-white/[0.04] border border-white/[0.08] text-white placeholder-[#71717A] text-sm focus:outline-none focus:ring-1 focus:ring-[#3B82F6] resize-none"
             />
           </div>
 
