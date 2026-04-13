@@ -6,6 +6,7 @@ import WhySection from '../components/home/WhySection';
 import HowToUseSection from '../components/home/HowToUseSection';
 import CTASection from '../components/home/CTASection';
 import RecommenderCTA from '../components/home/RecommenderCTA';
+import StarterKitsPreview from '../components/home/StarterKitsPreview';
 import HomeFooter from '../components/home/HomeFooter';
 
 export default function Home() {
@@ -46,6 +47,7 @@ export default function Home() {
     <div className="overflow-x-hidden pt-16">
       <HeroSection hasPurchased={hasPurchased} onGetStarted={handleGetStarted} onViewPricing={() => navigate('/pricing')} />
       <RecommenderCTA hasPurchased={hasPurchased} />
+      <StarterKitsPreview />
       <WhySection />
       <HowToUseSection />
       <CTASection hasPurchased={hasPurchased} onGetStarted={handleGetStarted} />
