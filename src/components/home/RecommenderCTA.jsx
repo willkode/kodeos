@@ -2,6 +2,7 @@ import { ArrowRight, Sparkles, Cpu, Bot, Server } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
 import BorderGlow from '../BorderGlow';
+import { PixelCanvas } from '../ui/pixel-canvas';
 
 const features = [
   { icon: Cpu, label: 'AI Model APIs', color: '#A78BFA' },
@@ -17,7 +18,12 @@ export default function RecommenderCTA({ hasPurchased }) {
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#3B82F6]/[0.02] to-transparent pointer-events-none" />
       <div className="max-w-4xl mx-auto relative">
         <BorderGlow>
-          <div className="p-10 md:p-14 text-center">
+          <div className="relative overflow-hidden p-10 md:p-14 text-center rounded-xl">
+            <PixelCanvas
+              gap={10}
+              speed={30}
+              colors={["#1e3a5f", "#3B82F6", "#60A5FA"]}
+            />
             {/* Icon */}
             <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-[#3B82F6]/10 mb-6">
               <Sparkles className="w-7 h-7 text-[#3B82F6]" />
