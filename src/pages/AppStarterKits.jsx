@@ -77,7 +77,7 @@ export default function AppStarterKits() {
       <GuestLanding
         pageTitle="App Starter Kits"
         pageDescription="Pre-built combinations of AI APIs, agents, and MCP servers — ready to copy and start building."
-        highlightKey="kits"
+        highlightKey="starters"
         user={user}
       />
     );

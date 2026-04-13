@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { base44 } from '@/api/base44Client';
-import { ArrowRight, FileText, Cpu, Bot, Server, Clock, Puzzle, Lightbulb, TrendingUp, Lock, CreditCard } from 'lucide-react';
+import { ArrowRight, FileText, Cpu, Bot, Server, Clock, Puzzle, Lightbulb, TrendingUp, Lock, CreditCard, Boxes } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import BorderGlow from './BorderGlow';
 
@@ -10,6 +10,7 @@ const categories = [
   { key: 'apis', label: 'AI Model APIs', icon: Cpu, color: '#A78BFA', entity: 'AIAgentKit' },
   { key: 'kits', label: 'Agent Kits', icon: Bot, color: '#38BDF8', entity: 'AgentKit' },
   { key: 'mcp', label: 'MCP Servers', icon: Server, color: '#FBBF24', entity: 'MCPServer' },
+  { key: 'starters', label: 'Starter Kits', icon: Boxes, color: '#F472B6', entity: 'AppStarterKit' },
 ];
 
 const benefits = [
