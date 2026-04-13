@@ -68,10 +68,27 @@ Format the response in markdown.`,
 
           {/* Detailed Info */}
           {item.detailed_info && (
-            <div className="p-4 rounded-lg border border-white/[0.06] bg-white/[0.02]">
-              <h4 className="text-xs font-semibold text-[#71717A] uppercase tracking-wider mb-2">Details</h4>
-              <div className="text-sm text-[#D4D4D8] leading-relaxed prose prose-invert prose-sm max-w-none prose-headings:text-white prose-headings:font-semibold prose-headings:mt-4 prose-headings:mb-2 prose-p:my-1.5 prose-strong:text-white prose-ul:my-2 prose-ul:ml-4 prose-ol:my-2 prose-ol:ml-4 prose-li:my-0.5 prose-hr:border-white/10 prose-hr:my-3">
-                <ReactMarkdown>{item.detailed_info}</ReactMarkdown>
+            <div className="p-5 rounded-xl border border-white/[0.06] bg-white/[0.02] space-y-0">
+              <h4 className="text-xs font-semibold text-[#71717A] uppercase tracking-wider mb-3">Details</h4>
+              <div className="text-sm text-[#D4D4D8] leading-relaxed">
+                <ReactMarkdown
+                  components={{
+                    h1: ({ children }) => <h2 className="text-base font-bold text-white mt-5 mb-2 first:mt-0">{children}</h2>,
+                    h2: ({ children }) => <h3 className="text-sm font-bold text-white mt-5 mb-2 first:mt-0">{children}</h3>,
+                    h3: ({ children }) => <h4 className="text-sm font-semibold text-white mt-4 mb-1.5">{children}</h4>,
+                    p: ({ children }) => <p className="my-2 leading-relaxed text-[#D4D4D8]">{children}</p>,
+                    strong: ({ children }) => <strong className="font-semibold text-white">{children}</strong>,
+                    ul: ({ children }) => <ul className="my-2 ml-4 space-y-1 list-disc marker:text-[#3B82F6]/60">{children}</ul>,
+                    ol: ({ children }) => <ol className="my-2 ml-4 space-y-1 list-decimal marker:text-[#3B82F6]/60">{children}</ol>,
+                    li: ({ children }) => <li className="text-[#D4D4D8] pl-1">{children}</li>,
+                    hr: () => <hr className="border-white/[0.06] my-4" />,
+                    code: ({ inline, children }) => inline 
+                      ? <code className="px-1.5 py-0.5 rounded bg-white/[0.06] text-[#60A5FA] text-xs font-mono">{children}</code>
+                      : <pre className="my-3 p-3 rounded-lg bg-[#09090B] border border-white/[0.06] overflow-x-auto"><code className="text-xs font-mono text-[#D4D4D8]">{children}</code></pre>,
+                    a: ({ href, children }) => <a href={href} target="_blank" rel="noopener noreferrer" className="text-[#3B82F6] hover:text-[#60A5FA] underline underline-offset-2">{children}</a>,
+                    blockquote: ({ children }) => <blockquote className="border-l-2 border-[#3B82F6]/30 pl-3 my-3 text-[#A1A1AA] italic">{children}</blockquote>,
+                  }}
+                >{item.detailed_info}</ReactMarkdown>
               </div>
             </div>
           )}
