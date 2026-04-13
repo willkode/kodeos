@@ -1,12 +1,6 @@
 import { useRef, useEffect } from 'react';
 import { Search as SearchIcon } from 'lucide-react';
 
-const CommandIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-gray-400">
-    <path d="M18 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3H6a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3V6a3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 3 3 0 0 0-3-3z" />
-  </svg>
-);
-
 export default function GradientSearchInput({ value, onChange, placeholder = "Search..." }) {
   const inputRef = useRef(null);
 
@@ -33,14 +27,6 @@ export default function GradientSearchInput({ value, onChange, placeholder = "Se
           onChange={onChange}
           className="w-full px-3 py-1 text-base text-gray-200 placeholder-gray-500 bg-transparent focus:outline-none flex-1 min-w-0"
         />
-        <div className="flex items-center gap-2 flex-shrink-0">
-          <div className="flex items-center justify-center p-1.5 bg-gray-800 border border-gray-700 rounded-md shadow-inner">
-            <CommandIcon />
-          </div>
-          <div className="flex items-center justify-center w-6 h-6 p-1 bg-gray-800 border border-gray-700 rounded-md shadow-inner">
-            <span className="text-sm font-semibold text-gray-300">K</span>
-          </div>
-        </div>
       </div>
     </div>
   );
