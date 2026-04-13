@@ -1,0 +1,55 @@
+{
+  "name": "AppStarterKit",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Name of the starter kit"
+    },
+    "description": {
+      "type": "string",
+      "description": "The prompt/description of what the kit builds"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "Growth & Marketing",
+        "Product, Support & Content",
+        "Builder & Developer",
+        "Ops & Internal Tools",
+        "Finance, Ecommerce & Trends"
+      ],
+      "description": "Category grouping"
+    },
+    "ai_apis": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "AI/API resources used"
+    },
+    "agents": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Agent resources used"
+    },
+    "mcp_servers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "MCP Server resources used"
+    },
+    "prompt": {
+      "type": "string",
+      "description": "The starter prompt to build the app"
+    }
+  },
+  "required": [
+    "name",
+    "category",
+    "prompt"
+  ]
+}
