@@ -8,7 +8,7 @@ import MCPServerCard from '../components/MCPServerCard';
 import AppStarterKitCard from '../components/AppStarterKitCard';
 import ResourceDetailModal from '../components/ResourceDetailModal';
 import AppStarterKitDetailModal from '../components/AppStarterKitDetailModal';
-import SavedResourceSection from '../components/SavedResourceSection';
+import DashboardSidebar from '../components/dashboard/DashboardSidebar';
 import { Sparkles } from 'lucide-react';
 import AnimatedText from '../components/AnimatedText';
 
@@ -16,6 +16,7 @@ export default function Dashboard() {
   const { user } = useOutletContext();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
+  const [activeTab, setActiveTab] = useState('prompts');
 
   const [savedPromptIds, setSavedPromptIds] = useState([]);
   const [savedAPIIds, setSavedAPIIds] = useState([]);
@@ -138,80 +139,127 @@ export default function Dashboard() {
           </button>
         </div>
 
-        <SavedResourceSection
-          title="Saved Prompts"
-          items={savedPrompts}
-          emptyText="Browse the prompt library and bookmark your favorites."
-          renderItem={(prompt) => (
-            <PromptCard
-              key={prompt.id}
-              prompt={prompt}
-              isSaved={true}
-              onToggleSave={() => toggleSavePrompt(prompt.id)}
+        <div className="flex gap-8">
+          <aside className="hidden lg:block">
+            <DashboardSidebar
+              activeTab={activeTab}
+              onTabChange={setActiveTab}
+              counts={{
+                prompts: savedPrompts.length,
+                apis: savedAPIs.length,
+                agents: savedAgents.length,
+                mcp: savedMCPs.length,
+                starters: savedStarters.length,
+              }}
             />
-          )}
-        />
+          </aside>
 
-        <SavedResourceSection
-          title="Saved AI Model APIs"
-          items={savedAPIs}
-          emptyText="Browse AI Model APIs and save your favorites."
-          renderItem={(api) => (
-            <AIAgentKitCard
-              key={api.id}
-              kit={api}
-              isSaved={true}
-              onToggleSave={() => toggleSaveAPI(api.id)}
-              onClick={(item) => { setSelectedItem(item); setSelectedType('api'); }}
-            />
-          )}
-        />
+          <div className="flex-1 min-w-0">
+            {activeTab === 'prompts' && (
+              <div>
+                <h3 className="text-lg font-semibold mb-4">Saved Prompts</h3>
+                {savedPrompts.length === 0 ? (
+                  <p className="text-[#71717A] text-sm py-10 text-center">Browse the prompt library and bookmark your favorites.</p>
+                ) : (
+                  <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-4">
+                    {savedPrompts.map(prompt => (
+                      <PromptCard
+                        key={prompt.id}
+                        prompt={prompt}
+                        isSaved={true}
+                        onToggleSave={() => toggleSavePrompt(prompt.id)}
+                      />
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
 
-        <SavedResourceSection
-          title="Saved Agent Kits"
-          items={savedAgents}
-          emptyText="Browse Agent Kits and save your favorites."
-          renderItem={(kit) => (
-            <AgentKitCard
-              key={kit.id}
-              kit={kit}
-              isSaved={true}
-              onToggleSave={() => toggleSaveAgent(kit.id)}
-              onClick={(item) => { setSelectedItem(item); setSelectedType('agent'); }}
-            />
-          )}
-        />
+            {activeTab === 'apis' && (
+              <div>
+                <h3 className="text-lg font-semibold mb-4">Saved AI Model APIs</h3>
+                {savedAPIs.length === 0 ? (
+                  <p className="text-[#71717A] text-sm py-10 text-center">Browse AI Model APIs and save your favorites.</p>
+                ) : (
+                  <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-4">
+                    {savedAPIs.map(api => (
+                      <AIAgentKitCard
+                        key={api.id}
+                        kit={api}
+                        isSaved={true}
+                        onToggleSave={() => toggleSaveAPI(api.id)}
+                        onClick={(item) => { setSelectedItem(item); setSelectedType('api'); }}
+                      />
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
 
-        <SavedResourceSection
-          title="Saved MCP Servers"
-          items={savedMCPs}
-          emptyText="Browse MCP Servers and save your favorites."
-          renderItem={(server) => (
-            <MCPServerCard
-              key={server.id}
-              server={server}
-              isSaved={true}
-              onToggleSave={() => toggleSaveMCP(server.id)}
-              onClick={(item) => { setSelectedItem(item); setSelectedType('mcp'); }}
-            />
-          )}
-        />
+            {activeTab === 'agents' && (
+              <div>
+                <h3 className="text-lg font-semibold mb-4">Saved Agent Kits</h3>
+                {savedAgents.length === 0 ? (
+                  <p className="text-[#71717A] text-sm py-10 text-center">Browse Agent Kits and save your favorites.</p>
+                ) : (
+                  <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-4">
+                    {savedAgents.map(kit => (
+                      <AgentKitCard
+                        key={kit.id}
+                        kit={kit}
+                        isSaved={true}
+                        onToggleSave={() => toggleSaveAgent(kit.id)}
+                        onClick={(item) => { setSelectedItem(item); setSelectedType('agent'); }}
+                      />
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
 
-        <SavedResourceSection
-          title="Saved Starter Kits"
-          items={savedStarters}
-          emptyText="Browse App Starter Kits and save your favorites."
-          browsePath="/app-starter-kits"
-          renderItem={(kit) => (
-            <AppStarterKitCard
-              key={kit.id}
-              kit={kit}
-              isSaved={true}
-              onToggleSave={() => toggleSaveStarter(kit.id)}
-              onClick={setSelectedStarter}
-            />
-          )}
-        />
+            {activeTab === 'mcp' && (
+              <div>
+                <h3 className="text-lg font-semibold mb-4">Saved MCP Servers</h3>
+                {savedMCPs.length === 0 ? (
+                  <p className="text-[#71717A] text-sm py-10 text-center">Browse MCP Servers and save your favorites.</p>
+                ) : (
+                  <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-4">
+                    {savedMCPs.map(server => (
+                      <MCPServerCard
+                        key={server.id}
+                        server={server}
+                        isSaved={true}
+                        onToggleSave={() => toggleSaveMCP(server.id)}
+                        onClick={(item) => { setSelectedItem(item); setSelectedType('mcp'); }}
+                      />
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+
+            {activeTab === 'starters' && (
+              <div>
+                <h3 className="text-lg font-semibold mb-4">Saved Starter Kits</h3>
+                {savedStarters.length === 0 ? (
+                  <p className="text-[#71717A] text-sm py-10 text-center">Browse App Starter Kits and save your favorites.</p>
+                ) : (
+                  <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-4">
+                    {savedStarters.map(kit => (
+                      <AppStarterKitCard
+                        key={kit.id}
+                        kit={kit}
+                        isSaved={true}
+                        onToggleSave={() => toggleSaveStarter(kit.id)}
+                        onClick={setSelectedStarter}
+                      />
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        </div>
 
         <ResourceDetailModal
           item={selectedItem}
