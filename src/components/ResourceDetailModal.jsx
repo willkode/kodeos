@@ -70,7 +70,7 @@ Format the response in markdown.`,
           {item.detailed_info && (
             <div className="p-4 rounded-lg border border-white/[0.06] bg-white/[0.02]">
               <h4 className="text-xs font-semibold text-[#71717A] uppercase tracking-wider mb-2">Details</h4>
-              <div className="text-sm text-[#D4D4D8] leading-relaxed prose prose-invert prose-sm max-w-none">
+              <div className="text-sm text-[#D4D4D8] leading-relaxed prose prose-invert prose-sm max-w-none prose-headings:text-white prose-headings:font-semibold prose-headings:mt-4 prose-headings:mb-2 prose-p:my-1.5 prose-strong:text-white prose-ul:my-2 prose-ul:ml-4 prose-ol:my-2 prose-ol:ml-4 prose-li:my-0.5 prose-hr:border-white/10 prose-hr:my-3">
                 <ReactMarkdown>{item.detailed_info}</ReactMarkdown>
               </div>
             </div>
