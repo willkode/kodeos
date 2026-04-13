@@ -32,6 +32,7 @@ export default function HomeNavbar({ user, hasPurchased }) {
               <span className="hover:text-white cursor-pointer transition-colors" onClick={() => navigate('/agent-kits')}>Agent Kits</span>
               <span className="hover:text-white cursor-pointer transition-colors" onClick={() => navigate('/mcp-servers')}>MCP Servers</span>
               <span className="hover:text-white cursor-pointer transition-colors" onClick={() => navigate('/app-starter-kits')}>Starter Kits</span>
+              <span className="hover:text-white cursor-pointer transition-colors text-[#3B82F6]" onClick={() => navigate('/recommender')}>AI Recommender</span>
               <span className="hover:text-white cursor-pointer transition-colors" onClick={() => navigate('/pricing')}>Pricing</span>
             </>
           )}
