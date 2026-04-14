@@ -5,11 +5,11 @@ import { FileText, Cpu, Bot, Server, Boxes } from 'lucide-react';
 import BorderGlow from '../BorderGlow';
 
 const categories = [
-  { key: 'prompts', label: 'Prompts', icon: FileText, color: '#3B82F6', path: '/prompts', entity: 'Prompt' },
-  { key: 'apis', label: 'AI Model APIs', icon: Cpu, color: '#A78BFA', path: '/ai-models-apis', entity: 'AIAgentKit' },
-  { key: 'kits', label: 'Agent Kits', icon: Bot, color: '#38BDF8', path: '/agent-kits', entity: 'AgentKit' },
-  { key: 'mcp', label: 'MCP Servers', icon: Server, color: '#FBBF24', path: '/mcp-servers', entity: 'MCPServer' },
-  { key: 'starters', label: 'Starter Kits', icon: Boxes, color: '#F472B6', path: '/app-starter-kits', entity: 'AppStarterKit' },
+  { key: 'prompts', label: 'Prompts', subtitle: 'The systems your app needs', icon: FileText, color: '#3B82F6', path: '/prompts', entity: 'Prompt' },
+  { key: 'apis', label: 'AI Model APIs', subtitle: 'The intelligence layer', icon: Cpu, color: '#A78BFA', path: '/ai-models-apis', entity: 'AIAgentKit' },
+  { key: 'kits', label: 'Agent Kits', subtitle: 'The workflow layer', icon: Bot, color: '#38BDF8', path: '/agent-kits', entity: 'AgentKit' },
+  { key: 'mcp', label: 'MCP Servers', subtitle: 'The connection layer', icon: Server, color: '#FBBF24', path: '/mcp-servers', entity: 'MCPServer' },
+  { key: 'starters', label: 'Starter Kits', subtitle: 'Ready-to-build blueprints', icon: Boxes, color: '#F472B6', path: '/app-starter-kits', entity: 'AppStarterKit' },
 ];
 
 export default function LibraryCounters() {
@@ -56,6 +56,9 @@ export default function LibraryCounters() {
               </div>
               <div className="text-sm text-[#A1A1AA] group-hover:text-white transition-colors">
                 {cat.label}
+              </div>
+              <div className="text-[11px] text-[#52525B] mt-1 leading-tight">
+                {cat.subtitle}
               </div>
             </button>
           </BorderGlow>
