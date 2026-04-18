@@ -17,7 +17,7 @@ Deno.serve(async (req) => {
 
     await base44.asServiceRole.entities.Purchase.create({
       userEmail,
-      stripePaymentIntentId: 'admin-grant-' + Date.now(),
+      squareOrderId: 'admin-grant-' + Date.now(),
       amount: 0,
       status: 'completed'
     });

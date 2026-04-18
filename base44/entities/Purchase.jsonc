@@ -2,13 +2,25 @@
   "name": "Purchase",
   "type": "object",
   "properties": {
+    "squareOrderId": {
+      "type": "string",
+      "description": "Square Order ID"
+    },
+    "squarePaymentId": {
+      "type": "string",
+      "description": "Square Payment ID"
+    },
+    "squarePaymentLinkId": {
+      "type": "string",
+      "description": "Square Payment Link ID"
+    },
     "stripePaymentIntentId": {
       "type": "string",
-      "description": "Stripe Payment Intent ID"
+      "description": "Legacy Stripe Payment Intent ID"
     },
     "amount": {
       "type": "number",
-      "description": "Amount paid in cents (2500 for $25)"
+      "description": "Amount paid in cents (1000 for $10)"
     },
     "status": {
       "type": "string",
@@ -25,7 +37,6 @@
     }
   },
   "required": [
-    "stripePaymentIntentId",
     "amount",
     "status",
     "userEmail"

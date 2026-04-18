@@ -1,7 +1,8 @@
 import { createClientFromRequest } from 'npm:@base44/sdk@0.8.25';
-import Stripe from 'npm:stripe@17.7.0';
 
-const stripe = new Stripe(Deno.env.get('STRIPE_API_KEY'));
+const SQUARE_ACCESS_TOKEN = Deno.env.get('SQUARE_ACCESS_TOKEN');
+const SQUARE_LOCATION_ID = Deno.env.get('SQUARE_LOCATION_ID');
+const SQUARE_BASE_URL = 'https://connect.squareup.com/v2';
 
 Deno.serve(async (req) => {
   try {
@@ -13,32 +14,53 @@ Deno.serve(async (req) => {
     }
 
     const origin = req.headers.get('origin') || req.headers.get('referer')?.replace(/\/+$/, '') || 'https://app.base44.com';
+    const idempotencyKey = crypto.randomUUID();
 
-    const session = await stripe.checkout.sessions.create({
-      mode: 'payment',
-      payment_method_types: ['card'],
-      customer_email: user.email,
-      line_items: [
-        {
-          price_data: {
-            currency: 'usd',
-            product_data: {
-              name: 'KodeOS Pro — Lifetime Access',
-              description: 'One-time payment for lifetime access to the full KodeOS resource library.',
-            },
-            unit_amount: 1000, // $10.00
-          },
-          quantity: 1,
-        },
-      ],
-      metadata: {
-        userEmail: user.email,
+    const response = await fetch(`${SQUARE_BASE_URL}/online-checkout/payment-links`, {
+      method: 'POST',
+      headers: {
+        'Square-Version': '2024-01-18',
+        'Authorization': `Bearer ${SQUARE_ACCESS_TOKEN}`,
+        'Content-Type': 'application/json',
       },
-      success_url: `${origin}/dashboard?payment=success`,
-      cancel_url: `${origin}/pricing?payment=cancelled`,
+      body: JSON.stringify({
+        idempotency_key: idempotencyKey,
+        quick_pay: {
+          name: 'KodeOS Pro — Lifetime Access',
+          price_money: {
+            amount: 1000, // $10.00 in cents
+            currency: 'USD',
+          },
+          location_id: SQUARE_LOCATION_ID,
+        },
+        checkout_options: {
+          redirect_url: `${origin}/dashboard?payment=success`,
+          allow_tipping: false,
+        },
+        pre_populated_data: {
+          buyer_email: user.email,
+        },
+      }),
     });
 
-    return Response.json({ url: session.url });
+    const data = await response.json();
+
+    if (!response.ok) {
+      console.error('Square API error:', JSON.stringify(data));
+      return Response.json({ error: data.errors?.[0]?.detail || 'Square checkout failed' }, { status: 500 });
+    }
+
+    // Store pending purchase with the order ID
+    const orderId = data.payment_link?.order_id || data.related_resources?.orders?.[0] || idempotencyKey;
+    await base44.asServiceRole.entities.Purchase.create({
+      squareOrderId: orderId,
+      squarePaymentLinkId: data.payment_link?.id || '',
+      amount: 1000,
+      status: 'pending',
+      userEmail: user.email,
+    });
+
+    return Response.json({ url: data.payment_link?.url });
   } catch (error) {
     console.error('Checkout error:', error);
     return Response.json({ error: error.message }, { status: 500 });

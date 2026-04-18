@@ -34,6 +34,16 @@ export default function Dashboard() {
   const [selectedType, setSelectedType] = useState('');
   const [selectedStarter, setSelectedStarter] = useState(null);
 
+  // Verify Square payment if returning from checkout
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('payment') === 'success') {
+      base44.functions.invoke('verifySquarePayment', {}).then(() => {
+        window.history.replaceState({}, '', '/dashboard');
+      });
+    }
+  }, []);
+
   useEffect(() => {
     const load = async () => {
       if (!user) { setLoading(false); return; }

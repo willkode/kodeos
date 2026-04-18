@@ -92,7 +92,7 @@ export default function Pricing() {
         </div>
 
         <div className="mt-16 text-center text-muted-foreground text-sm">
-          <p>Secure checkout powered by Stripe. 30-day money-back guarantee.</p>
+          <p>Secure checkout powered by Square. 30-day money-back guarantee.</p>
         </div>
       </div>
     </div>
