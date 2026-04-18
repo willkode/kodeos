@@ -88,7 +88,6 @@ Return JSON.`,
           },
         },
       },
-      model: 'claude_sonnet_4_6',
     });
 
     if (phaseResult?.phases) {
