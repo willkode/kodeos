@@ -16,6 +16,7 @@ import AgentKits from './pages/AgentKits';
 import Dashboard from './pages/Dashboard';
 import Recommender from './pages/Recommender';
 import AppStarterKits from './pages/AppStarterKits';
+import FoundationBuilder from './pages/FoundationBuilder';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -54,6 +55,7 @@ const AuthenticatedApp = () => {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/recommender" element={<Recommender />} />
         <Route path="/app-starter-kits" element={<AppStarterKits />} />
+        <Route path="/foundation-builder" element={<FoundationBuilder />} />
         <Route path="/profile" element={<Dashboard />} />
         <Route path="/settings" element={<Dashboard />} />
         <Route path="*" element={<PageNotFound />} />
