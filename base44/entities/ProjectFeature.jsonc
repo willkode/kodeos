@@ -1,0 +1,111 @@
+{
+  "name": "ProjectFeature",
+  "type": "object",
+  "properties": {
+    "projectId": {
+      "type": "string",
+      "description": "Parent project ID"
+    },
+    "featureName": {
+      "type": "string",
+      "description": "Name of the feature"
+    },
+    "description": {
+      "type": "string",
+      "description": "What the feature does"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "planned",
+        "in_progress",
+        "completed"
+      ],
+      "default": "planned"
+    },
+    "relatedPages": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Related page names"
+    },
+    "usedBy": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Which user roles use this"
+    },
+    "requiredData": {
+      "type": "string",
+      "description": "Data entities needed"
+    },
+    "automations": {
+      "type": "string",
+      "description": "Related automations"
+    }
+  },
+  "required": [
+    "projectId",
+    "featureName"
+  ],
+  "rls": {
+    "create": {
+      "or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "user"
+          }
+        }
+      ]
+    },
+    "read": {
+      "or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "record_condition": {
+            "created_by": "user.email"
+          }
+        }
+      ]
+    },
+    "update": {
+      "or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "record_condition": {
+            "created_by": "user.email"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "record_condition": {
+            "created_by": "user.email"
+          }
+        }
+      ]
+    }
+  }
+}

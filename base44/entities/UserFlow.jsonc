@@ -1,0 +1,91 @@
+{
+  "name": "UserFlow",
+  "type": "object",
+  "properties": {
+    "projectId": {
+      "type": "string",
+      "description": "Parent project ID"
+    },
+    "flowName": {
+      "type": "string",
+      "description": "Name of the user flow"
+    },
+    "trigger": {
+      "type": "string",
+      "description": "What triggers this flow"
+    },
+    "steps": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Steps in the flow"
+    },
+    "outcome": {
+      "type": "string",
+      "description": "Expected outcome"
+    }
+  },
+  "required": [
+    "projectId",
+    "flowName"
+  ],
+  "rls": {
+    "create": {
+      "or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "user"
+          }
+        }
+      ]
+    },
+    "read": {
+      "or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "record_condition": {
+            "created_by": "user.email"
+          }
+        }
+      ]
+    },
+    "update": {
+      "or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "record_condition": {
+            "created_by": "user.email"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "record_condition": {
+            "created_by": "user.email"
+          }
+        }
+      ]
+    }
+  }
+}

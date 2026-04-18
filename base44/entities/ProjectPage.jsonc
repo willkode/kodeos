@@ -1,0 +1,105 @@
+{
+  "name": "ProjectPage",
+  "type": "object",
+  "properties": {
+    "projectId": {
+      "type": "string",
+      "description": "Parent project ID"
+    },
+    "pageName": {
+      "type": "string",
+      "description": "Name of the page"
+    },
+    "purpose": {
+      "type": "string",
+      "description": "What this page does"
+    },
+    "accessRoles": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Which roles can access"
+    },
+    "sections": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Key sections on the page"
+    },
+    "actions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Actions available on the page"
+    },
+    "dataShown": {
+      "type": "string",
+      "description": "What data is displayed"
+    }
+  },
+  "required": [
+    "projectId",
+    "pageName"
+  ],
+  "rls": {
+    "create": {
+      "or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "user"
+          }
+        }
+      ]
+    },
+    "read": {
+      "or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "record_condition": {
+            "created_by": "user.email"
+          }
+        }
+      ]
+    },
+    "update": {
+      "or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "record_condition": {
+            "created_by": "user.email"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "record_condition": {
+            "created_by": "user.email"
+          }
+        }
+      ]
+    }
+  }
+}

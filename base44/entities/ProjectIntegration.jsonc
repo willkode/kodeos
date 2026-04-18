@@ -1,0 +1,88 @@
+{
+  "name": "ProjectIntegration",
+  "type": "object",
+  "properties": {
+    "projectId": {
+      "type": "string",
+      "description": "Parent project ID"
+    },
+    "integrationName": {
+      "type": "string",
+      "description": "Name of the integration"
+    },
+    "purpose": {
+      "type": "string",
+      "description": "Why it is needed"
+    },
+    "triggerAction": {
+      "type": "string",
+      "description": "What triggers the integration"
+    },
+    "usedIn": {
+      "type": "string",
+      "description": "Where in the app it is used"
+    }
+  },
+  "required": [
+    "projectId",
+    "integrationName"
+  ],
+  "rls": {
+    "create": {
+      "or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "user"
+          }
+        }
+      ]
+    },
+    "read": {
+      "or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "record_condition": {
+            "created_by": "user.email"
+          }
+        }
+      ]
+    },
+    "update": {
+      "or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "record_condition": {
+            "created_by": "user.email"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "record_condition": {
+            "created_by": "user.email"
+          }
+        }
+      ]
+    }
+  }
+}

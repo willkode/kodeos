@@ -1,0 +1,146 @@
+{
+  "name": "Project",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Project name"
+    },
+    "description": {
+      "type": "string",
+      "description": "Short app idea description"
+    },
+    "appType": {
+      "type": "string",
+      "enum": [
+        "Web Application",
+        "Mobile App",
+        "SaaS Platform",
+        "Marketplace",
+        "Internal Tool",
+        "Client Portal",
+        "Community Platform",
+        "E-commerce",
+        "Other"
+      ],
+      "description": "Type of application"
+    },
+    "targetUsers": {
+      "type": "string",
+      "description": "Who the app serves"
+    },
+    "targetPlatform": {
+      "type": "string",
+      "enum": [
+        "Base44",
+        "Lovable",
+        "Bolt",
+        "Replit",
+        "Cursor",
+        "V0 by Vercel",
+        "Other"
+      ],
+      "default": "Base44",
+      "description": "Preferred AI builder"
+    },
+    "buildGoal": {
+      "type": "string",
+      "enum": [
+        "MVP Launch",
+        "Prototype",
+        "Full Product",
+        "Client Project",
+        "Internal Tool",
+        "Learning Project"
+      ],
+      "description": "Build goal"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "planning",
+        "mapping",
+        "prompts_ready",
+        "building",
+        "completed"
+      ],
+      "default": "planning",
+      "description": "Current project status"
+    },
+    "blueprint": {
+      "type": "object",
+      "description": "Generated app blueprint JSON"
+    },
+    "businessOverview": {
+      "type": "object",
+      "description": "Business and app overview details"
+    },
+    "designDirection": {
+      "type": "object",
+      "description": "Design and UI direction"
+    }
+  },
+  "required": [
+    "name",
+    "description",
+    "appType"
+  ],
+  "rls": {
+    "create": {
+      "or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "user"
+          }
+        }
+      ]
+    },
+    "read": {
+      "or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "record_condition": {
+            "created_by": "user.email"
+          }
+        }
+      ]
+    },
+    "update": {
+      "or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "record_condition": {
+            "created_by": "user.email"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "record_condition": {
+            "created_by": "user.email"
+          }
+        }
+      ]
+    }
+  }
+}

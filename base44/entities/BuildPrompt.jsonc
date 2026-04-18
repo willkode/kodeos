@@ -1,0 +1,104 @@
+{
+  "name": "BuildPrompt",
+  "type": "object",
+  "properties": {
+    "projectId": {
+      "type": "string",
+      "description": "Parent project ID"
+    },
+    "phaseId": {
+      "type": "string",
+      "description": "Parent phase ID"
+    },
+    "title": {
+      "type": "string",
+      "description": "Prompt title"
+    },
+    "promptBody": {
+      "type": "string",
+      "description": "Full prompt text"
+    },
+    "version": {
+      "type": "number",
+      "default": 1,
+      "description": "Version number"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "ready",
+        "used",
+        "revised"
+      ],
+      "default": "draft"
+    },
+    "orderNumber": {
+      "type": "number",
+      "description": "Order within phase"
+    }
+  },
+  "required": [
+    "projectId",
+    "phaseId",
+    "title"
+  ],
+  "rls": {
+    "create": {
+      "or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "user"
+          }
+        }
+      ]
+    },
+    "read": {
+      "or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "record_condition": {
+            "created_by": "user.email"
+          }
+        }
+      ]
+    },
+    "update": {
+      "or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "record_condition": {
+            "created_by": "user.email"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "record_condition": {
+            "created_by": "user.email"
+          }
+        }
+      ]
+    }
+  }
+}

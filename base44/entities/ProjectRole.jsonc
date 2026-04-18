@@ -1,0 +1,108 @@
+{
+  "name": "ProjectRole",
+  "type": "object",
+  "properties": {
+    "projectId": {
+      "type": "string",
+      "description": "Parent project ID"
+    },
+    "roleName": {
+      "type": "string",
+      "description": "Name of the user role"
+    },
+    "canView": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "What this role can view"
+    },
+    "canCreate": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "What this role can create"
+    },
+    "canEdit": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "What this role can edit"
+    },
+    "canDelete": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "What this role can delete"
+    },
+    "restrictions": {
+      "type": "string",
+      "description": "Actions blocked for this role"
+    }
+  },
+  "required": [
+    "projectId",
+    "roleName"
+  ],
+  "rls": {
+    "create": {
+      "or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "role": "user"
+          }
+        }
+      ]
+    },
+    "read": {
+      "or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "record_condition": {
+            "created_by": "user.email"
+          }
+        }
+      ]
+    },
+    "update": {
+      "or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "record_condition": {
+            "created_by": "user.email"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "or": [
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "record_condition": {
+            "created_by": "user.email"
+          }
+        }
+      ]
+    }
+  }
+}
