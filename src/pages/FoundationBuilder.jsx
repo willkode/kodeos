@@ -42,22 +42,23 @@ export default function FoundationBuilder() {
     const featureLabels = {
       auth: 'User login', payments: 'Payments', admin: 'Admin panel', fileUploads: 'File uploads',
       emailSms: 'Email/SMS', dashboards: 'Dashboards', messaging: 'Messaging',
-      scheduling: 'Scheduling', search: 'Search', api: 'API integrations',
+      scheduling: 'Scheduling', search: 'Search', api: 'API integrations', ai: 'AI features', realtime: 'Real-time updates',
     };
 
     const prompt = `You are an expert app architect. Analyze this app idea and create a structured blueprint.
 
 APP DETAILS:
 - Name: ${formData.appName}
-- What it does: ${formData.whatItDoes}
-- Who it's for: ${formData.whoItIsFor || 'Not specified'}
-- User roles: ${formData.userRoles || 'Not specified'}
-- Core features: ${formData.coreFeatures || 'Not specified'}
-- Must-have pages: ${formData.mustHavePages || 'Not specified'}
+- App Type: ${formData.appType || 'Not specified'}
+- What it does: ${formData.whatItDoes || 'Not specified'}
+- Target Audience: ${formData.audience?.join(', ') || 'Not specified'}
+- User Roles: ${formData.roles?.join(', ') || 'Not specified'}
+- Core Features: ${formData.coreFeatures?.join(', ') || 'Not specified'}
+- Pages Needed: ${formData.pages?.join(', ') || 'Not specified'}
 - Capabilities needed: ${formData.features.map(f => featureLabels[f]).join(', ') || 'None selected'}
 - Design style: ${formData.designStyle}
 - Platform: ${formData.platform}
-- First version goal: ${formData.firstVersionGoal || 'Not specified'}
+- MVP Goal: ${formData.mvpGoal || 'Not specified'}
 - Additional details: ${formData.freeDescription || 'None'}
 
 Return a JSON object with:
