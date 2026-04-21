@@ -8,6 +8,7 @@ import CTASection from '../components/home/CTASection';
 import RecommenderCTA from '../components/home/RecommenderCTA';
 import StarterKitsPreview from '../components/home/StarterKitsPreview';
 import HomeFooter from '../components/home/HomeFooter';
+import PlannerCTA from '../components/home/PlannerCTA';
 
 export default function Home() {
   const navigate = useNavigate();
@@ -49,6 +50,7 @@ export default function Home() {
       <RecommenderCTA hasPurchased={hasPurchased} />
       <StarterKitsPreview />
       <WhySection />
+      <PlannerCTA />
       <HowToUseSection />
       <CTASection hasPurchased={hasPurchased} onGetStarted={handleGetStarted} />
       <HomeFooter />
