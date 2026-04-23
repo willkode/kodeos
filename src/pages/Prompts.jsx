@@ -29,7 +29,7 @@ export default function Prompts() {
         if (user) {
           setSavedPromptIds(user?.savedPrompts || []);
         }
-        const allPrompts = await base44.entities.Prompt.list('-created_date', 200);
+        const allPrompts = await base44.entities.Prompt.list('-created_date', 2000);
         setPrompts(allPrompts);
       } catch (err) {
         console.error('Error loading prompts:', err);
