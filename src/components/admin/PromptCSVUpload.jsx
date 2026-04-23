@@ -17,7 +17,11 @@ const VALID_CATEGORIES = [
 const VALID_PLATFORMS = ["Base44", "Lovable", "Bolt", "Replit", "Floot", "Emergent.sh", "V0 by Vercel", "Vitara AI", "Rocket.new", "Meku"];
 const VALID_DIFFICULTIES = ["Beginner", "Intermediate", "Advanced"];
 
-function parseCSVText(text) {
+function parseDelimitedText(text) {
+  // Auto-detect delimiter: tab or comma
+  const firstLine = text.split('\n')[0];
+  const delimiter = firstLine.includes('\t') ? '\t' : ',';
+
   const rows = [];
   let cells = [];
   let current = '';
@@ -32,7 +36,7 @@ function parseCSVText(text) {
       } else {
         inQuotes = !inQuotes;
       }
-    } else if (ch === ',' && !inQuotes) {
+    } else if (ch === delimiter && !inQuotes) {
       cells.push(current.trim());
       current = '';
     } else if ((ch === '\n' || ch === '\r') && !inQuotes) {
@@ -79,10 +83,10 @@ export default function PromptCSVUpload({ onComplete }) {
     setResult(null);
 
     const text = await file.text();
-    const rows = parseCSVText(text);
+    const rows = parseDelimitedText(text);
 
     if (rows.length < 2) {
-      setResult({ success: 0, failed: 0, errors: ['CSV must have a header row and at least one data row.'] });
+      setResult({ success: 0, failed: 0, errors: ['File must have a header row and at least one data row.'] });
       setUploading(false);
       return;
     }
@@ -91,13 +95,16 @@ export default function PromptCSVUpload({ onComplete }) {
     const titleIdx = headers.indexOf('title');
     const descIdx = headers.indexOf('description');
     const catIdx = headers.indexOf('category');
+    const instructionsIdx = headers.indexOf('instructions');
+    const promptsIdx = headers.indexOf('prompts');
+    // Also support a direct "content" column
     const contentIdx = headers.indexOf('content');
     const platformsIdx = headers.indexOf('platforms');
     const diffIdx = headers.indexOf('difficulty');
     const tagsIdx = headers.indexOf('tags');
 
-    if (titleIdx === -1 || contentIdx === -1) {
-      setResult({ success: 0, failed: 0, errors: ['CSV must have at least "title" and "content" columns.'] });
+    if (titleIdx === -1) {
+      setResult({ success: 0, failed: 0, errors: ['File must have a "title" column.'] });
       setUploading(false);
       return;
     }
@@ -110,13 +117,27 @@ export default function PromptCSVUpload({ onComplete }) {
     for (let i = 1; i < rows.length; i++) {
       const row = rows[i];
       const title = row[titleIdx] || '';
-      const content = row[contentIdx] || '';
 
-      if (!title || !content) {
-        errors.push(`Row ${i + 1}: Missing title or content, skipped.`);
+      if (!title) {
+        errors.push(`Row ${i + 1}: Missing title, skipped.`);
         failed++;
         continue;
       }
+
+      // Build content from "instructions" + "prompts" columns, or fall back to "content"
+      let content = '';
+      if (instructionsIdx !== -1 || promptsIdx !== -1) {
+        const parts = [];
+        if (instructionsIdx !== -1 && row[instructionsIdx]) parts.push(row[instructionsIdx]);
+        if (promptsIdx !== -1 && row[promptsIdx]) parts.push(row[promptsIdx]);
+        content = parts.join('\n\n');
+      } else if (contentIdx !== -1) {
+        content = row[contentIdx] || '';
+      }
+
+      const category = catIdx !== -1 && VALID_CATEGORIES.includes(row[catIdx])
+        ? row[catIdx]
+        : 'AI Features';
 
       const platforms = platformsIdx !== -1 && row[platformsIdx]
         ? row[platformsIdx].split('|').map(p => p.trim()).filter(p => VALID_PLATFORMS.includes(p))
@@ -125,10 +146,6 @@ export default function PromptCSVUpload({ onComplete }) {
       const difficulty = diffIdx !== -1 && VALID_DIFFICULTIES.includes(row[diffIdx])
         ? row[diffIdx]
         : 'Intermediate';
-
-      const category = catIdx !== -1 && VALID_CATEGORIES.includes(row[catIdx])
-        ? row[catIdx]
-        : 'AI Features';
 
       const tags = tagsIdx !== -1 && row[tagsIdx]
         ? row[tagsIdx].split('|').map(t => t.trim()).filter(Boolean)
@@ -172,7 +189,7 @@ export default function PromptCSVUpload({ onComplete }) {
             Bulk Upload Prompts (CSV)
           </h3>
           <p className="text-xs text-[#71717A] mt-1">
-            Columns: title, description, category, content, platforms (pipe-separated), difficulty, tags (pipe-separated)
+            Supports tab or comma-separated. Columns: title, description, instructions, prompts, category (+ optional: platforms, difficulty, tags)
           </p>
         </div>
         <Button size="sm" variant="ghost" onClick={handleDownloadTemplate} className="text-xs gap-1">
@@ -184,7 +201,7 @@ export default function PromptCSVUpload({ onComplete }) {
         <input
           ref={fileRef}
           type="file"
-          accept=".csv"
+          accept=".csv,.tsv,.txt"
           onChange={handleUpload}
           disabled={uploading}
           className="text-sm text-[#A1A1AA] file:mr-3 file:py-1.5 file:px-3 file:rounded-md file:border-0 file:text-sm file:font-medium file:bg-[#3B82F6] file:text-white hover:file:bg-[#2563EB] file:cursor-pointer"
