@@ -14,6 +14,7 @@ import PromptList from '../components/PromptList';
 import AIPromptGenerator from '../components/admin/AIPromptGenerator';
 import CategoryManager from '../components/admin/CategoryManager';
 import ResourceInfoGenerator from '../components/admin/ResourceInfoGenerator';
+import PromptCSVUpload from '../components/admin/PromptCSVUpload';
 
 export default function Admin() {
   const navigate = useNavigate();
@@ -169,13 +170,15 @@ export default function Admin() {
                   <h2 className="text-lg font-semibold">
                     Prompts <span className="text-sm font-normal text-[#71717A]">({prompts.length})</span>
                   </h2>
-                  <Button
-                    onClick={() => { setEditingPrompt(null); setShowForm(!showForm); }}
-                    className="bg-[#3B82F6] text-white hover:bg-[#2563EB]"
-                    size="sm"
-                  >
-                    <Plus className="w-4 h-4 mr-1" /> New Prompt
-                  </Button>
+                  <div className="flex gap-2">
+                    <Button
+                      onClick={() => { setEditingPrompt(null); setShowForm(!showForm); }}
+                      className="bg-[#3B82F6] text-white hover:bg-[#2563EB]"
+                      size="sm"
+                    >
+                      <Plus className="w-4 h-4 mr-1" /> New Prompt
+                    </Button>
+                  </div>
                 </div>
 
                 {showForm && (
@@ -191,11 +194,13 @@ export default function Admin() {
                   </div>
                 )}
 
+                <PromptCSVUpload onComplete={refreshPrompts} />
+
                 <Input
                   placeholder="Search prompts..."
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
-                  className="bg-card border-border/30 mb-4"
+                  className="bg-card border-border/30 mb-4 mt-4"
                 />
 
                 <PromptList
