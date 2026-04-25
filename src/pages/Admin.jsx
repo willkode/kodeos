@@ -15,6 +15,7 @@ import AIPromptGenerator from '../components/admin/AIPromptGenerator';
 import CategoryManager from '../components/admin/CategoryManager';
 import ResourceInfoGenerator from '../components/admin/ResourceInfoGenerator';
 import PromptCSVUpload from '../components/admin/PromptCSVUpload';
+import MarketingTab from '../components/admin/marketing/MarketingTab';
 
 export default function Admin() {
   const navigate = useNavigate();
@@ -113,6 +114,7 @@ export default function Admin() {
     agents: 'Agent Kits',
     mcp: 'MCP Servers',
     starters: 'Starter Kits',
+    marketing: 'Marketing & Social Posts',
     generate: 'AI Prompt Generator',
     categories: 'Category Manager',
     resourceInfo: 'Resource Info Generator',
@@ -246,6 +248,9 @@ export default function Admin() {
                 fields={['name', 'prompt', 'category']}
               />
             )}
+
+            {/* Marketing */}
+            {activeTab === 'marketing' && <MarketingTab />}
 
             {/* AI Generate */}
             {activeTab === 'generate' && (

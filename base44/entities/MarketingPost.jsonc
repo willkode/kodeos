@@ -1,0 +1,87 @@
+{
+  "name": "MarketingPost",
+  "type": "object",
+  "properties": {
+    "topic": {
+      "type": "string",
+      "description": "Topic/idea the user provided for the post"
+    },
+    "platform": {
+      "type": "string",
+      "enum": [
+        "linkedin",
+        "reddit",
+        "twitter"
+      ],
+      "description": "Target platform"
+    },
+    "content": {
+      "type": "string",
+      "description": "AI-generated post text"
+    },
+    "hashtags": {
+      "type": "string",
+      "description": "AI-generated hashtags"
+    },
+    "imageUrl": {
+      "type": "string",
+      "description": "AI-generated image URL"
+    },
+    "link": {
+      "type": "string",
+      "description": "Promo link to include in post"
+    },
+    "scheduledTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Scheduled posting time (ISO)"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "scheduled",
+        "posted",
+        "failed"
+      ],
+      "default": "draft",
+      "description": "Post status"
+    },
+    "postResult": {
+      "type": "string",
+      "description": "Platform response or error message after posting"
+    },
+    "slotHour": {
+      "type": "number",
+      "description": "Hour slot (0-23) for the day"
+    }
+  },
+  "required": [
+    "topic",
+    "platform",
+    "content",
+    "status"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

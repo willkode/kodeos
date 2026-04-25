@@ -1,6 +1,6 @@
 import { 
   Users, FileText, Sparkles, FolderOpen, List,
-  Cpu, Bot, Server, Package, BarChart3
+  Cpu, Bot, Server, Package, BarChart3, Megaphone
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -20,6 +20,12 @@ const sections = [
       { key: 'agents', label: 'Agent Kits', icon: Bot },
       { key: 'mcp', label: 'MCP Servers', icon: Server },
       { key: 'starters', label: 'Starter Kits', icon: Package },
+    ],
+  },
+  {
+    label: 'Marketing',
+    items: [
+      { key: 'marketing', label: 'Social Posts', icon: Megaphone },
     ],
   },
   {
