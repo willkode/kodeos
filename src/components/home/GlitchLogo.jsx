@@ -75,7 +75,8 @@ export default function GlitchLogo({ text = 'KODEOS', fontSize = 10 }) {
         letter.y += 0.75;
         if (letter.y > canvasHeight) letter.y -= totalFieldHeight;
       });
-      ctx.fillStyle = '#080A12';
+      const bgColor = getComputedStyle(document.documentElement).getPropertyValue('--background').trim();
+      ctx.fillStyle = bgColor ? `hsl(${bgColor})` : '#080A12';
       ctx.fillRect(0, 0, canvasWidth, canvasHeight);
       ctx.font = `${fontSize}px monospace`;
       ctx.textBaseline = 'top';
@@ -101,9 +102,9 @@ export default function GlitchLogo({ text = 'KODEOS', fontSize = 10 }) {
   return (
     <div ref={containerRef} className="relative overflow-hidden" style={{ width: 'fit-content', height: '64px' }}>
       <canvas ref={canvasRef} className="absolute inset-0 z-0" />
-      <div className="absolute inset-0 z-0 pointer-events-none bg-[radial-gradient(circle,_transparent_60%,_black_100%)]" />
+      <div className="absolute inset-0 z-0 pointer-events-none bg-[radial-gradient(circle,_transparent_60%,_hsl(var(--background))_100%)]" />
       <div className="relative z-10 flex items-center justify-center h-full px-4">
-        <span className="text-xl font-bold tracking-widest text-white mix-blend-screen">{text}</span>
+        <span className="text-xl font-bold tracking-widest text-foreground">{text}</span>
       </div>
     </div>
   );

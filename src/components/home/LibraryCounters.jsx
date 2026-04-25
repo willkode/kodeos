@@ -54,10 +54,10 @@ export default function LibraryCounters() {
               <div className="text-2xl md:text-3xl font-bold mb-1" style={{ color: cat.color }}>
                 {counts[cat.key] !== undefined ? counts[cat.key].toLocaleString() : '—'}
               </div>
-              <div className="text-sm text-[#A1A1AA] group-hover:text-white transition-colors">
+              <div className="text-sm text-text-secondary group-hover:text-foreground transition-colors">
                 {cat.label}
               </div>
-              <div className="text-[11px] text-[#52525B] mt-1 leading-tight">
+              <div className="text-[11px] text-text-tertiary mt-1 leading-tight">
                 {cat.subtitle}
               </div>
             </button>
@@ -65,8 +65,8 @@ export default function LibraryCounters() {
         ))}
       </div>
       {total > 0 && (
-        <p className="text-center text-sm text-[#71717A] mt-4">
-          <span className="text-white font-semibold">{total.toLocaleString()}</span> resources and growing — updated weekly
+        <p className="text-center text-sm text-text-tertiary mt-4">
+          <span className="text-foreground font-semibold">{total.toLocaleString()}</span> resources and growing — updated weekly
         </p>
       )}
     </div>

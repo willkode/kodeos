@@ -115,7 +115,7 @@ export default function AIAgentKits() {
         {/* Header */}
         <div className="mb-8">
           <AnimatedText text="AI Models APIs" className="mb-2" />
-          <p className="text-[#A1A1AA]">
+          <p className="text-text-secondary">
             Browse {kits.length.toLocaleString()} AI model APIs and tools to power your applications.
           </p>
         </div>
@@ -151,7 +151,7 @@ export default function AIAgentKits() {
                   {categorizing && catProgress.total > 0 && (
                     <div className="w-full space-y-1 mb-3">
                       <Progress value={(catProgress.current / catProgress.total) * 100} className="h-2" />
-                      <p className="text-[10px] text-[#71717A] text-center">
+                      <p className="text-[10px] text-text-tertiary text-center">
                         {catProgress.current}/{catProgress.total} batches
                       </p>
                     </div>
@@ -159,7 +159,7 @@ export default function AIAgentKits() {
                 </>
               )}
               <ShineBorder color={['#3B82F6', '#A855F7', '#38bdf8']}>
-                <div className="p-4 rounded-xl bg-white/[0.02]">
+                <div className="p-4 rounded-xl bg-surface-hover">
                   <FilterSidebar
                     selectedCategory={selectedCategory}
                     setSelectedCategory={setSelectedCategory}
@@ -185,7 +185,7 @@ export default function AIAgentKits() {
               </div>
             )}
 
-            <p className="text-sm text-[#71717A] mb-4">
+            <p className="text-sm text-text-tertiary mb-4">
               {filtered.length.toLocaleString()} result{filtered.length !== 1 ? 's' : ''}
             </p>
 
@@ -195,7 +195,7 @@ export default function AIAgentKits() {
                 <div className="w-8 h-8 border-4 border-primary/20 border-t-primary rounded-full animate-spin" />
               </div>
             ) : paginated.length === 0 ? (
-              <div className="text-center py-20 text-[#71717A]">No agent kits found.</div>
+              <div className="text-center py-20 text-text-tertiary">No agent kits found.</div>
             ) : (
               <>
                 <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-4">
@@ -218,11 +218,11 @@ export default function AIAgentKits() {
                       variant="outline"
                       disabled={page === 1}
                       onClick={() => setPage(p => p - 1)}
-                      className="border-white/[0.1] text-white hover:bg-white/[0.04] bg-transparent"
+                      className="border-surface-border text-foreground hover:bg-surface-hover bg-transparent"
                     >
                       Previous
                     </Button>
-                    <span className="text-sm text-[#71717A] px-3">
+                    <span className="text-sm text-text-tertiary px-3">
                       Page {page} of {totalPages}
                     </span>
                     <Button
@@ -230,7 +230,7 @@ export default function AIAgentKits() {
                       variant="outline"
                       disabled={page === totalPages}
                       onClick={() => setPage(p => p + 1)}
-                      className="border-white/[0.1] text-white hover:bg-white/[0.04] bg-transparent"
+                      className="border-surface-border text-foreground hover:bg-surface-hover bg-transparent"
                     >
                       Next
                     </Button>

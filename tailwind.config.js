@@ -16,6 +16,12 @@ module.exports = {
   		colors: {
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
+  			surface: 'hsl(var(--surface))',
+  			'surface-hover': 'hsl(var(--surface-hover))',
+  			'surface-border': 'hsl(var(--surface-border))',
+  			'text-primary': 'hsl(var(--text-primary))',
+  			'text-secondary': 'hsl(var(--text-secondary))',
+  			'text-tertiary': 'hsl(var(--text-tertiary))',
   			card: {
   				DEFAULT: 'hsl(var(--card))',
   				foreground: 'hsl(var(--card-foreground))'

@@ -13,7 +13,7 @@ export default function DashboardSidebar({ activeTab, onTabChange, counts }) {
   return (
     <div className="w-56 flex-shrink-0">
       <div className="sticky top-24 space-y-1">
-        <h3 className="text-xs font-semibold text-[#71717A] uppercase tracking-wider px-3 mb-3">
+        <h3 className="text-xs font-semibold text-text-tertiary uppercase tracking-wider px-3 mb-3">
           Saved Resources
         </h3>
         {tabs.map((tab) => {
@@ -26,8 +26,8 @@ export default function DashboardSidebar({ activeTab, onTabChange, counts }) {
               className={cn(
                 'w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-all',
                 isActive
-                  ? 'bg-white/[0.06] text-white'
-                  : 'text-[#A1A1AA] hover:bg-white/[0.03] hover:text-white'
+                  ? 'bg-surface-hover text-foreground'
+                  : 'text-text-secondary hover:bg-surface-hover hover:text-foreground'
               )}
             >
               <tab.icon
@@ -39,7 +39,7 @@ export default function DashboardSidebar({ activeTab, onTabChange, counts }) {
                 <span
                   className={cn(
                     'text-[10px] px-1.5 py-0.5 rounded-full font-medium',
-                    isActive ? 'bg-white/[0.1] text-white' : 'text-[#71717A]'
+                    isActive ? 'bg-surface-hover text-foreground' : 'text-text-tertiary'
                   )}
                 >
                   {count}

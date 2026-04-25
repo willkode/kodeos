@@ -31,6 +31,45 @@
     --chart-4: 45 100% 50%;
     --chart-5: 300 100% 60%;
     --radius: 0.5rem;
+    --surface: 0 0% 3.5%;
+    --surface-hover: 0 0% 100% / 0.04;
+    --surface-border: 0 0% 100% / 0.06;
+    --text-primary: 0 0% 95%;
+    --text-secondary: 240 4% 65%;
+    --text-tertiary: 240 4% 46%;
+  }
+
+  .light {
+    --background: 220 20% 97%;
+    --foreground: 220 20% 10%;
+    --card: 0 0% 100%;
+    --card-foreground: 220 20% 10%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 20% 10%;
+    --primary: 214 93% 41%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 280 100% 60%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 220 14% 92%;
+    --muted-foreground: 220 10% 40%;
+    --accent: 217 91% 60%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 220 14% 86%;
+    --input: 220 14% 92%;
+    --ring: 217 91% 60%;
+    --chart-1: 217 91% 60%;
+    --chart-2: 280 100% 60%;
+    --chart-3: 200 100% 50%;
+    --chart-4: 45 100% 50%;
+    --chart-5: 300 100% 60%;
+    --surface: 0 0% 100%;
+    --surface-hover: 220 14% 0% / 0.04;
+    --surface-border: 220 14% 0% / 0.1;
+    --text-primary: 220 20% 10%;
+    --text-secondary: 220 10% 42%;
+    --text-tertiary: 220 10% 55%;
   }
 
   .dark {
@@ -58,6 +97,12 @@
     --chart-3: 200 100% 50%;
     --chart-4: 45 100% 50%;
     --chart-5: 300 100% 60%;
+    --surface: 0 0% 3.5%;
+    --surface-hover: 0 0% 100% / 0.04;
+    --surface-border: 0 0% 100% / 0.06;
+    --text-primary: 0 0% 95%;
+    --text-secondary: 240 4% 65%;
+    --text-tertiary: 240 4% 46%;
   }
 }
 
@@ -101,8 +146,8 @@
   isolation: isolate;
   transform: translate3d(0, 0, 0.01px);
   display: grid;
-  border: 1px solid rgb(255 255 255 / 10%);
-  background: var(--card-bg, #09090B);
+  border: 1px solid hsl(var(--border));
+  background: var(--card-bg, hsl(var(--card)));
   overflow: visible;
 }
 
@@ -127,7 +172,7 @@
 .border-glow-card::before {
   border: 1px solid transparent;
   background:
-    linear-gradient(var(--card-bg, #09090B) 0 100%) padding-box,
+    linear-gradient(var(--card-bg, hsl(var(--card))) 0 100%) padding-box,
     linear-gradient(rgb(255 255 255 / 0%) 0% 100%) border-box,
     var(--gradient-one, radial-gradient(at 80% 55%, hsla(268, 100%, 76%, 1) 0px, transparent 50%)) border-box,
     var(--gradient-two, radial-gradient(at 69% 34%, hsla(349, 100%, 74%, 1) 0px, transparent 50%)) border-box,

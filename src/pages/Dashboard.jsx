@@ -137,7 +137,7 @@ export default function Dashboard() {
         <div className="mb-8 flex items-start justify-between">
           <div>
             <AnimatedText text="Your Dashboard" className="mb-2" />
-            <p className="text-[#A1A1AA]">
+            <p className="text-text-secondary">
               Welcome back{user?.full_name ? `, ${user.full_name}` : ''}. Here are your saved items.
             </p>
           </div>
@@ -169,7 +169,7 @@ export default function Dashboard() {
               <div>
                 <h3 className="text-lg font-semibold mb-4">Saved Prompts</h3>
                 {savedPrompts.length === 0 ? (
-                  <p className="text-[#71717A] text-sm py-10 text-center">Browse the prompt library and bookmark your favorites.</p>
+                  <p className="text-text-tertiary text-sm py-10 text-center">Browse the prompt library and bookmark your favorites.</p>
                 ) : (
                   <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-4">
                     {savedPrompts.map(prompt => (
@@ -189,7 +189,7 @@ export default function Dashboard() {
               <div>
                 <h3 className="text-lg font-semibold mb-4">Saved AI Model APIs</h3>
                 {savedAPIs.length === 0 ? (
-                  <p className="text-[#71717A] text-sm py-10 text-center">Browse AI Model APIs and save your favorites.</p>
+                  <p className="text-text-tertiary text-sm py-10 text-center">Browse AI Model APIs and save your favorites.</p>
                 ) : (
                   <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-4">
                     {savedAPIs.map(api => (
@@ -210,7 +210,7 @@ export default function Dashboard() {
               <div>
                 <h3 className="text-lg font-semibold mb-4">Saved Agent Kits</h3>
                 {savedAgents.length === 0 ? (
-                  <p className="text-[#71717A] text-sm py-10 text-center">Browse Agent Kits and save your favorites.</p>
+                  <p className="text-text-tertiary text-sm py-10 text-center">Browse Agent Kits and save your favorites.</p>
                 ) : (
                   <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-4">
                     {savedAgents.map(kit => (
@@ -231,7 +231,7 @@ export default function Dashboard() {
               <div>
                 <h3 className="text-lg font-semibold mb-4">Saved MCP Servers</h3>
                 {savedMCPs.length === 0 ? (
-                  <p className="text-[#71717A] text-sm py-10 text-center">Browse MCP Servers and save your favorites.</p>
+                  <p className="text-text-tertiary text-sm py-10 text-center">Browse MCP Servers and save your favorites.</p>
                 ) : (
                   <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-4">
                     {savedMCPs.map(server => (
@@ -252,7 +252,7 @@ export default function Dashboard() {
               <div>
                 <h3 className="text-lg font-semibold mb-4">Saved Starter Kits</h3>
                 {savedStarters.length === 0 ? (
-                  <p className="text-[#71717A] text-sm py-10 text-center">Browse App Starter Kits and save your favorites.</p>
+                  <p className="text-text-tertiary text-sm py-10 text-center">Browse App Starter Kits and save your favorites.</p>
                 ) : (
                   <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-4">
                     {savedStarters.map(kit => (

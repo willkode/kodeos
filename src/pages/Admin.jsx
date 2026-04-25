@@ -124,7 +124,7 @@ export default function Admin() {
         {/* Header */}
         <div className="mb-8">
           <AnimatedText text={tabTitles[activeTab] || 'Admin'} className="mb-1" />
-          <p className="text-[#A1A1AA] text-sm">
+          <p className="text-text-secondary text-sm">
             Manage all KodeOS resources and users from one place.
           </p>
         </div>
@@ -168,7 +168,7 @@ export default function Admin() {
               <div>
                 <div className="flex items-center justify-between mb-4">
                   <h2 className="text-lg font-semibold">
-                    Prompts <span className="text-sm font-normal text-[#71717A]">({prompts.length})</span>
+                    Prompts <span className="text-sm font-normal text-text-tertiary">({prompts.length})</span>
                   </h2>
                   <div className="flex gap-2">
                     <Button

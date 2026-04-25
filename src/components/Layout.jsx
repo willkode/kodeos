@@ -31,7 +31,7 @@ export default function Layout() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#09090B] text-white">
+    <div className="min-h-screen bg-background text-foreground">
       <HomeNavbar user={user} hasPurchased={hasPurchased} />
       <Outlet context={{ user, hasPurchased }} />
     </div>

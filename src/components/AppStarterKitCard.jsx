@@ -22,7 +22,7 @@ export default function AppStarterKitCard({ kit, onClick, isSaved, onToggleSave 
               onClick={(e) => { e.stopPropagation(); onToggleSave(); }}
               className="shrink-0 mt-0.5"
             >
-              <Bookmark className={`w-4 h-4 transition-colors ${isSaved ? 'fill-[#3B82F6] text-[#3B82F6]' : 'text-[#71717A] hover:text-white'}`} />
+              <Bookmark className={`w-4 h-4 transition-colors ${isSaved ? 'fill-[#3B82F6] text-[#3B82F6]' : 'text-text-tertiary hover:text-foreground'}`} />
             </button>
           )}
         </div>
@@ -40,24 +40,24 @@ export default function AppStarterKitCard({ kit, onClick, isSaved, onToggleSave 
         {/* Resource pills */}
         <div className="flex flex-wrap gap-1.5 mb-3">
           {kit.ai_apis?.length > 0 && (
-            <span className="flex items-center gap-1 text-[10px] px-1.5 py-0.5 rounded bg-white/[0.04] text-[#A1A1AA]">
+            <span className="flex items-center gap-1 text-[10px] px-1.5 py-0.5 rounded bg-surface-hover text-text-secondary">
               <Cpu className="w-2.5 h-2.5" /> {kit.ai_apis.length} API{kit.ai_apis.length > 1 ? 's' : ''}
             </span>
           )}
           {kit.agents?.length > 0 && (
-            <span className="flex items-center gap-1 text-[10px] px-1.5 py-0.5 rounded bg-white/[0.04] text-[#A1A1AA]">
+            <span className="flex items-center gap-1 text-[10px] px-1.5 py-0.5 rounded bg-surface-hover text-text-secondary">
               <Bot className="w-2.5 h-2.5" /> {kit.agents.length} Agent{kit.agents.length > 1 ? 's' : ''}
             </span>
           )}
           {kit.mcp_servers?.length > 0 && (
-            <span className="flex items-center gap-1 text-[10px] px-1.5 py-0.5 rounded bg-white/[0.04] text-[#A1A1AA]">
+            <span className="flex items-center gap-1 text-[10px] px-1.5 py-0.5 rounded bg-surface-hover text-text-secondary">
               <Server className="w-2.5 h-2.5" /> {kit.mcp_servers.length} MCP{kit.mcp_servers.length > 1 ? 's' : ''}
             </span>
           )}
         </div>
 
         {/* Prompt preview */}
-        <p className="text-xs text-[#71717A] line-clamp-2 mb-3">{kit.prompt}</p>
+        <p className="text-xs text-text-tertiary line-clamp-2 mb-3">{kit.prompt}</p>
 
         <span className="text-xs text-[#3B82F6] font-medium">View kit details →</span>
       </div>

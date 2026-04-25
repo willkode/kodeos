@@ -12,7 +12,7 @@ export default function MCPServerCard({ server, onClick, isSaved, onToggleSave }
               onClick={(e) => { e.stopPropagation(); onToggleSave(); }}
               className="shrink-0 mt-0.5"
             >
-              <Bookmark className={`w-4 h-4 transition-colors ${isSaved ? 'fill-[#3B82F6] text-[#3B82F6]' : 'text-[#71717A] hover:text-white'}`} />
+              <Bookmark className={`w-4 h-4 transition-colors ${isSaved ? 'fill-[#3B82F6] text-[#3B82F6]' : 'text-text-tertiary hover:text-foreground'}`} />
             </button>
           )}
         </div>

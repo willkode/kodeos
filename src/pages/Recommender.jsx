@@ -118,7 +118,7 @@ Return a JSON object with:
       <div className="max-w-4xl mx-auto px-6 py-12">
         <div className="mb-10">
           <AnimatedText text="AI Stack Recommender" className="mb-3" />
-          <p className="text-[#A1A1AA]">
+          <p className="text-text-secondary">
             Describe your app and we'll recommend the best AI APIs, agent kits, and MCP servers from our library.
           </p>
         </div>

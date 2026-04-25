@@ -12,9 +12,9 @@ export default function HeroSection({ hasPurchased, onGetStarted, onViewPricing 
 
       <div className="max-w-4xl mx-auto text-center relative">
         {/* Badge */}
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/[0.08] bg-white/[0.03] mb-8">
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-surface-border bg-surface-hover mb-8">
           <div className="w-1.5 h-1.5 rounded-full bg-[#3B82F6] animate-pulse" />
-          <span className="text-sm text-[#A1A1AA] font-medium">The ultimate toolkit for vibecoders</span>
+          <span className="text-sm text-text-secondary font-medium">The ultimate toolkit for vibecoders</span>
         </div>
 
         {/* Title */}
@@ -27,7 +27,7 @@ export default function HeroSection({ hasPurchased, onGetStarted, onViewPricing 
         </h1>
 
         {/* Subtitle */}
-        <p className="text-lg md:text-xl text-[#A1A1AA] max-w-2xl mx-auto mb-10 leading-relaxed">
+        <p className="text-lg md:text-xl text-text-secondary max-w-2xl mx-auto mb-10 leading-relaxed">
           Prompts, AI model APIs, agent kits, and MCP servers — all in one place.
           The curated toolkit that turns vibecoding into shipping.
         </p>
@@ -47,7 +47,7 @@ export default function HeroSection({ hasPurchased, onGetStarted, onViewPricing 
               size="lg"
               variant="outline"
               onClick={onViewPricing}
-              className="border-white/[0.1] text-white hover:bg-white/[0.04] px-8 h-12 text-base bg-transparent"
+              className="border-surface-border text-foreground hover:bg-surface-hover px-8 h-12 text-base bg-transparent"
             >
               View Pricing
             </Button>

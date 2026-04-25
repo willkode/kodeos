@@ -24,8 +24,8 @@ function MiniKitCard({ kit }) {
           {kit.category}
         </span>
         <h3 className="text-sm font-semibold mt-2.5 mb-2 line-clamp-1">{kit.name}</h3>
-        <p className="text-xs text-[#71717A] line-clamp-2 mb-3">{kit.prompt}</p>
-        <div className="flex items-center gap-3 text-[10px] text-[#71717A]">
+        <p className="text-xs text-text-tertiary line-clamp-2 mb-3">{kit.prompt}</p>
+        <div className="flex items-center gap-3 text-[10px] text-text-tertiary">
           {kit.ai_apis?.length > 0 && (
             <span className="flex items-center gap-1"><Cpu className="w-3 h-3 text-[#A78BFA]" />{kit.ai_apis.length}</span>
           )}
@@ -56,7 +56,7 @@ export default function StarterKitsPreview() {
       <div className="max-w-5xl mx-auto">
         <div className="text-center mb-10">
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight mb-3">App Starter Kits</h2>
-          <p className="text-[#A1A1AA] max-w-xl mx-auto">
+          <p className="text-text-secondary max-w-xl mx-auto">
             Pre-built combinations of AI APIs, agents, and MCP servers — pick one and start building.
           </p>
         </div>
@@ -72,7 +72,7 @@ export default function StarterKitsPreview() {
             size="lg"
             variant="outline"
             onClick={() => navigate('/app-starter-kits')}
-            className="border-white/[0.1] text-white hover:bg-white/[0.04] bg-transparent font-semibold px-8 h-12 text-base"
+            className="border-surface-border text-foreground hover:bg-surface-hover bg-transparent font-semibold px-8 h-12 text-base"
           >
             Browse All Starter Kits <ArrowRight className="w-4 h-4 ml-2" />
           </Button>

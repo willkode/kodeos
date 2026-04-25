@@ -34,13 +34,13 @@ export default function WhySection() {
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/[0.01] to-transparent pointer-events-none" />
       <div className="max-w-5xl mx-auto relative">
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/[0.08] bg-white/[0.03] mb-6">
-            <span className="text-xs text-[#A1A1AA] font-medium uppercase tracking-wider">Why KodeOS</span>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-surface-border bg-surface-hover mb-6">
+            <span className="text-xs text-text-secondary font-medium uppercase tracking-wider">Why KodeOS</span>
           </div>
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
             Why vibecoders need this library
           </h2>
-          <p className="text-[#A1A1AA] text-lg max-w-2xl mx-auto">
+          <p className="text-text-secondary text-lg max-w-2xl mx-auto">
             Vibecoding is fast — but only if you have the right building blocks. 
             KodeOS is the toolkit that turns ideas into shipped products.
           </p>
@@ -57,7 +57,7 @@ export default function WhySection() {
                   <r.icon className="w-5 h-5" style={{ color: r.color }} />
                 </div>
                 <h3 className="text-lg font-semibold mb-2">{r.title}</h3>
-                <p className="text-sm text-[#A1A1AA] leading-relaxed">{r.desc}</p>
+                <p className="text-sm text-text-secondary leading-relaxed">{r.desc}</p>
               </div>
             </BorderGlow>
           ))}

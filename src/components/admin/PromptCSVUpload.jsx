@@ -181,14 +181,14 @@ export default function PromptCSVUpload({ onComplete }) {
   };
 
   return (
-    <div className="p-5 rounded-lg border border-white/[0.08] bg-white/[0.02] space-y-4">
+    <div className="p-5 rounded-lg border border-surface-border bg-surface-hover space-y-4">
       <div className="flex items-center justify-between">
         <div>
           <h3 className="text-sm font-semibold flex items-center gap-2">
             <Upload className="w-4 h-4 text-[#3B82F6]" />
             Bulk Upload Prompts (CSV)
           </h3>
-          <p className="text-xs text-[#71717A] mt-1">
+          <p className="text-xs text-text-tertiary mt-1">
             Supports tab or comma-separated. Columns: title, description, instructions, prompts, category (+ optional: platforms, difficulty, tags)
           </p>
         </div>
@@ -204,7 +204,7 @@ export default function PromptCSVUpload({ onComplete }) {
           accept=".csv,.tsv,.txt"
           onChange={handleUpload}
           disabled={uploading}
-          className="text-sm text-[#A1A1AA] file:mr-3 file:py-1.5 file:px-3 file:rounded-md file:border-0 file:text-sm file:font-medium file:bg-[#3B82F6] file:text-white hover:file:bg-[#2563EB] file:cursor-pointer"
+          className="text-sm text-text-secondary file:mr-3 file:py-1.5 file:px-3 file:rounded-md file:border-0 file:text-sm file:font-medium file:bg-[#3B82F6] file:text-white hover:file:bg-[#2563EB] file:cursor-pointer"
         />
         {uploading && <Loader2 className="w-4 h-4 animate-spin text-[#3B82F6]" />}
       </div>

@@ -27,7 +27,7 @@ export default function PlannerCTA() {
             <br />
             <span className="text-[#A855F7]">Ship with confidence.</span>
           </h2>
-          <p className="text-[#A1A1AA] text-lg max-w-2xl mx-auto">
+          <p className="text-text-secondary text-lg max-w-2xl mx-auto">
             Stop guessing what to build next. The Planner maps your entire app architecture, then AI writes the exact prompts you need — phase by phase, ready to paste.
           </p>
         </div>
@@ -41,7 +41,7 @@ export default function PlannerCTA() {
                 </div>
                 <div>
                   <h3 className="font-semibold mb-1">{step.title}</h3>
-                  <p className="text-sm text-[#A1A1AA] leading-relaxed">{step.desc}</p>
+                  <p className="text-sm text-text-secondary leading-relaxed">{step.desc}</p>
                 </div>
               </div>
             </BorderGlow>
@@ -56,7 +56,7 @@ export default function PlannerCTA() {
           >
             Open the Planner <ArrowRight className="w-4 h-4 ml-2" />
           </Button>
-          <p className="text-xs text-[#71717A] mt-3">Free for all users — no purchase required.</p>
+          <p className="text-xs text-text-tertiary mt-3">Free for all users — no purchase required.</p>
         </div>
       </div>
     </section>

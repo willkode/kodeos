@@ -18,9 +18,9 @@ export default function PromptCard({ prompt, isSaved, onToggleSave }) {
         {/* Bookmark */}
         <button
           onClick={(e) => { e.stopPropagation(); onToggleSave(); }}
-          className="absolute top-4 right-4 p-1.5 rounded-lg hover:bg-white/[0.06] transition-colors"
+          className="absolute top-4 right-4 p-1.5 rounded-lg hover:bg-surface-hover transition-colors"
         >
-          <Bookmark className={`w-4 h-4 ${isSaved ? 'fill-[#3B82F6] text-[#3B82F6]' : 'text-[#71717A]'}`} />
+          <Bookmark className={`w-4 h-4 ${isSaved ? 'fill-[#3B82F6] text-[#3B82F6]' : 'text-text-tertiary'}`} />
         </button>
 
         {/* Category */}

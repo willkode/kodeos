@@ -9,7 +9,7 @@ export default function FilterSidebar({
     <div className="w-full space-y-4">
       {/* Header */}
       <div className="flex items-center justify-between">
-        <h3 className="text-xs font-semibold text-[#A1A1AA] uppercase tracking-wider">Categories</h3>
+        <h3 className="text-xs font-semibold text-text-secondary uppercase tracking-wider">Categories</h3>
         {selectedCategory && (
           <button
             onClick={() => setSelectedCategory('')}
@@ -32,11 +32,11 @@ export default function FilterSidebar({
               className={`w-full flex items-center justify-between px-3 py-1.5 rounded-lg text-sm transition-all ${
                 isActive
                   ? 'bg-[#3B82F6]/10 text-[#3B82F6]'
-                  : 'text-[#A1A1AA] hover:bg-white/[0.04] hover:text-white'
+                  : 'text-text-secondary hover:bg-surface-hover hover:text-foreground'
               }`}
             >
               <span className="truncate text-left">{cat}</span>
-              <span className="text-xs text-[#71717A] ml-2 flex-shrink-0">{count}</span>
+              <span className="text-xs text-text-tertiary ml-2 flex-shrink-0">{count}</span>
             </button>
           );
         })}

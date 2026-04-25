@@ -59,14 +59,14 @@ export default function NavExpandedTabs({ user }) {
   return (
     <div
       ref={containerRef}
-      className="flex items-center gap-1 rounded-full border border-white/10 bg-white/5 p-1 shadow-md backdrop-blur-sm"
+      className="flex items-center gap-1 rounded-full border border-surface-border bg-surface-hover p-1 shadow-md backdrop-blur-sm"
     >
       {TABS.map((tab, index) => {
         if (tab.type === 'separator') {
           return (
             <div
               key={`sep-${index}`}
-              className="h-7 w-px bg-white/10"
+              className="h-7 w-px bg-border"
               aria-hidden="true"
             />
           );
@@ -80,7 +80,7 @@ export default function NavExpandedTabs({ user }) {
             className={`relative z-10 flex items-center rounded-full px-3 py-2 text-sm font-medium transition-colors focus:outline-none ${
               isSelected
                 ? 'text-[#3B82F6]'
-                : 'text-[#A1A1AA] hover:text-white'
+                : 'text-text-secondary hover:text-foreground'
             }`}
           >
             {isSelected && (

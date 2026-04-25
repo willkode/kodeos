@@ -12,7 +12,7 @@ function ResultCard({ item }) {
     <BorderGlow>
       <div className="p-5">
         <h4 className="text-base font-semibold mb-1">{item.name}</h4>
-        <p className="text-sm text-[#A1A1AA] mb-3 line-clamp-3">{item.reason}</p>
+        <p className="text-sm text-text-secondary mb-3 line-clamp-3">{item.reason}</p>
         {item.url && (
           <a
             href={item.url}
@@ -34,8 +34,8 @@ export default function RecommendationResults({ results }) {
   return (
     <div className="space-y-10">
       {results.summary && (
-        <div className="p-5 rounded-xl border border-white/[0.06] bg-white/[0.02]">
-          <p className="text-sm text-[#A1A1AA] leading-relaxed">{results.summary}</p>
+        <div className="p-5 rounded-xl border border-surface-border bg-surface-hover">
+          <p className="text-sm text-text-secondary leading-relaxed">{results.summary}</p>
         </div>
       )}
 
@@ -52,7 +52,7 @@ export default function RecommendationResults({ results }) {
                 <Icon className="w-4 h-4" style={{ color: config.color }} />
               </div>
               <h3 className="text-lg font-semibold">{config.label}</h3>
-              <span className="text-xs text-[#71717A] ml-1">({items.length})</span>
+              <span className="text-xs text-text-tertiary ml-1">({items.length})</span>
             </div>
             <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-4">
               {items.map((item, i) => (

@@ -37,7 +37,7 @@ export default function AdminSidebar({ activeTab, onTabChange, counts }) {
     <div className="w-56 flex-shrink-0 space-y-6">
       {sections.map((section) => (
         <div key={section.label}>
-          <p className="text-[10px] font-semibold uppercase tracking-wider text-[#71717A] mb-2 px-3">
+          <p className="text-[10px] font-semibold uppercase tracking-wider text-text-tertiary mb-2 px-3">
             {section.label}
           </p>
           <div className="space-y-0.5">
@@ -52,7 +52,7 @@ export default function AdminSidebar({ activeTab, onTabChange, counts }) {
                     'w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm transition-all',
                     isActive
                       ? 'bg-[#3B82F6]/10 text-[#3B82F6] font-medium'
-                      : 'text-[#A1A1AA] hover:text-white hover:bg-white/[0.04]'
+                      : 'text-text-secondary hover:text-foreground hover:bg-surface-hover'
                   )}
                 >
                   <Icon className="w-4 h-4 flex-shrink-0" />
@@ -60,7 +60,7 @@ export default function AdminSidebar({ activeTab, onTabChange, counts }) {
                   {count !== undefined && count > 0 && (
                     <span className={cn(
                       'text-[10px] px-1.5 py-0.5 rounded-full min-w-[20px] text-center',
-                      isActive ? 'bg-[#3B82F6]/20 text-[#3B82F6]' : 'bg-white/[0.06] text-[#71717A]'
+                      isActive ? 'bg-[#3B82F6]/20 text-[#3B82F6]' : 'bg-surface-hover text-text-tertiary'
                     )}>
                       {count}
                     </span>

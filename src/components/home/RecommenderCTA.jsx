@@ -32,7 +32,7 @@ export default function RecommenderCTA({ hasPurchased }) {
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
               AI Stack Recommender
             </h2>
-            <p className="text-[#A1A1AA] text-lg max-w-xl mx-auto mb-8 leading-relaxed">
+            <p className="text-text-secondary text-lg max-w-xl mx-auto mb-8 leading-relaxed">
               Tell us about your app — its purpose, industry, and audience — and our AI will recommend the perfect combination of APIs, agent kits, and MCP servers to supercharge it.
             </p>
 
@@ -41,10 +41,10 @@ export default function RecommenderCTA({ hasPurchased }) {
               {features.map((f) => (
                 <div
                   key={f.label}
-                  className="flex items-center gap-2 px-4 py-2 rounded-full border border-white/[0.08] bg-white/[0.03]"
+                  className="flex items-center gap-2 px-4 py-2 rounded-full border border-surface-border bg-surface-hover"
                 >
                   <f.icon className="w-4 h-4" style={{ color: f.color }} />
-                  <span className="text-sm text-[#E4E4E7] font-medium">{f.label}</span>
+                  <span className="text-sm text-foreground font-medium">{f.label}</span>
                 </div>
               ))}
             </div>
@@ -67,7 +67,7 @@ export default function RecommenderCTA({ hasPurchased }) {
                 >
                   Subscribe to Unlock <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
-                <p className="text-xs text-[#71717A]">
+                <p className="text-xs text-text-tertiary">
                   Available with KodeOS Pro — one-time payment, lifetime access.
                 </p>
               </div>

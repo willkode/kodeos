@@ -51,7 +51,7 @@ export default function ResourceManager({ entityName, label, fields }) {
     <div>
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-lg font-semibold">
-          {label} <span className="text-sm font-normal text-[#71717A]">({items.length})</span>
+          {label} <span className="text-sm font-normal text-text-tertiary">({items.length})</span>
         </h2>
       </div>
 
@@ -62,10 +62,10 @@ export default function ResourceManager({ entityName, label, fields }) {
         className="bg-card border-border/30 mb-4"
       />
 
-      <div className="border border-white/[0.06] rounded-lg overflow-hidden">
+      <div className="border border-surface-border rounded-lg overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
-            <thead className="bg-white/[0.02] border-b border-white/[0.06]">
+            <thead className="bg-surface-hover border-b border-surface-border">
               <tr>
                 <th className="px-4 py-3 text-left font-semibold">Name</th>
                 <th className="px-4 py-3 text-left font-semibold">Category</th>
@@ -75,23 +75,23 @@ export default function ResourceManager({ entityName, label, fields }) {
             </thead>
             <tbody>
               {paginated.map((item) => (
-                <tr key={item.id} className="border-b border-white/[0.06] hover:bg-white/[0.02] transition">
-                  <td className="px-4 py-3 text-[#E4E4E7] font-medium max-w-[200px] truncate">
+                <tr key={item.id} className="border-b border-surface-border hover:bg-surface-hover transition">
+                  <td className="px-4 py-3 text-foreground font-medium max-w-[200px] truncate">
                     {item.name || item.title || '—'}
                   </td>
                   <td className="px-4 py-3">
-                    <span className="text-xs px-2 py-0.5 rounded-full bg-white/[0.06] text-[#A1A1AA]">
+                    <span className="text-xs px-2 py-0.5 rounded-full bg-surface-hover text-text-secondary">
                       {item.category || '—'}
                     </span>
                   </td>
-                  <td className="px-4 py-3 text-[#71717A] max-w-[300px] truncate hidden md:table-cell">
+                  <td className="px-4 py-3 text-text-tertiary max-w-[300px] truncate hidden md:table-cell">
                     {item.description || '—'}
                   </td>
                   <td className="px-4 py-3 text-center">
                     <div className="flex items-center justify-center gap-1">
                       {item.url && (
                         <a href={item.url} target="_blank" rel="noopener noreferrer">
-                          <Button size="icon" variant="ghost" className="h-7 w-7 text-[#71717A] hover:text-white">
+                          <Button size="icon" variant="ghost" className="h-7 w-7 text-text-tertiary hover:text-foreground">
                             <ExternalLink className="w-3.5 h-3.5" />
                           </Button>
                         </a>
@@ -100,7 +100,7 @@ export default function ResourceManager({ entityName, label, fields }) {
                         size="icon"
                         variant="ghost"
                         onClick={() => handleDelete(item.id)}
-                        className="h-7 w-7 text-[#71717A] hover:text-red-400"
+                        className="h-7 w-7 text-text-tertiary hover:text-red-400"
                       >
                         <Trash2 className="w-3.5 h-3.5" />
                       </Button>
@@ -114,7 +114,7 @@ export default function ResourceManager({ entityName, label, fields }) {
       </div>
 
       {filtered.length === 0 && (
-        <p className="text-center py-8 text-[#71717A] text-sm">No {label.toLowerCase()} found.</p>
+        <p className="text-center py-8 text-text-tertiary text-sm">No {label.toLowerCase()} found.</p>
       )}
 
       {totalPages > 1 && (
@@ -127,7 +127,7 @@ export default function ResourceManager({ entityName, label, fields }) {
           >
             <ChevronLeft className="w-4 h-4" />
           </Button>
-          <span className="text-xs text-[#71717A]">
+          <span className="text-xs text-text-tertiary">
             {page} / {totalPages}
           </span>
           <Button

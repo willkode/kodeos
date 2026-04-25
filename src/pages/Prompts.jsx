@@ -79,7 +79,7 @@ export default function Prompts() {
             <button
               onClick={() => setShowSaved(false)}
               className={`text-sm font-medium pb-1 border-b-2 transition-colors ${
-                !showSaved ? 'border-[#3B82F6] text-white' : 'border-transparent text-[#A1A1AA] hover:text-white'
+                !showSaved ? 'border-[#3B82F6] text-foreground' : 'border-transparent text-text-secondary hover:text-foreground'
               }`}
             >
               All Prompts ({prompts.length})
@@ -87,7 +87,7 @@ export default function Prompts() {
             <button
               onClick={() => setShowSaved(true)}
               className={`text-sm font-medium pb-1 border-b-2 transition-colors flex items-center gap-1.5 ${
-                showSaved ? 'border-[#3B82F6] text-white' : 'border-transparent text-[#A1A1AA] hover:text-white'
+                showSaved ? 'border-[#3B82F6] text-foreground' : 'border-transparent text-text-secondary hover:text-foreground'
               }`}
             >
               <Bookmark className="w-3.5 h-3.5" />
@@ -110,7 +110,7 @@ export default function Prompts() {
           {/* Sidebar */}
           <aside className="hidden lg:block w-56 flex-shrink-0">
             <ShineBorder color={['#3B82F6', '#A855F7', '#38bdf8']}>
-              <div className="p-4 rounded-xl bg-white/[0.02]">
+              <div className="p-4 rounded-xl bg-surface-hover">
                 <FilterSidebar
                   selectedCategory={selectedCategory}
                   setSelectedCategory={setSelectedCategory}
@@ -136,7 +136,7 @@ export default function Prompts() {
             )}
 
             {/* Results count */}
-            <p className="text-sm text-[#71717A] mb-4">{filtered.length} prompt{filtered.length !== 1 ? 's' : ''}</p>
+            <p className="text-sm text-text-tertiary mb-4">{filtered.length} prompt{filtered.length !== 1 ? 's' : ''}</p>
 
             {/* Prompts Grid */}
             {loading ? (

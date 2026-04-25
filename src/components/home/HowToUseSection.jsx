@@ -30,13 +30,13 @@ export default function HowToUseSection() {
     <section className="py-24 px-6 relative">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/[0.08] bg-white/[0.03] mb-6">
-            <span className="text-xs text-[#A1A1AA] font-medium uppercase tracking-wider">How it works</span>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-surface-border bg-surface-hover mb-6">
+            <span className="text-xs text-text-secondary font-medium uppercase tracking-wider">How it works</span>
           </div>
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
             Three steps to shipping faster
           </h2>
-          <p className="text-[#A1A1AA] text-lg max-w-xl mx-auto">
+          <p className="text-text-secondary text-lg max-w-xl mx-auto">
             No setup. No installation. Just find, copy, and build.
           </p>
         </div>
@@ -55,9 +55,9 @@ export default function HowToUseSection() {
                   >
                     <step.icon className="w-6 h-6" style={{ color: step.color }} />
                   </div>
-                  <div className="text-xs font-mono text-[#71717A] mb-2">{step.num}</div>
+                  <div className="text-xs font-mono text-text-tertiary mb-2">{step.num}</div>
                   <h3 className="text-lg font-semibold mb-2">{step.title}</h3>
-                  <p className="text-sm text-[#A1A1AA] leading-relaxed max-w-xs mx-auto">{step.desc}</p>
+                  <p className="text-sm text-text-secondary leading-relaxed max-w-xs mx-auto">{step.desc}</p>
                 </div>
               </BorderGlow>
             ))}
